@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="GB2312"?>
+
+<data>
+  <row>
+    <KJM>MB0001</KJM>
+    <CS></CS>
+    <KJLB>JJ0001,JJ0011</KJLB>
+    <JSBM>product,series</JSBM>
+    <KJSM>产品下单</KJSM>
+  </row>
+   <row>
+    <KJM>MB0002</KJM>
+    <CS></CS>
+    <KJLB>JJ0012,JJ0013,JJ0014,JJ0015</KJLB>
+    <JSBM>order,orderdetails,subsidy,balance</JSBM>
+    <KJSM>订单详情</KJSM>
+  </row>
+ 
+</data>
+

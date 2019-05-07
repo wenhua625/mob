@@ -1,0 +1,1594 @@
+<?xml version="1.0" encoding="gb2312"?>
+
+<data>
+	<row>
+		<KJM>IN0001</KJM>
+		<CS>6</CS>
+		<SQL_SELECT>select 'XS@@yhdm,'+dbo.getDateStr2(getdate())+dbo.getDataSeq(isnull(max(right(back_code,3))+1,0)) from backList where dbo.getDateStr1(back_date) = dbo.getDateStr1(getdate()) and note_type='XS' </SQL_SELECT>
+		<SQL_INSERT>INSERT INTO backdetails(PRODUCT_CODE, Back_CODE, PRODUCT_NAME, SERIES_CODE, PRODUCT_SIZE,PRODUCT_UNTL, PRODUCT_PRICE, Back_NUM,Back_AMOUNT,Opr_Man,Back_TYPE,PRODUCT_COLOR,Price_Type,disaccount_price,product_id,zk,back_reason,ware_code,fact_num,fact_amount,pxh,pack_num,type_agent,type_ls,product_mj,store_num)  SELECT  PRODUCT_CODE,'@@back_code, ',PRODUCT_NAME,SERIES_CODE, PRODUCT_SIZE,PRODUCT_Untl,convert(decimal(12,2),(dbo.getOrderPrice1('@@jglx,','@@agent_code,',id)*dbo.getOrderZK('@@qyzk,',series_code))/100) PRODUCT_PRICE1,'@@product_num,' Back_NUM,'@@product_num,'*convert(decimal(12,2),(dbo.getOrderPrice1('@@jglx,','@@agent_code,',id)*dbo.getOrderZK('@@qyzk,',series_code))/100) AMOUNT,'@@yhdm,','',PRODUCT_COLOR,Price_Type,dbo.getOrderPrice1('@@jglx,','@@agent_code,',id) Product_Price,id,dbo.getOrderZK('@@qyzk,',series_code),'','','@@product_num,' Fact_NUM,'@@product_num,'*convert(decimal(12,2),(dbo.getOrderPrice1('@@jglx,','@@agent_code,',id)*dbo.getOrderZK('@@qyzk,',series_code))/100) Fact_AMOUNT,(select case '@@d_pxh,' when '' then isnull(max(pxh)+10,0) else @@d_pxh,-1 end  from backdetails where back_code='@@back_code,') pxh,pack_num,type_agent,product_price,product_mj,0  FROM product_list  WHERE   id='@@product_id,'</SQL_INSERT>
+		<SQL_UPDATE>insert into bt_list(back_code,bt_amount,bt_code,bt_date,bt_type) select '@@back_code,','@@bt_amount,',back_code,getdate(),sfsf from backlist where note_type='BT' and back_code='@@bt_code,'</SQL_UPDATE>
+		<SQL_DELETE>insert into backlist(Back_Code,Agent_Code,Back_Num,Back_Amount,Back_Date,Arr_Date,Back_Sts,Back_Demo,Note_Type,Opr_Man,Opr_Dw,JSDH,Back_Type,YWY,Arr_Man,Arr_Tel,Arr_Address,Dis_Amount,Dised_Amount,Account_Amount,Taf_Amount,Brand_Code,qyzk,djlx,exp_name,order_code)  select '@@back_code,',agent_code,'@@order_num,','@@order_amount,',getdate(),getdate(),'0','@@bz,','XS','@@xm,',agent_code,'','0',(select yhxm from tj_sys_yh where yhh=domain_man) yhxm,'@@arr_man,','@@arr_tel,','@@arr_address,','0','0',agent_amount,'0',Brand_Code,QYZK,'标准','@@exp_name,','@@order_code,' from agent_list where agent_code='@@agent_code,'</SQL_DELETE>
+		<URL>{call sp_cxhd('@@back_code,','0.00')}</URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>手机订单保存</KJSM>
+	</row>
+	<row>
+		<KJM>IN0002</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>insert into backlist(Back_Code,Agent_Code,Back_Num,Back_Amount,Back_Date,Arr_Date,Back_Sts,Back_Demo,Note_Type,Opr_Man,Opr_Dw,sfsf,arr_address,ywy,tis_amount,jsdh) select  'SK'+right(convert(varchar,replace(replace(replace(replace(convert(varchar,getdate(),121),'-',''),':',''),' ',''),'.',''))+substring(convert(varchar,rand()),3,3),16) back_code, '@@Agent_Code,','0','@@Order_Amount,',getdate(),'','5','货款','SK','@@YHDM,','@@Agent_Code,','','@@BankName,',domain_man xm,'@@Order_Amount,','@@jsdh,' from agent_list where agent_code='@@Agent_Code,'</SQL_INSERT>
+		<SQL_UPDATE>update backlist set amount_sts='已收货' where back_code='@@back_code,'</SQL_UPDATE>
+		<SQL_DELETE>update tj_sys_yh set dept='@@agent_code,',bz='@@bz,',yhjb='@@yhjb,',qx_mob_dp=qx_mob_dp+',''@@agent_code,''' where lxfs='@@lxfs,'</SQL_DELETE>
+		<URL></URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>收款</KJSM>
+	</row>
+	<row>
+		<KJM>IN0003</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>update tj_sys_yh set yhjb='@@yhjb,',dzjc='@@dzjc,',sts='0',sfz='已接受' where lxfs='@@lxfs,'</SQL_INSERT>
+		<SQL_UPDATE>update tj_sys_yh set MM='@@PASSWORD,' where yhh='@@YHH,'</SQL_UPDATE>
+		<SQL_DELETE>begin delete from backlist where back_code='@@Back_Code,' delete from backdetails where back_code='@@Back_Code,' delete from bt_list where back_code='@@Back_Code,' end</SQL_DELETE>
+		<URL>{ call sp_cwkk_mob('@@Back_Code,','F') }</URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>立即支付</KJSM>
+	</row>
+	<row>
+		<KJM>IN0004</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>update tj_sys_yh set device_token='@@SBH,' where lxfs='@@YHH,'</SQL_INSERT>
+		<SQL_UPDATE>update tj_sys_yh set mm='25ed1bcb423b0b7200f485fc5ff71c8e' where yhh='@@YHH,'</SQL_UPDATE>
+		<SQL_DELETE>update tj_sys_yh set kcc_token='@@SBH,' where lxfs='@@YHH,'</SQL_DELETE>
+		<URL>{ call sp_cwsk('@@back_code,','@@agent_code,','@@order_amount,','@@sk_type,','@@bz,') }</URL>
+		<SFTZ>update</SFTZ>
+		<TZNR>select '你的密码已经初始化为：zz' nr,'@@Device_Token,'</TZNR>
+		<KJSM>获取设备号</KJSM>
+	</row>
+	<row>
+		<KJM>IN0005</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>if not exists (select * from TJ_SYS_YH where LXFS='@@lxfs,') begin insert into tj_sys_yh (yhh,yhz,yhxm,dept,warecode,mm,sts,yxq,bm,lxfs,dz,dzjc,yhjb,qx_mob_sj,qx_mob_dp,qx_mob_cd) select upper('@@agent_code,')+dbo.lpad('0',3,isnull(max(right(yhh,3))+1,1)) yhh,'终端店面','@@yhxm,','@@agent_code,','@@warecode,' warecode,'25ed1bcb423b0b7200f485fc5ff71c8e' mm,'0','2038-12-30' yxq,'@@zw,','@@lxfs,','@@arr_address,','@@brand_name,','@@yhjb,','''@@lxfs,''','''@@agent_code,''','''0106'',''0201'',''0206''' from TJ_SYS_YH a where DEPT='@@agent_code,' update tj_sys_yh set qx_mob_sj=qx_mob_sj+',''@@lxfs,''' where dept='@@agent_code,' and yhjb in ('老板','财务')  end else update TJ_SYS_YH set YHXM='@@yhxm,',DEPT='@@agent_code,',dzjc='@@brand_name,',LXFS='@@lxfs,',dz='@@arr_address,',zw='@@zw,',yhjb='@@yhjb,' where yhh='@@yhh,'</SQL_INSERT>
+		<SQL_UPDATE>update tj_sys_yh set sjbm='@@sj_lxfs,' where lxfs='@@lxfs,'</SQL_UPDATE>
+		<SQL_DELETE>delete from  tj_sys_yh  where  lxfs='@@lxfs,'</SQL_DELETE>
+		<URL></URL>
+		<SFTZ>sms</SFTZ>
+		<TZNR>select '@@lxfs,' mobliecode,'SMS_66275003' templatecode,'@@yhxm,' param1,'' param2,'' param3,'' param4,'' param5 </TZNR>
+		<KJSM>员工添加</KJSM>
+	</row>
+	<row>
+		<KJM>IN0006</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>update weixinappuser_open set zfmm='@@zfmm,' where lxfs='@@lxfs,'</SQL_INSERT>
+		<SQL_UPDATE>update tj_sys_yh set mm='@@PASSWORD1,' where lxfs='@@lxfs,'</SQL_UPDATE>
+		<SQL_DELETE>update tj_sys_yh set yhjb='@@yhjb,' where lxfs='@@lxfs,'</SQL_DELETE>
+		<URL>{ call sp_cxhd('@@back_code,','0.00') }</URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>支付密码修改</KJSM>
+	</row>
+	<row>
+		<KJM>IN0007</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>insert into OrderMeter(OrderCode,Meter_Name,Meter_Length,Meter_Width,meter_memo) values('@@ordercode,','@@meter_name,','@@meter_length,','@@meter_width,','@@meter_memo,')</SQL_INSERT>
+		<SQL_UPDATE>update orderMeter set meter_length='@@meter_length,',meter_width='@@meter_width,',meter_memo='@@meter_memo,' where meter_id='@@meter_id,'</SQL_UPDATE>
+		<SQL_DELETE>begin delete from ordermeter where meter_id='@@meter_id,' delete from orderImage where meter_id='@@meter_id,' end</SQL_DELETE>
+		<URL>{ call sp_kscj('@@ordercode,','@@agent_code,','@@ywy_tel,','@@col_amount,','@@col_memo,','@@col_man,','@@out_trade_no,','@@trade_status,','@@cashier_trade_no,','@@operator,','@@pay_type,','@@pay_info,')}</URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>测量添加</KJSM>
+	</row>
+	<row>
+		<KJM>IN0008</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>begin insert into ordercol(ordercode,col_date,col_amount,col_memo,col_man,out_trade_no,trade_status,cashier_trade_no,operator,pay_type,pay_info) values('@@ordercode,',getdate(),'@@col_amount,','@@col_memo,','@@col_man,','@@out_trade_no,','@@trade_status,','@@cashier_trade_no,','@@operator,','@@pay_type,','@@pay_info,') if exists (select * from orderlist where order_code='@@ordercode,' and order_date is null) update orderlist set order_date=getdate(),order_sts='0',djje='@@col_amount,' where order_code='@@ordercode,' end</SQL_INSERT>
+		<SQL_UPDATE>update WeiXinAppUser_Open set MM='@@PASSWORD,' where LXFS='@@lxfs,'</SQL_UPDATE>
+		<SQL_DELETE></SQL_DELETE>
+		<URL></URL>
+		<SFTZ>insert</SFTZ>
+		<TZNR>select  '收款提醒：客户'+arr_man+'的货款@@col_amount,已入账，收款人：@@col_man,' nr, '@@col_memo,' token1,lxfs msgTel,'@@col_amount,' sendTel,'艾管理' appname,'@@ordercode,' ordercode,'收款提醒' msgtype  from TJ_SYS_YH a ,OrderList b  where a.dept=b.AGENT_CODE and ( yhjb='老板' or YWY_TEL=lxfs ) and order_code='@@ordercode,'</TZNR>
+		<KJSM>回款添加</KJSM>
+	</row>
+	<row>
+		<KJM>IN0009</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>begin insert into OrderBound(Order_Code,bound,bound_Date,Bound_Type,Bound_Memo,opr_tel,opr_man,rev_tel,rev_man,payment_no,open_id) values('@@order_code,','@@bound,',GETDATE(),'打赏','@@bound_memo,','@@opr_tel,','@@username,','@@rev_tel,','@@rev_man,','@@payment_no,','@@open_id,') insert into OrderCharge(Agent_Code,ChargeCode,OrderCode,Charge_Date,Init_Amount,Charge_Amount,Store_Amount,Charge_Memo,charge_man,payment_no,open_id,rev_tel,rev_man) select top 1 agent_code,'@@order_code,','',GETDATE(),agent_amount,'-@@bound,',agent_amount+'-@@bound,' store_amount,'打赏','@@username,','@@payment_no,','@@open_id,','@@rev_tel,','@@rev_man,' from Agent_list where AGENT_CODE='@@agent_code,' update agent_list set agent_amount=isnull(agent_amount,0)+'-@@bound,' where agent_code='@@agent_code,' end</SQL_INSERT>
+		<SQL_UPDATE>update orderproduct set ysl='@@ysl,',is_send=case SIGN(curr_kcsl-'@@ysl,') when 0 then '库存充足' when 1 then '库存充足' when -1 then '库存不够' end where id='@@id,'</SQL_UPDATE>
+		<SQL_DELETE></SQL_DELETE>
+		<URL></URL>
+		<SFTZ>insert</SFTZ>
+		<TZNR>select  '收到赏金:@@username,给你打赏了@@bound,元钱，赶紧去微信零钱包里瞧瞧吧！' nr, device_token token1,lxfs msgTel,'' sendTel,'艾管理' appname,'' ordercode,'收到赏金' msgtype from TJ_SYS_YH  where  LXFS='@@rev_tel,'</TZNR>
+		<KJSM>打赏</KJSM>
+	</row>
+	<row>
+		<KJM>IN0010</KJM>
+		<CS>2</CS>
+		<SQL_SELECT>select * from giftsel_mx where back_code='@@back_code,' and spbm='@@id,'</SQL_SELECT>
+		<SQL_INSERT>insert into giftsel_mx(back_code,xh,spbm,spmc,xhgg,psid,jldw,sl,dj,je,bz) select '@@back_code,','0',id,product_name,product_size,product_code,product_untl,'@@sl,',product_price,'@@sl,'*product_price amount,'@@bz,' from product_list where ID='@@id,'</SQL_INSERT>
+		<SQL_UPDATE>if not exists (select * from giftsel_mx where back_code='@@back_code,' and spbm='@@id,' and (sl+'@@sl,') &lt;= 0) update GIFTSEL_MX set SL=sl+'@@sl,',JE=je+('@@sl,'*DJ) where Back_Code='@@back_code,' and SPBM='@@id,' else delete from giftsel_mx where spbm='@@id,' and back_code='@@back_code,'  </SQL_UPDATE>
+		<SQL_DELETE>delete from giftsel_mx where  back_code='@@back_code,'</SQL_DELETE>
+		<URL>{ call sp_skqd('@@col_id,','@@order_code,','@@agent_code,','@@col_amount,','@@cash,','@@weixin,','@@alipay,','@@s_card,','@@trans,','@@s_other,','@@opr_type,')}</URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>礼品管理</KJSM>
+	</row>
+	<row>
+		<KJM>IN0011</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>begin if not exists (select * from backlist where back_code='@@Back_Code,') insert into backlist(Back_Code,Agent_Code,Back_Num,Back_Date,Arr_Date,Back_Sts,Back_Demo,Note_Type,Opr_Man,Opr_Dw,JSDH,Back_Type,YWY,Arr_Man,Arr_Tel,Arr_Address,Dis_Amount,Dised_Amount,Tis_Amount,Account_Amount,Taf_Amount,Brand_Code,gg_amount,cx_amount,tj_amount,cd_amount,qt_amount,qyzk,djlx,arr_fax,lgjy,pro_amount,wl_amount) select '@@Back_Code,',agent_code,'0',getdate(),GETDATE(),'9','','XS','@@LS.XM,',agent_code,'','0',DOMAIN_MAN, CONTACT_MAN,agent_tel,AGENT_ADDRESS,'0','0','0',Agent_Amount,'0',brand_code,0,0,0,0,0,qyzk,'标准',AGENT_FAX,'0','0','0' from agent_list where AGENT_CODE='@@LS.DWDM,'  delete from backdetails where back_code='@@Back_Code,' and back_type='代金券'  delete from djquse_mx where sl&lt;=0 and  back_code='@@Back_Code,' INSERT INTO backdetails(PRODUCT_CODE, Back_CODE, PRODUCT_NAME, SERIES_CODE, PRODUCT_SIZE,PRODUCT_UNTL, PRODUCT_PRICE, Back_NUM,Back_AMOUNT,Opr_Man,Back_TYPE,PRODUCT_COLOR,Price_Type,disaccount_price,product_id,zk,back_reason,ware_code,fact_num,fact_amount,pxh,store_num,pack_memo,check_num,store_no,product_attr) SELECT  PRODUCT_CODE,'@@Back_Code,' back_code,PRODUCT_NAME,SERIES_CODE, PRODUCT_SIZE,PRODUCT_Untl, product_price*@@QYZK,/100 product_price,sl*mfsl Back_NUM,sl*mfsl*product_price*@@QYZK,/100 AMOUNT,'@@LS.YHDM,','代金券',PRODUCT_COLOR,Price_Type,Product_Price,a.id,100,'代金券购买','',sl*mfsl Fact_NUM,sl*mfsl*product_price Fact_AMOUNT,(select  isnull(max(pxh)+10,0) from backdetails where back_code='@@Back_Code,') pxh,0,convert(varchar,pack_num)+product_untl+'/'+pack_type pack_memo,use_id,store_no,product_attr  FROM product_list a,djquse_mx b  WHERE  a.ID=b.SPBM and  b.back_code='@@Back_Code,' end</SQL_INSERT>
+		<SQL_UPDATE>update agent_list set AGENT_NAME='@@agent_name,',AGENT_ADDRESS='@@agent_address,',AGENT_TEL='@@agent_tel,',CONTACT_MAN='@@contact_man,',Agent_Area='@@agent_area,',is330KH='@@is330kh,',YYMJ='@@yymj,',Join_Date='@@join_date,',End_Date='@@end_date,',QYZK='@@qyzk,',sign_man='@@sign_man,',sign_sfz='@@sign_sfz,',account_man='@@account_man,',spk='@@spk,' where AGENT_CODE='@@agent_code,'</SQL_UPDATE>
+		<SQL_DELETE>begin delete from djquse_mx where Back_Code ='@@Back_Code,' delete from backdetails where back_code='@@Back_Code,' and back_type='代金券' end</SQL_DELETE>
+		<URL>{ call sp_hbqd('@@bound_id,') }</URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>代金券购买产品</KJSM>
+	</row>
+	<row>
+		<KJM>IN0012</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>update OrderSrv set Srv_Man='@@srv_man,',srv_tel='@@srv_tel,' where id='@@srv_id,'</SQL_INSERT>
+		<SQL_UPDATE>update ordersrv set srv_amount='@@srv_amount,',srv_result='@@srv_result,',srv_sts='1' where id='@@srv_Id,'</SQL_UPDATE>
+		<SQL_DELETE>update WeiXinAppUser set YWY='@@ywy,',ywy_tel='@@ywy_tel,' where ywy_tel='@@old_ywy_tel,'</SQL_DELETE>
+		<URL></URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>分配维修工</KJSM>
+	</row>
+	<row>
+		<KJM>IN0013</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>begin update OrderList set AZ_Man='@@az_man,',az_tel='@@az_tel,',az_date='@@az_date,',order_sts='3',zjlxsj=getdate()  where ORDER_CODE='@@order_code,' insert into OrderTrack(track_id,OrderCode,CustName,Cust_Tel,Track_Man,Track_Tel,track_date,Track_Content,track_memo) select '@@KEY,',order_code,Arr_Man,Arr_Tel,'@@zp_man,','@@zp_tel,',GETDATE(),'已指派安装，安装人:@@az_man, 要求安装日期:@@az_date,','指派安装' from OrderList where ORDER_CODE='@@order_code,' end</SQL_INSERT>
+		<SQL_UPDATE>update OrderList set trans_flag='1' where order_code='@@order_code,'</SQL_UPDATE>
+		<SQL_DELETE>begin insert into OrderCol(OrderCode,Col_Date,Col_Amount,col_memo,col_man) values('@@order_code,',GETDATE(),'@@col_amount,','订金','@@col_man,') update OrderList set order_sts='0',order_date=getdate(),order_amount='@@order_amount,',zjlxsj=getdate()  where order_code='@@order_code,' insert into OrderTrack(track_id,OrderCode,CustName,Cust_Tel,Track_Man,Track_Tel,track_date,Track_Content,track_memo) select '@@KEY,',order_code,Arr_Man,Arr_Tel,'@@col_man,','@@col_tel,',GETDATE(),'已成交，收取定金:@@col_amount,','定金收取' from OrderList where ORDER_CODE='@@order_code,' end</SQL_DELETE>
+		<URL></URL>
+		<SFTZ>insert</SFTZ>
+		<TZNR>select  '安装任务：店里分配了安装任务需要处理，请尽快去处理！' nr, device_token token1,lxfs msgTel,'' sendTel,'艾管理' appname,'@@order_code,' ordercode,'安装任务' msgtype  from TJ_SYS_YH a where lxfs='@@az_tel,' </TZNR>
+		<KJSM>分配安装工</KJSM>
+	</row>
+	<row>
+		<KJM>IN0014</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>insert into OrderBound(Order_Code,bound,bound_Date,Bound_Type,Bound_Memo,opr_tel,opr_man,rev_tel,rev_man) values('@@order_code,','@@bound,',GETDATE(),'打赏','@@bound_memo,','@@opr_tel,','@@username,','@@rev_tel,','@@rev_man,')</SQL_INSERT>
+		<SQL_UPDATE>update orderbound set isread='1' where rev_tel='@@agent_tel,'</SQL_UPDATE>
+		<SQL_DELETE>update OrderList set mytrans_flag='1' where order_code='@@order_code,'</SQL_DELETE>
+		<URL>{ call sp_kcc_reck('@@order_code,')}</URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>领取打赏金</KJSM>
+	</row>
+
+	<row>
+		<KJM>IN0015</KJM>
+		<CS>7</CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>begin insert into OrderTrack(track_id,OrderCode,CustName,Cust_Tel,Track_Man,Track_Tel,track_date,Track_Content) values('@@KEY,','@@ordercode,','@@custname,','@@cust_tel,','@@track_man,','@@track_tel,',GETDATE(),'@@track_content,') update orderlist set zjlxsj=getdate(),yjlxsj= '@@yjlxsj,' where order_code='@@ordercode,' end</SQL_INSERT>
+		<SQL_UPDATE></SQL_UPDATE>
+		<SQL_DELETE></SQL_DELETE>
+		<URL></URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>工作日志汇报</KJSM>
+	</row>
+
+	<row>
+		<KJM>IN0016</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>update OrderList set YWY='@@ywy,',ywy_tel='@@ywy_tel,',zjlxsj=getdate() where ORDER_CODE='@@order_code,'</SQL_INSERT>
+		<SQL_UPDATE>update msglist set isread='1' where msgid='@@msgid,'</SQL_UPDATE>
+		<SQL_DELETE>update OrderList set YWY='@@ywy,',ywy_tel='@@ywy_tel,' where ywy_tel='@@old_ywy_tel,'</SQL_DELETE>
+		<URL></URL>
+		<SFTZ>insert</SFTZ>
+		<TZNR>select '订单分配：您的老板分配了一个意向客户给你，请您尽快处理！' nr, device_token token1,lxfs msgTel,'' sendTel,'艾管理' appname,'@@order_code,' ordercode,'订单分配' msgtype from TJ_SYS_YH a where LXFS='@@ywy_tel,'</TZNR>
+		<KJSM>分配跟单员</KJSM>
+	</row>
+	<row>
+		<KJM>IN0017</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>update OrderList set will_flag='1' where ORDER_CODE='@@order_code,'</SQL_INSERT>
+		<SQL_UPDATE>update msglist set isread='1' where isread='0' and msgtel='@@agent_tel,'</SQL_UPDATE>
+		<SQL_DELETE>update OrderTrack set isRead='1' where ordercode='@@order_code,'</SQL_DELETE>
+		<URL></URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>意向客户已读</KJSM>
+	</row>
+	<row>
+		<KJM>IN0018</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>insert into tj_sys_yh (yhh,yhz,yhxm,dept,warecode,mm,sts,yxq,bm,lxfs,yhjb,bz,dzjc) select upper('@@agent_code,')+(select dbo.lpad('0',3,isnull(max(right(yhh,3))+1,1)) from TJ_SYS_YH where DEPT='@@agent_code,') yhh,'终端店面','@@yhxm,','@@agent_code,','@@brand_code,' warecode,'25ed1bcb423b0b7200f485fc5ff71c8e' mm,'2','2038-12-30' yxq,'8889','@@lxfs,','@@yhjb,','@@bz,','@@dzjc,'</SQL_INSERT>
+		<SQL_UPDATE>delete from tj_sys_yh where lxfs='@@agent_tel,'</SQL_UPDATE>
+		<SQL_DELETE>insert into tj_sys_yh (yhh,yhz,yhxm,dept,warecode,mm,sts,yxq,bm,lxfs,yhjb,bz,dzjc,qx_mob_dp,qx_mob_sj) select upper('@@agent_code,')+(select dbo.lpad('0',3,isnull(max(right(yhh,3))+1,1)) from TJ_SYS_YH where DEPT='@@agent_code,') yhh,'终端店面',yhxm,'@@agent_code,','@@brand_code,' warecode, mm,'0','2038-12-30' yxq,'8889','@@lxfs,','导购','','','''@@agent_code,''','''@@lxfs,'''   from WeiXinAppUser_Open where lxfs='@@lxfs,'</SQL_DELETE>
+		<URL></URL>
+		<SFTZ>insert</SFTZ>
+		<TZNR>select  '员工加入：@@yhxm, 想加入到你店中来，给你店一点力量，请到员工组里接受她吧！' nr, device_token token1,lxfs msgTel,'' sendTel,'艾管理' appname,'' ordercode,'员工加入' msgtype  from TJ_SYS_YH a where DEPT='@@agent_code,' and yhjb='老板' </TZNR>
+		<KJSM>客串串加盟</KJSM>
+	</row>
+	<row>
+		<KJM>IN0019</KJM>
+		<CS>7</CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>begin insert into OrderTrack(track_id,OrderCode,CustName,Cust_Tel,Track_Man,Track_Tel,track_date,Track_Content,track_memo) values('@@KEY,','@@ordercode,','@@custname,','@@cust_tel,','@@track_man,','@@track_tel,',GETDATE(),'@@track_content,','完工拍照') update orderlist set order_sts='5',dh_sts='已安装',zjlxsj=getdate(),ismeter='已测量',az_man='@@track_man,',az_sjdate=dbo.getdatetime(getdate()) where order_code='@@ordercode,' if not exists (select * from OrderSrv where Order_Code='@@ordercode,' and srv_type='安装') insert into OrderSrv(Order_Code,agent_code,arr_man,arr_address,arr_tel,Srv_Date,Srv_Man,srv_mantel,Srv_result,srv_sjdate,srv_type,srv_sts) select ORDER_CODE,AGENT_CODE,arr_man,arr_address,arr_tel,GETDATE(),'@@track_man,','@@track_tel,','@@srv_result,',GETDATE(),'安装','2'  from orderlist where  ORDER_CODE='@@ordercode,' else update OrderSrv set Srv_Sts='2',srv_sjdate=GETDATE(),srv_result='@@srv_result,'  where srv_type='安装' and Order_Code='@@ordercode,' end</SQL_INSERT>
+		<SQL_UPDATE></SQL_UPDATE>
+		<SQL_DELETE></SQL_DELETE>
+		<URL></URL>
+		<SFTZ>insert</SFTZ>
+		<TZNR>select  arr_man+' 家的订单已安装完工，回访有惊喜!' nr, device_token token1,lxfs msgTel,'' sendTel,'艾管理' appname,'@@ordercode,' ordercode,'安装完工' msgtype   from TJ_SYS_YH a ,OrderList b where a.LXFS=b.YWY_TEL and order_code='@@ordercode,'</TZNR>
+		<KJSM>安装完工</KJSM>
+	</row>
+	<row>
+		<KJM>IN0020</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>update orderlist set order_date=getdate(),order_amount='@@order_amount,',order_sts='3' where order_code='@@order_code,'</SQL_INSERT>
+		<SQL_UPDATE></SQL_UPDATE>
+		<SQL_DELETE></SQL_DELETE>
+		<URL></URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>定稿成交</KJSM>
+	</row>
+	<row>
+		<KJM>IN0021</KJM>
+		<CS>7</CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>insert into orderlist(order_code,groom_date,ywy_tel,opr_dw,note_type,order_sts,agent_code,groom_memo,ywy,arr_man,arr_tel,arr_address,zjlxsj,yjlxsj,order_src,cust_name,housetype,sex) select top 1 '@@KEY,',getdate(),'@@opr_tel,','','Z','9','@@agent_code,','@@demo,','@@username,','@@arr_man,','@@arr_tel,','@@arr_address,',getdate(),dateadd(DAY,3,GETDATE()),'@@order_src,','@@agent_name,','@@housetype,','@@sex,'  from tj_sys_yh where lxfs='@@opr_tel,'</SQL_INSERT>
+		<SQL_UPDATE></SQL_UPDATE>
+		<SQL_DELETE></SQL_DELETE>
+		<URL></URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>直接开单</KJSM>
+	</row>
+	<row>
+		<KJM>IN0022</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>begin insert into OrderCol(OrderCode,Col_Date,Col_Amount,col_memo,col_man) values('@@order_code,',GETDATE(),'@@col_amount,','订金','@@col_man,') update OrderList set order_sts='0',order_date=getdate(),zjlxsj=getdate()  where order_code='@@order_code,' insert into OrderTrack(track_id,OrderCode,CustName,Cust_Tel,Track_Man,Track_Tel,track_date,Track_Content,track_memo) select '@@KEY,',order_code,Arr_Man,Arr_Tel,'@@col_man,','@@track_tel,',GETDATE(),'已成交，收取定金:@@col_amount,','定金收取' from OrderList where ORDER_CODE='@@order_code,' end</SQL_INSERT>
+		<SQL_UPDATE></SQL_UPDATE>
+		<SQL_DELETE></SQL_DELETE>
+		<URL></URL>
+		<SFTZ>insert</SFTZ>
+		<TZNR>select  '收款提醒：客户'+arr_man+'的订金@@col_amount,已入账，收款人：@@col_man,' nr, '@@col_memo,' token1,lxfs msgTel,'@@col_amount,' sendTel,'艾管理' appname,'@@order_code,' ordercode,'收款提醒' msgtype   from TJ_SYS_YH a ,OrderList b  where a.dept=b.AGENT_CODE and ( yhjb='老板' or YWY_TEL=lxfs )  and order_code='@@order_code,' union select  '成交提醒：您带给 @@shopname, 的订单已成交，准备接收赏金吧！' nr, '@@col_memo,' token1,lxfs msgTel,'@@col_amount,' sendTel,'艾管理' appname,'@@order_code,' ordercode,'成交提醒' msgtype  from TJ_SYS_YH  where  LXFS in (select top 1 opr_tel from orderlist where order_code='@@order_code,')</TZNR>
+		<KJSM>导购收取订金</KJSM>
+	</row>
+	<row>
+		<KJM>IN0023</KJM>
+		<CS>7</CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>begin insert into OrderTrack(track_id,OrderCode,CustName,Cust_Tel,Track_Man,Track_Tel,track_date,Track_Content,track_memo) values('@@KEY,','@@order_code,','@@custname,','@@cust_tel,','@@track_man,','@@track_tel,',GETDATE(),'销售合同已敲定，合同金额：@@order_amount,    定稿设计图如下：','定稿拍照') if CONVERT(decimal(12,2),'@@col_amount,') != 0 insert into OrderCol(OrderCode,Col_Date,Col_Amount,col_memo,col_man) values('@@order_code,',GETDATE(),'@@col_amount,','货款','@@col_man,') update orderlist set order_date=getdate(),order_amount='@@order_amount,',order_sts='3',zjlxsj=getdate() where order_code='@@order_code,'  end</SQL_INSERT>
+		<SQL_UPDATE></SQL_UPDATE>
+		<SQL_DELETE></SQL_DELETE>
+		<URL></URL>
+		<SFTZ>insert</SFTZ>
+		<TZNR>select  '签约提醒：客户(@@custname,@@cust_tel,)，合同已签订，合同金额@@order_amount,元。' nr, device_token token1,lxfs msgTel,'' sendTel,'艾管理' appname,'@@order_code,' ordercode,'签约提醒' msgtype   from TJ_SYS_YH a where DEPT in (select top 1 agent_code from orderlist where order_code='@@order_code,')  and yhjb='老板'</TZNR>
+		<KJSM>定稿成交付款</KJSM>
+	</row>
+
+	<row>
+		<KJM>IN0025</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>begin  if '@@srv_type,' ='安装' update OrderList set az_Man='@@az_man,',az_tel='@@az_tel,',az_date='@@az_date,'  where ORDER_CODE='@@order_code,'  else update OrderList set cl_Man='@@az_man,',cl_tel='@@az_tel,',cl_date='@@az_date,',isMeter='测量中'  where ORDER_CODE='@@order_code,'  end </SQL_INSERT>
+		<SQL_UPDATE>update OrderSrv set Srv_Sts='1' where ID='@@id,'</SQL_UPDATE>
+		<SQL_DELETE></SQL_DELETE>
+		<URL></URL>
+		<SFTZ>insert</SFTZ>
+		<TZNR>select  '任务：店里指派了一个订单，请尽快处理！' nr, device_token token1,lxfs msgTel,'' sendTel,'艾管理' appname,'@@order_code,' ordercode,'任务' msgtype  from TJ_SYS_YH a where lxfs='@@az_tel,' </TZNR>
+		<KJSM>安排测量</KJSM>
+	</row>
+
+	<row>
+		<KJM>IN0026</KJM>
+		<CS>7</CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>begin insert into OrderTrack(track_id,OrderCode,CustName,Cust_Tel,Track_Man,Track_Tel,track_date,Track_Content,track_memo)  values('@@KEY,','@@ordercode,','@@custname,','@@cust_tel,','@@track_man,','@@track_tel,',GETDATE(),'测量拍照','测量拍照') if not exists (select * from OrderSrv where Order_Code='@@ordercode,'  and srv_type='测量')  insert into OrderSrv(Order_Code,agent_code,arr_man,arr_address,arr_tel,Srv_Date,Srv_Man,srv_mantel,Srv_result,srv_sjdate,srv_type,srv_sts)  select ORDER_CODE,AGENT_CODE,arr_man,arr_address,arr_tel,GETDATE(),'@@track_man,','@@track_tel,','@@srv_result,' ,GETDATE(),'测量','2'  from orderlist where  ORDER_CODE='@@ordercode,'   else update OrderSrv set Srv_Sts='2',srv_sjdate=GETDATE(),srv_result='@@srv_result,' where srv_type='测量' and Order_Code='@@ordercode,'  update orderlist set isMeter='已测量',cl_sjdate=dbo.getdatetime(getdate()),cl_man='@@track_man,' where order_code='@@ordercode,' end</SQL_INSERT>
+		<SQL_UPDATE></SQL_UPDATE>
+		<SQL_DELETE></SQL_DELETE>
+		<URL></URL>
+		<SFTZ>insert</SFTZ>
+		<TZNR>select  '测量完工：客户('+arr_man+arr_tel+')的房屋已经测量完工,测量人：@@track_man,！' nr, device_token token1,lxfs msgTel,'' sendTel,'艾管理' appname,'@@ordercode,' ordercode,'测量完工' msgtype  from TJ_SYS_YH a ,OrderList b where a.LXFS=b.YWY_TEL and order_code='@@ordercode,'</TZNR>
+		<KJSM>测量完工</KJSM>
+	</row>
+	<row>
+		<KJM>IN0027</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>if not exists (select * from TJ_SYS_YH where LXFS='@@lxfs,') begin insert into tj_sys_yh (yhh,yhz,yhxm,dept,warecode,mm,sts,yxq,bm,lxfs,yhjb,bz,dzjc,wx_headimage,wx_nick,wx_openid,wx_code,qx_mob_sj,qx_mob_dp,qx_mob_cd) select upper('@@agent_code,')+(select dbo.lpad('0',3,isnull(max(right(yhh,3))+1,1)) from TJ_SYS_YH where DEPT='@@agent_code,') yhh,'终端店面','@@yhxm,','@@agent_code,','@@brand_code,' warecode,'@@PASSWORD2,' mm,'0','2038-12-30' yxq,'8889','@@lxfs,','@@yhjb,','@@bz,','@@dzjc,','@@wx_headimage,','@@wx_nick,','@@wx_openid,','@@wx_code,','''@@lxfs,''','''@@agent_code,''','''0106'',''0201'',''0206'''  update tj_sys_yh set qx_mob_sj=qx_mob_sj+',''@@lxfs,''' where dept='@@agent_code,' and yhjb in ('老板','财务') end  else update TJ_SYS_YH set WX_headimage='@@wx_headimage,',WX_nick='@@wx_nick,',WX_OpenID='@@wx_openid,',WX_Code='@@wx_code,' where LXFS='@@lxfs,'</SQL_INSERT>
+		<SQL_UPDATE></SQL_UPDATE>
+		<SQL_DELETE></SQL_DELETE>
+		<URL></URL>
+		<SFTZ>insert</SFTZ>
+		<TZNR>select  '@@dzjc,的 @@yhxm, 已成功成为你店的带单员，你可到 员工 里面查看她的信息。如她没安装客串串APP，请指导她安装客串串APP.' nr, device_token token1,lxfs msgTel,'' sendTel,'艾管理' appname,'' ordercode,'员工加盟' msgtype  from TJ_SYS_YH a where DEPT='@@agent_code,' and yhjb='老板' </TZNR>
+		<KJSM>客串串微信注册</KJSM>
+	</row>
+	<row>
+		<KJM>IN0028</KJM>
+		<CS>7</CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>begin insert into OrderCharge(Agent_Code,ChargeCode,OrderCode,Charge_Date,Init_Amount,Charge_Amount,Store_Amount,Charge_Memo,charge_man,payment_no,open_id) select top 1 agent_code,'@@KEY,','',GETDATE(),agent_amount,'@@charge_amount,',agent_amount+'@@charge_amount,' store_amount,'@@charge_memo,','@@charge_man,','@@payment_no,','@@open_id,' from Agent_list where AGENT_CODE='@@agent_code,' update agent_list set agent_amount=isnull(agent_amount,0)+'@@charge_amount,' where agent_code='@@agent_code,' end</SQL_INSERT>
+		<SQL_UPDATE>begin insert into OrderCharge(Agent_Code,ChargeCode,OrderCode,Charge_Date,Init_Amount,Charge_Amount,Store_Amount,Charge_Memo,charge_man,payment_no,open_id,rev_tel,rev_man,account)  select top 1 '' dept,'@@KEY,','',GETDATE(),isnull(yh_amount,0) yh_amount,'@@charge_amount,',isnull(yh_amount,0)+'@@charge_amount,' store_amount,'@@charge_memo,','@@charge_man,','@@payment_no,','@@open_id,',LXFS,yhxm,lxfs from weixinappuser_open where lxfs='@@lxfs,'  update weixinappuser_open set yh_amount=isnull(yh_amount,0)+'@@charge_amount,' where lxfs='@@lxfs,' end</SQL_UPDATE>
+		<SQL_DELETE></SQL_DELETE>
+		<URL></URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>充值及提现</KJSM>
+	</row>
+	<row>
+		<KJM>IN0029</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>insert into orderlist(order_code,groom_date,Opr_Man,opr_dw,note_type,order_sts,agent_code,groom_memo,ywy,ywy_tel,arr_man,arr_tel,arr_address,opr_tel,opr_token,zjlxsj,yjlxsj,cust_name) select replace(newid(),'-','') order_code,getdate() groom_date,'@@username,' Opr_Man,'@@username,(@@shopname,)' opr_dw,note_type,'9' order_sts,dept agent_code,'@@groom_memo,' groom_memo,yhxm ywy,lxfs ywy_tel,arr_man,arr_tel,arr_address,'@@opr_tel,' opr_tel,'@@opr_token,' opr_token,getdate() zjlxsj,dateadd(DAY,3,GETDATE()) yjlxsj,(select top 1 agent_name from agent_list where agent_code=b.dept) cust_name from OrderList a,TJ_SYS_YH b  where ORDER_CODE='@@order_code,' and b.LXFS in(@@all_lxfs,)</SQL_INSERT>
+		<SQL_UPDATE></SQL_UPDATE>
+		<SQL_DELETE></SQL_DELETE>
+		<URL></URL>
+		<SFTZ>insert</SFTZ>
+		<TZNR>select '客户推荐：@@shopname, 的 @@username, 推荐了一个客户给你，打开客串串到抢单池里抢单吧！' nr, device_token token1,lxfs msgTel,'' sendTel,'艾管理' appname,'@@order_code,' ordercode,'客户分享' msgtype  from OrderList a,TJ_SYS_YH b  where ORDER_CODE='@@order_code,' and b.LXFS in(@@all_lxfs,) and YHJB in ('导购') and device_token is not null and device_token!='' union all select '客户分享：@@shopname,的@@username,分享了一个客户给你，快去跟单列表里瞧瞧吧！' nr, device_token token1,lxfs msgTel,'' sendTel,'艾管理' appname,'@@order_code,' ordercode,'客户分享' msgtype  from OrderList a,TJ_SYS_YH b  where ORDER_CODE='@@order_code,' and b.LXFS in(@@all_lxfs,) and YHJB in ('店长','老板') and device_token is not null and device_token!=''</TZNR>
+		<KJSM>分享到联盟</KJSM>
+	</row>
+	<row>
+		<KJM>IN0030</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>update TJ_SYS_YH set longitude='@@longtiude,',latitude='@@latitude,',position='@@position,' where LXFS='@@agent_tel,'</SQL_INSERT>
+		<SQL_UPDATE></SQL_UPDATE>
+		<SQL_DELETE>
+			begin  insert into WorkTrack(track_id,agentcode,agentName,Track_Man,Track_Tel,track_date,Track_Content,track_address,track_type,lon,lat,clock_time) select right(convert(varchar,replace(replace(replace(replace(convert(varchar,'@@dataStr,',121),'-',''),':',''),' ',''),'.',''))+substring(convert(varchar,rand()),3,3),16) ,'@@agent_code,','@@agent_name,','@@track_man,','@@track_tel,','@@dataStr,','@@track_content,','@@track_address,','@@track_type,','@@lon,','@@lat,','@@clock_time,'  end
+		</SQL_DELETE>
+		<URL></URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>地图更新</KJSM>
+	</row>
+	<row>
+		<KJM>IN0031</KJM>
+		<CS>7</CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>begin  insert into WorkTrack(track_id,agentcode,agentName,Track_Man,Track_Tel,track_date,Track_Content,track_address,track_type,lon,lat,clock_time) values('@@KEY,','@@agent_code,','@@agent_name,','@@track_man,','@@track_tel,',GETDATE(),'@@track_content,','@@track_address,','@@track_type,','@@lon,','@@lat,','@@clock_time,')  end </SQL_INSERT>
+		<SQL_UPDATE>begin if( exists (select * from worktrack where track_sjid='@@track_sjid,' and track_tel='@@track_tel,' and agreeflag='赞')) delete from  worktrack where track_sjid='@@track_sjid,' and track_tel='@@track_tel,' and agreeflag='赞' else  insert into WorkTrack(track_id,agentcode,agentName,Track_Man,Track_Tel,track_date,Track_Content,track_address,track_type,lon,lat,track_sjid,agreeflag) values('@@KEY,','@@agent_code,','@@agent_name,','@@track_man,','@@track_tel,',GETDATE(),'@@track_content,','@@track_address,','@@track_type,','@@lon,','@@lat,','@@track_sjid,','@@agreeflag,')  end</SQL_UPDATE>
+		<SQL_DELETE>if not exists ( select * from WorkTrack where Track_Tel='@@track_tel,' and dbo.getdatestr1(Track_Date)=dbo.getDateStr1(GETDATE()) and Track_Type='@@track_type,' ) begin insert into WorkTrack(track_id,agentcode,agentName,Track_Man,Track_Tel,track_date,Track_Content,track_address,track_type,lon,lat,clock_time) values('@@KEY,','@@agent_code,','@@agent_name,','@@track_man,','@@track_tel,',GETDATE(),'@@track_content,','@@track_address,','@@track_type,','@@lon,','@@lat,','@@clock_time,')  insert into EmpTrack(track_id,agentcode,agentName,Track_Man,Track_Tel,track_date,Track_Content,track_address,track_type,lon,lat,clock_time)  values('@@KEY,','@@agent_code,','@@agent_name,','@@track_man,','@@track_tel,',GETDATE(),'@@track_content,','@@track_address,','@@track_type,','@@lon,','@@lat,','@@clock_time,') end</SQL_DELETE>
+		<URL></URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>工作日志汇报</KJSM>
+	</row>
+	<row>
+		<KJM>IN0032</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>insert into kcc_fee (lxfs,agent_code,end_date,pay_no,sts,bz) select LXFS,DEPT,end_date,'','申请中','' from tj_sys_yh where LXFS='@@lxfs,'</SQL_INSERT>
+		<SQL_UPDATE>update kcc_fee set pay_month='@@pay_month,',pay_amount='@@pay_month,'*50,after_date=DATEADD(mm,@@pay_month,end_date) where pay_id='@@pay_id,'</SQL_UPDATE>
+		<SQL_DELETE></SQL_DELETE>
+		<URL></URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>客串串续费</KJSM>
+	</row>
+	<row>
+		<KJM>IN0033</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>update Agent_list set SB_Time='@@sb_time,',XB_Time='@@xb_time,',Lon='@@lon,',Lat='@@lat,',AGENT_ADDRESS='@@agent_address,' where AGENT_CODE='@@agent_code,'</SQL_INSERT>
+		<SQL_UPDATE>update OrderList set Arr_Man='@@arr_man,',Arr_Tel='@@arr_tel,',Arr_Address='@@arr_address,',level='@@level,',order_amount='@@order_amount,',az_date='@@az_date,',order_memo='@@order_memo,',opr_man='@@opr_man,',opr_tel='opr_tel,' where ORDER_CODE='@@order_code,'</SQL_UPDATE>
+		<SQL_DELETE></SQL_DELETE>
+		<URL>{ call sp_cjdp('@@lxfs,','@@yhxm,' ,'@@prv_code,','@@ppbm,','@@mdmc,','@@xxdz,','@@prov,','@@city,','@@dist,','@@PASSWORD1,','@@jylm,','@@sb_time,','@@xb_time,','@@lon,','@@lat,','@@address,') } </URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>考勤打卡</KJSM>
+	</row>
+	<row>
+		<KJM>IN0034</KJM>
+		<CS>7</CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>insert into orderlist(order_code,groom_date,ywy_tel,opr_dw,note_type,order_sts,agent_code,groom_memo,ywy,arr_man,arr_tel,arr_address,zjlxsj,yjlxsj,order_src,cust_name,housetype,az_date,order_date,order_amount,ismeter,fph) select top 1 '@@KEY,',getdate(),'@@opr_tel,','','Z','5','@@agent_code,','@@demo,','@@username,','@@arr_man,','@@arr_tel,','@@arr_address,',getdate(),dateadd(DAY,3,GETDATE()),'@@order_src,','@@agent_name,','@@housetype,','@@az_date,','@@az_date,','@@order_amount,','已测量','历史订单' from tj_sys_yh where lxfs='@@opr_tel,'</SQL_INSERT>
+		<SQL_UPDATE></SQL_UPDATE>
+		<SQL_DELETE></SQL_DELETE>
+		<URL>{ call sp_calsarlay('@@lxfs,','@@salary_rq,') }</URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>添加历史单</KJSM>
+	</row>
+	<row>
+		<KJM>IN0035</KJM>
+		<CS>7</CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>begin insert into OrderTrack(track_id,OrderCode,CustName,Cust_Tel,Track_Man,Track_Tel,track_date,Track_Content,track_memo) select '@@KEY,','@@ordercode,','@@custname,','@@cust_tel,','@@track_man,','@@track_tel,',GETDATE(),case '@@isrepair,' when '完工' then '维修完工，照片如下：' else '@@track_content,' end track_content,'@@isrepair,'  update orderlist set zjlxsj=getdate(),isrepair= '@@isrepair,' where order_code='@@ordercode,' if '@@isrepair,'='完工' begin update orderlist set srv_tel=NULL where order_code='@@ordercode,' end end</SQL_INSERT>
+		<SQL_UPDATE>update OrderList set srv_Man='@@srv_man,',srv_tel='@@srv_tel,',srv_date='@@srv_date,'  where ORDER_CODE='@@order_code,'</SQL_UPDATE>
+		<SQL_DELETE>delete from ordertrack where track_id='@@track_id,'</SQL_DELETE>
+		<URL></URL>
+		<SFTZ>update</SFTZ>
+		<TZNR>select  '售后任务：店里分配了售后维修任务，需要处理，请尽快去处理！' nr, device_token token1,lxfs msgTel,'' sendTel,'艾管理' appname,'@@order_code,' ordercode,'售后任务' msgtype  from TJ_SYS_YH a where lxfs='@@srv_tel,' </TZNR>
+		<KJSM>报修登记接口</KJSM>
+	</row>
+
+
+	<row>
+		<KJM>IN0036</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>begin insert into orderlist(order_code,groom_date,Opr_Man,opr_dw,note_type,order_sts,agent_code,groom_memo,ywy,ywy_tel,arr_man,arr_tel,arr_address,opr_tel,opr_token,zjlxsj,yjlxsj,cust_name,order_src) select replace(newid(),'-','') order_code,getdate() groom_date,'@@username,' Opr_Man,'@@shopname,' opr_dw,note_type,'9' order_sts, b.agent_code,'@@groom_memo,' groom_memo,'' ywy,'' ywy_tel,arr_man,arr_tel,arr_address,'@@opr_tel,' opr_tel,'@@opr_token,' opr_token,getdate() zjlxsj,dateadd(DAY,3,GETDATE()) yjlxsj,agent_name,'联盟推荐'  from OrderList a,agent_list b where ORDER_CODE='@@order_code,' and b.agent_code in (@@all_agentcode,) update orderlist set tjcs=isnull(tjcs,0)+1 where order_code='@@order_code,' end</SQL_INSERT>
+		<SQL_UPDATE></SQL_UPDATE>
+		<SQL_DELETE></SQL_DELETE>
+		<URL></URL>
+		<SFTZ>insert</SFTZ>
+		<TZNR>select '推荐客户：@@shopname,的  @@username, 推送了意向客户('+arr_man+arr_tel+')到您的店中，赶紧打开客串串抢单吧！ ' nr, device_token token1,lxfs msgTel,'' sendTel,'艾管理' appname,'' ordercode,'客户分享' msgtype  from OrderList a,TJ_SYS_YH b  where ORDER_CODE='@@order_code,' and  b.dept in (@@all_agentcode,) and YHJB in ('店长','老板','超级老板','导购') and device_token is not null and device_token!=''  and device_token!='(null)'</TZNR>
+		<KJSM>收款后直接分享到联盟</KJSM>
+	</row>
+	<row>
+		<KJM>IN0037</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>insert into zxd_zb (id,rq,bz,jbrmc,id_phd,ckmc,dwbm,dwmc,zy) select (select isnull(max(CONVERT(int,id)),0)+1 from zxd_zb where id_phd='@@phd_id,'),GETDATE(),'零散','@@xm,','@@phd_id,',ckmc,dwbm,dwmc,'@@zy,' from phd_zb where id='@@phd_id,' </SQL_INSERT>
+		<SQL_UPDATE>insert into zxd_mx(id,spbm,spmc,xhgg,sccj,psid,jldw,sl,bz,ph_id,phd_id,back_id,back_code,store_no,cd,series_code) select '@@zxh,' id,spbm,spmc,xhgg,'@@sccj,',psid,jldw,'@@sl,' sl,bz,ph_id,ID phd_id,'' back_id,back_code,store_no,cd,series_code from phd_mx_hz a where  PH_id='@@ph_id,' </SQL_UPDATE>
+		<SQL_DELETE>begin delete from ZXD_MX where zx_id='@@zx_id,' if not exists (select * from zxd_mx where id='@@id,' and phd_id='@@phd_id,')  delete from zxd_zb where id='@@id,' and id_phd='@@phd_id,' end</SQL_DELETE>
+		<URL>{ call sp_zxdb('@@back_code,','@@zxdbr,' ,'@@zxdbr_tel,') }</URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>零散件箱号</KJSM>
+	</row>
+	<row>
+		<KJM>IN0038</KJM>
+		<CS>7</CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>insert into OrderTrack(track_id,OrderCode,CustName,Cust_Tel,Track_Man,Track_Tel,track_date,Track_Content) values('@@KEY,','@@ordercode,','@@custname,','@@cust_tel,','@@track_man,','@@track_tel,',GETDATE(),'@@track_content,')</SQL_INSERT>
+		<SQL_UPDATE>delete from ZXD_ZB where ID not in (select ID from ZXD_MX where PHD_ID='@@phd_id,') and id_phd='@@phd_id,'</SQL_UPDATE>
+		<SQL_DELETE></SQL_DELETE>
+		<URL></URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>上传图片</KJSM>
+	</row>
+	<row>
+		<KJM>IN0039</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>update zxd_zb set zy='@@xz_type,' where id='@@zx_id,' and id_phd='@@phd_id,'</SQL_INSERT>
+		<SQL_UPDATE>begin update PHD_MX set SL=0 where id='@@phd_id,'  update PHD_MX set SL=b.sl from PHD_MX a,(select PH_ID,SUM(sl) sl from ZXD_MX  where phd_id='@@phd_id,' group by PH_ID ) b where a.ph_id=b.PH_ID update PHD_ZB set isJD='已结单',sh='F' where ID='@@phd_id,' end</SQL_UPDATE>
+		<SQL_DELETE>begin delete from zxd_zb where id='@@id,' and id_phd='@@phd_id,' delete from zxd_mx where id='@@id,' and phd_id='@@phd_id,' end</SQL_DELETE>
+		<URL>{ call sp_zxjd('@@phd_id,') } </URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>设置箱类型</KJSM>
+	</row>
+	<row>
+		<KJM>IN0040</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>update PHD_ZB set BZ=BZ+'@@bz,' where ID='@@phd_id,'</SQL_INSERT>
+		<SQL_UPDATE>begin update PHD_MX set ID='@@phd_id,' where ID='@@s_phd_id,'  update PHD_MX_HZ set ID='@@phd_id,' where ID='@@s_phd_id,' update PHD_ZB set isJD='已合并@@phd_id,' where ID='@@s_phd_id,' end</SQL_UPDATE>
+		<SQL_DELETE>begin  update PHD_MX_hz set ID='@@phd_id,',src_phd_id='@@s_phd_id,',ishb='合并' where id='@@s_phd_id,'  update PHD_MX set ID='@@phd_id,',src_phd_id='@@s_phd_id,',ishb='合并' where id='@@s_phd_id,'  update PHD_zb set isjd='已合并',sh='T' where id='@@s_phd_id,' end </SQL_DELETE>
+		<URL></URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>设置备注</KJSM>
+	</row>
+	<row>
+		<KJM>IN0041</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>update orderlist set hfnr='@@hfnr,' where ORDER_CODE='@@order_code,'</SQL_INSERT>
+		<SQL_UPDATE>if not exists(select * from brand_list where brand_name='@@brand_name,') insert into Brand_List(Brand_Name,brand_chnname,Brand_Type,brand_sts) select '@@brand_name,','@@brand_name,','@@brand_type,','启用'</SQL_UPDATE>
+		<SQL_DELETE></SQL_DELETE>
+		<URL></URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>订单回访</KJSM>
+	</row>
+	<row>
+		<KJM>IN0042</KJM>
+		<CS>7</CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>insert into OrderTrack(track_id,OrderCode,CustName,Cust_Tel,Track_Man,Track_Tel,track_date,Track_Content,track_memo,product_id,fault)  select '@@KEY,','@@ordercode,','@@custname,','@@cust_tel,','@@track_man,','@@track_tel,',GETDATE(),'@@track_content,','报修','@@product_id,','@@fault,'</SQL_INSERT>
+		<SQL_UPDATE>insert into OrderTrack(track_id,OrderCode,CustName,Cust_Tel,Track_Man,Track_Tel,track_date,Track_Content,track_memo)  select '@@KEY,','@@ordercode,','@@custname,','@@cust_tel,','@@track_man,','@@track_tel,',GETDATE(),'@@track_content,','回访'</SQL_UPDATE>
+		<SQL_DELETE></SQL_DELETE>
+		<URL></URL>
+		<SFTZ>update</SFTZ>
+		<TZNR>select  '售后任务：店里分配了售后维修任务，需要处理，请尽快去处理！' nr, device_token token1,lxfs msgTel,'' sendTel,'艾管理' appname,'@@order_code,' ordercode,'售后任务' msgtype  from TJ_SYS_YH a where lxfs='@@srv_tel,' </TZNR>
+		<KJSM>报修登记接口二版</KJSM>
+	</row>
+	<row>
+		<KJM>IN0043</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>update orderlist set ywy='',ywy_tel='',zjlxsj=getdate() where order_code='@@order_code,'</SQL_INSERT>
+		<SQL_UPDATE>update orderlist set ywy='@@ywy_name,',ywy_tel='@@ywy_tel,',zjlxsj=getdate(),groom_date=getdate() where order_code='@@order_code,'</SQL_UPDATE>
+		<SQL_DELETE>delete from orderlist where order_code in (@@order_code,)</SQL_DELETE>
+		<URL>{ call sp_wxzp('@@order_code,','@@srv_type,','@@az_man,','@@az_tel,','@@az_date,','@@zp_memo,','@@az_time,') }</URL>
+		<SFTZ>call</SFTZ>
+		<TZNR>select  '店里指派了一个 @@srv_type, 任务，请到安装任务里处理！' nr, device_token token1,lxfs msgTel,'' sendTel,'艾管理' appname,'@@order_code,' ordercode,'任务' msgtype  from TJ_SYS_YH a where lxfs='@@az_tel,' </TZNR>
+		<KJSM>任务指派接口（二版）</KJSM>
+	</row>
+	<row>
+		<KJM>IN0044</KJM>
+		<CS>7</CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>begin  update ordertrack set track_memo='完工' where track_id='@@ordercode,' update OrderSrv set Srv_Sts='2',srv_sjdate=GETDATE(),srv_result='@@srv_result,' where  Order_Code='@@ordercode,' end</SQL_INSERT>
+		<SQL_UPDATE></SQL_UPDATE>
+		<SQL_DELETE></SQL_DELETE>
+		<URL></URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>安装完工接口(二版)</KJSM>
+	</row>
+	<row>
+		<KJM>IN0045</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>if not exists (select * from WeiXinAppUser where LXFS='@@lxfs,' and agent_code=(select top 1 dept from tj_sys_yh where lxfs='@@agent_tel,')) insert into WeiXinAppUser(YHXM,LXFS,design_company,share_type,xb,sr,DZ,ywy,ywy_tel,agent_code,gzjy,card_no) select '@@yhxm,','@@lxfs,','@@design_company,','@@share_type,','@@xb,','@@sr,','@@dz,',YHXM,LXFS,dept,'@@gzjy,','@@card_no,' from TJ_SYS_YH where LXFS='@@agent_tel,'  </SQL_INSERT>
+		<SQL_UPDATE> update WeiXinAppUser set yhxm='@@yhxm,',xb='@@xb,',sr='@@sr,',LXFS='@@lxfs,',DZ='@@dz,',share_type='@@share_type,',design_company='@@design_company,',ywy='@@ywy,',ywy_tel='@@ywy_tel,',gzjy='@@gzjy,',card_no='@@card_no,' where YHID='@@yhid,'</SQL_UPDATE>
+		<SQL_DELETE>delete from weixinappuser where yhid='@@yhid,'</SQL_DELETE>
+		<URL></URL>
+		<SFTZ>sms</SFTZ>
+		<TZNR>select '@@lxfs,' mobliecode,'SMS_66335010' templatecode,'@@yhxm,' param1,agent_name param2,'' param3,'' param4,'' param5 from agent_list where agent_code=(select top 1 dept from tj_sys_yh where lxfs='@@agent_tel,')</TZNR>
+		<KJSM>推荐者添加接口</KJSM>
+	</row>
+	<row>
+		<KJM>IN0046</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>insert into orderlist(order_code,groom_date,Opr_Man,opr_dw,opr_tel,note_type,order_sts,agent_code,order_memo,order_src,ywy,cust_name,arr_man,arr_tel,arr_address,ht_amount,ywy_tel,housetype) select lower(replace(newid(),'-','')) key1,GETDATE(),'@@opr_man,','@@opr_dw,','@@opr_tel,','Z','9',agent_code,'@@order_memo,','微信推荐','',agent_name,'@@arr_man,' ,'@@arr_tel,','@@arr_address,','0','','普通' from agent_list where agent_code in (@@agent_code,)</SQL_INSERT>
+		<SQL_UPDATE>if not exists (select * from weixinappuser_open where lxfs='@@lxfs,')   insert into weixinappuser_open(wx_openid,WX_headimage,wx_nick,wx_code,lxfs,yhxm) values('@@wx_openid,','@@wx_headimage,','@@wx_nick,','@@wx_code,','@@lxfs,','@@yhxm,') else update weixinappuser_open set yhxm='@@yhxm,',WX_headimage='@@wx_headimage,',WX_nick='@@wx_nick,',WX_Code='@@wx_code,',wx_openid='@@wx_openid,'  where  lxfs='@@lxfs,'</SQL_UPDATE>
+		<SQL_DELETE>if not exists (select * from WeiXinAppUser where LXFS='@@lxfs,' and agent_code='@@agent_code,') insert into WeiXinAppUser(YHXM,LXFS,design_company,share_type,agent_code) values('@@yhxm,','@@lxfs,','@@design_company,','朋友','@@agent_code,')</SQL_DELETE>
+		<URL></URL>
+		<SFTZ>insert</SFTZ>
+		<TZNR>select  '推荐客户：@@opr_man, 推送了意向客户(@@arr_man, @@arr_tel,)到您的店中，赶紧打开客串串抢单吧！' nr, device_token token1,lxfs msgTel,'' sendTel,'艾管理' appname,'' ordercode,'客户分享' msgtype   from TJ_SYS_YH a  where dept in (@@agent_code,)  and device_token is not null and device_token!=''  and device_token!='(null)' and yhjb in ('老板','超级老板','导购','店长')</TZNR>
+		<KJSM>微信小程序添加客户</KJSM>
+	</row>
+	<row>
+		<KJM>IN0047</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>update agent_list set max_gds='@@max_gds,',max_hsts='@@max_hsts,',is_share='@@is_share,',gxf='@@gxf,',agent_name='@@agent_name,',agent_tel='@@agent_tel1,',yf_xt='@@gxf_type,' where AGENT_CODE='@@agent_code,'</SQL_INSERT>
+		<SQL_UPDATE>update agent_list set max_hsts='@@max_hsts,' where AGENT_CODE='@@agent_code,'</SQL_UPDATE>
+		<SQL_DELETE>update agent_list set agent_headimage='@@agent_headimage,' where AGENT_CODE='@@agent_code,'</SQL_DELETE>
+		<URL>{ call sp_weixinbind_money('@@wx_openid,','@@wx_headimage,','@@wx_nick,','@@lxfs,') }</URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>店铺设置</KJSM>
+	</row>
+	<row>
+		<KJM>IN0048</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>if not exists (select * from orderproduct where product_id='@@product_id,' and order_code='@@order_code,' and product_mj='@@product_mj,')  insert into orderproduct(product_id,product_code,product_name,product_size,product_untl,product_price,product_num,product_amount,product_image,order_code,product_mj,order_memo,type_sales,cost_price,discount) select '@@product_id,','@@product_code,','@@product_name,','@@product_size,','@@product_untl,','@@type_sales,','@@product_num,',@@type_sales,*@@product_num,*case '@@product_mj,' when '' then 1 else '@@product_mj,' end ,'@@product_image,','@@order_code,','@@product_mj,','@@back_memo,','@@type_sales,','@@product_price,','1.00'  else update orderproduct set product_num+='@@product_num,',product_amount='@@product_num,'*product_price*case '@@product_mj,' when ''  then 1 else '@@product_mj,' end,product_mj='@@product_mj,',order_memo='@@back_memo,' where product_id='@@product_id,' and order_code='@@order_code,' and product_mj='@@product_mj,'</SQL_INSERT>
+		<SQL_UPDATE>delete from orderproduct where order_code='@@order_code,'</SQL_UPDATE>
+		<SQL_DELETE>delete from orderproduct where id='@@id,'</SQL_DELETE>
+		<URL>{ call sp_dh4order('@@back_code,','@@qyzk,','@@order_code,','@@agent_code,','@@yhdm,')}</URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>材料清单</KJSM>
+	</row>
+	<row>
+		<KJM>IN0049</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>update TJ_SYS_YH set bank_man='@@bank_man,',bank_cardno='@@bank_cardno,',bank_name='@@bank_name,' where LXFS='@@lxfs,'</SQL_INSERT>
+		<SQL_UPDATE>update orderproduct set product_num='@@product_num,',product_amount='@@product_num,'*@@product_price,*case '@@product_mj,' when ''  then 1 else '@@product_mj,' end,product_mj='@@product_mj,',order_memo='@@back_memo,',product_price='@@product_price,' where id='@@id,'</SQL_UPDATE>
+		<SQL_DELETE>update TJ_SYS_YH set wx_openid='@@wx_openid,',WX_headimage='@@wx_headimage,',WX_nick='@@wx_nick,' where LXFS='@@lxfs,'</SQL_DELETE>
+		<URL>{ call sp_weixinbind('@@v_openid,','@@wx_headimage,','@@wx_nick,','@@lxfs,','@@PASSWORD1,') }</URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>绑定微信</KJSM>
+	</row>
+	<row>
+		<KJM>IN0050</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>begin insert into OrderBound(Order_Code,bound,bound_Date,Bound_Type,Bound_Memo,opr_tel,opr_man,rev_tel,rev_man,payment_no,open_id) values('@@order_code,','@@bound,',GETDATE(),'提现','@@bound_memo,','@@opr_tel,','@@username,','@@rev_tel,','@@rev_man,','@@payment_no,','@@open_id,')  end</SQL_INSERT>
+		<SQL_UPDATE>update backdetails set ticket_num=isnull(ticket_num,0)+1 where id='@@id,'</SQL_UPDATE>
+		<SQL_DELETE>delete from orderlist where order_code='@@order_code,'</SQL_DELETE>
+		<URL></URL>
+		<SFTZ>insert</SFTZ>
+		<TZNR>select  '收到赏金:@@username,给你打赏了@@bound,元钱，赶紧去微信零钱包里瞧瞧吧！' nr, device_token token1,lxfs msgTel,'' sendTel,'艾管理' appname,'' ordercode,'收到赏金' msgtype from TJ_SYS_YH  where  LXFS='@@rev_tel,'</TZNR>
+		<KJSM>提现</KJSM>
+	</row>
+
+
+	<row>
+		<KJM>IN0051</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>if (not exists (select * from orderlist where Arr_Tel='@@Arr_Tel,')) insert into OrderList(ORDER_CODE,AGENT_CODE,Cust_Name,Arr_Tel,Arr_Address,Arr_Man,Order_Amount,az_date,order_memo,fph,groom_date,ywy,dh_sts,sex,adh_agentcode,yjjhrq,djje,order_src) select '@@order_code,','@@agent_code,','@@agent_name,','@@arr_tel,','@@arr_address,','@@arr_man,','@@order_amount,','@@az_date,','','@@fph,',getdate(),'@@ywy,','已上报','@@sex,','@@adh_agentcode,','@@yjjhrq,','@@djje,','@@order_src,'  </SQL_INSERT>
+		<SQL_UPDATE>update orderlist set dh_sts='已上报' where order_code='@@order_code,'</SQL_UPDATE>
+		<SQL_DELETE>update orderlist  set arr_tel='@@arr_tel,',arr_address='@@arr_address,',arr_man='@@arr_man,',order_amount='@@order_amount,',az_date='@@az_date,',order_memo='',sex='@@sex,',yjjhrq='@@yjjhrq,',djje='@@djje,',order_src='@@order_src,'  where order_code='@@order_code,'</SQL_DELETE>
+		<URL></URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>艾订货订单处理</KJSM>
+	</row>
+	<row>
+		<KJM>IN0052</KJM>
+		<CS>7</CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>INSERT INTO OrderListPublic(ORDER_CODE,Arr_Address,Arr_Tel,Arr_Man,Opr_Man,Opr_Tel,Opr_Dw,Opr_token,Order_Src,groom_memo,groom_date,Lon,Lat,housetype,sex,order_sts) VALUES('@@KEY,','@@arr_address,','@@arr_tel,','@@arr_man,','@@opr_man,' ,'@@opr_tel,','@@opr_dw,','@@opr_token,','@@order_src,','@@groom_memo,',GETDATE(),'@@lon,','@@lat,' ,'@@housetype,','@@sex,','未抢')</SQL_INSERT>
+		<SQL_UPDATE>update orderproduct set product_amount=product_num*type_sales*('@@discount,'/10.0000000000),product_price=type_sales*('@@discount,'/10.0000000000),discount='@@discount,'/10.0000000000 where order_code='@@order_code,'</SQL_UPDATE>
+		<SQL_DELETE></SQL_DELETE>
+		<URL>{ call sp_fsdd('@@KEY,','@@arr_address,','@@arr_tel,','@@arr_man,','@@opr_man,' ,'@@opr_tel,','@@opr_dw,','@@opr_token,','@@order_src,','@@groom_memo,','@@lon,','@@lat,' ,'@@housetype,','@@sex,','@@secret_level,','@@agent_codes,','@opr_agentcode,','@active_name,')}</URL>
+		<SFTZ>call</SFTZ>
+		<TZNR>select * from [dbo].[v_fsdd]('@@KEY,','@@agent_codes,','@@secret_level,') </TZNR>
+		<KJSM>直接开单</KJSM>
+	</row>
+	<row>
+		<KJM>IN0053</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>insert into OrderMetail(OrderCode,metail_name) select '@@ordercode,',bm from bm_jylm where BM in (@@cls,)</SQL_INSERT>
+		<SQL_UPDATE></SQL_UPDATE>
+		<SQL_DELETE>begin delete from orderlistpublic where order_code='@@order_code,' delete from ordermetail where ordercode='@@order_code,' end</SQL_DELETE>
+		<URL></URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>欠缺材料列表</KJSM>
+	</row>
+	<row>
+		<KJM>IN0054</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>insert into orderreport(ordercode,report_content,report_date,report_man) select '@@ordercode,','@@report_content,',GETDATE(),'@@report_man,'</SQL_INSERT>
+		<SQL_UPDATE>update orderreport set reply_content = '@@reply_content,',reply_date=GETDATE(),reply_man='@@reply_man,' where report_id='@@report_id,'</SQL_UPDATE>
+		<SQL_DELETE>delete from orderreport where report_id='@@report_id,'</SQL_DELETE>
+		<URL>{ call sp_yhqd('@@back_code,','@@agent_code,','@@agent_name,','@@amount,','@@rev_man,','@@rev_tel,','@@send_man,','@@send_tel,') }</URL>
+		<SFTZ>call</SFTZ>
+		<TZNR>select '你推的订单被抢喽 ' nr, device_token token1,lxfs msgTel,'' sendTel,'艾管理' appname,'' ordercode,'客户分享' msgtype  from tj_sys_yh where lxfs='@@rev_tel,' and ( device_token is not null and device_token!=''  and device_token!='(null)')</TZNR>
+		<KJSM>投诉</KJSM>
+	</row>
+	<row>
+		<KJM>IN0055</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT></SQL_INSERT>
+		<SQL_UPDATE>update BM_LM set LMMC='@@lmmc,' where lmbm='@@lmid,'</SQL_UPDATE>
+		<SQL_DELETE>begin delete from BM_LM where lmbm='@@lmid,' delete from BM_LMCY where lmbm='@@lmid,' end</SQL_DELETE>
+		<URL>{ call sp_cjlm('@@KEY,','@@lmmc,','@@agent_code,') }</URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>联盟管理</KJSM>
+	</row>
+	<row>
+		<KJM>IN0056</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>if not exists(select * from bm_lmcy where lmbm='@@lmid,' and cybm='@@agent_code,') insert into bm_lmcy(cybm,cymc,cy_headimage,lmbm) select AGENT_CODE,AGENT_NAME,agent_headimage,'@@lmid,' from agent_list where AGENT_CODE='@@agent_code,'</SQL_INSERT>
+		<SQL_UPDATE>begin update bm_lmcy set lmmz='' where lmbm='@@lmid,' update bm_lmcy set lmmz='会长商铺' where cyid='@@cyid,' end </SQL_UPDATE>
+		<SQL_DELETE>delete from BM_LMCY where cyid='@@cyid,'</SQL_DELETE>
+		<URL></URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>联盟商家管理</KJSM>
+	</row>
+	<row>
+		<KJM>IN0057</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>insert into backlist(Back_Code,Agent_Code,Back_Num,Back_Amount,Back_Date,Arr_Date,Back_Sts,Back_Demo,Note_Type,Opr_Man,Opr_Dw,sfsf,arr_address,ywy,tis_amount,jsdh) select  '@@back_code,', '@@agent_code,','0','@@order_amount,',getdate(),'','5','货款','SK','@@yhdm,','@@agent_code,','','@@bankname,',(select yhxm from tj_sys_yh where yhh=domain_man) xm,'@@order_amount,','@@jsdh,' from agent_list where agent_code='@@agent_code,'</SQL_INSERT>
+		<SQL_UPDATE>begin update orderlist set dh_sts='待送货',tzshrq=getdate()  where order_code='@@order_code,' update orderproduct set ysl=product_num where order_code='@@order_code,'  exec sp_kcfp '@@order_code,' end</SQL_UPDATE>
+		<SQL_DELETE></SQL_DELETE>
+		<URL>{ call sp_khbb_history('@@KEY,','@@agent_code,','@@fph,','@@order_src,','@@username,','@@agent_name,','@@arr_man,','@@arr_tel,','@@arr_address,','@@djje,','@@yqazsj,','@@ywy_tel,','@@groom_memo,','@@housetype,','@@xb,','@@housearea,','@@arr_address_detail,','@@arr_address_city,','@@lon,','@@lat,','@@order_amount,','@@demo,','@@order_date,') }</URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>联盟商家管理</KJSM>
+	</row>
+
+	<row>
+		<KJM>IN0058</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>insert into orderlist(order_code,groom_date,Opr_Man,opr_dw,note_type,order_sts,agent_code,order_memo,isfp,fph,fpdz,order_src,ywy,cust_name,arr_man,arr_tel,arr_address,djje,yqazsj,ywy_tel,zjlxsj,groom_memo,housetype,sex,housearea,arr_address_detail,arr_address_city,lon,lat,order_amount,xfjb,zxjd) values('@@KEY,',getdate(),'','','Z','9','@@agent_code,','@@demo,','@@isfp,','@@fph,','@@fpdz,','@@order_src,','@@username,','@@agent_name,','@@arr_man,','@@arr_tel,','@@arr_address,','@@djje,','@@yqazsj,','@@ywy_tel,',getdate(),'@@groom_memo,','@@housetype,','@@xb,','@@housearea,','@@add_address_detail,','@@add_address_city,','@@lon,','@@lat,','@@order_amount,','@@xfjb,','@@zxjd,')</SQL_INSERT>
+		<SQL_UPDATE>update orderlist set isattent='@@isattent,' where order_code='@@order_code,'</SQL_UPDATE>
+		<SQL_DELETE>update OrderList set Arr_Tel='@@arr_tel,',Arr_Man='@@arr_man,',sex='@@sex,',arr_address_detail='@@arr_address_detail,',housetype='@@housetype,',housearea='@@housearea,',FPH='@@fph,',yqazsj='@@yqazsj,',Order_Src='@@order_src,',Order_Amount='@@order_amount,',order_memo='@@demo,',groom_memo='@@groom_memo,',pre_order_amount='@@pre_order_amount,',xfjb='@@xfjb,',zxjd='@@zxjd,',lon='@@lon,' ,lat='@@lat,' ,Arr_Address='@@arr_address,'  where ORDER_CODE='@@order_code,'  </SQL_DELETE>
+		<URL>{ call sp_khbb('@@KEY,','@@agent_code,','@@fph,','@@order_src,','@@username,','@@agent_name,','@@arr_man,','@@arr_tel,','@@arr_address,','@@djje,','@@yqazsj,','@@ywy_tel,','@@groom_memo,','@@housetype,','@@xb,','@@housearea,','@@arr_address_detail,','@@arr_address_city,','@@lon,','@@lat,','@@order_amount,','@@demo,','@@order_date,','@@xfjb,','@@zxjd,','@@ddy_tel,') }</URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>订单详情管理</KJSM>
+	</row>
+	<row>
+		<KJM>IN0059</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>if not exists(select * from newsread where agent_code='@@agent_code,' and newsid='@@newsid,') insert into newsread(agent_code,newsid) values('@@agent_code,','@@newsid,')</SQL_INSERT>
+		<SQL_UPDATE>update agent_list set domain_man='@@domain_man,' where agent_code='@@agent_code,'</SQL_UPDATE>
+		<SQL_DELETE>begin delete from rkd_zb_z where id='@@id,' delete from rkd_mx_z where id='@@id,' end</SQL_DELETE>
+		<URL>{ call sp_kcc_jk('@@orderdetails,') }</URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>客串串数据对接</KJSM>
+	</row>
+	<row>
+		<KJM>IN0060</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>begin if not exists(select * From rkd_zb_z where ID='@@id,')insert into rkd_zb_z(id,rq,ckbm,ckmc,zdr,pjlx,zsl,zje,sh) values('@@id,',GETDATE(),'@@ckbm,','@@ckmc,','@@zdr,','入库',0,0,'F')  insert into rkd_mx_z(id,xh,spbm,psid,spmc,xhgg,jldw,sl,dj,je,bz,cd,tplj,series_code,xl_code,pcs_dj) select '@@id,','0','@@product_id,','@@product_code,','@@product_name,','@@product_size,','@@product_untl,','@@sl,','@@dj,',(@@sl,*@@dj,),'@@bz,','@@cd,','@@tplj,','@@series_code,','@@xl_code,','@@pcs_dj,' update rkd_zb_z set zsl=a.z_sl,zje=a.z_je from rkd_zb_z b,(select '@@id,' id,sum(sl) z_sl,sum(je) z_je from rkd_mx_z where id='@@id,') a where b.id=a.id end </SQL_INSERT>
+		<SQL_UPDATE>update rkd_mx_z set sl='@@sl,',dj='@@dj,',je='@@je,' where rk_id='@@rk_id,'</SQL_UPDATE>
+		<SQL_DELETE>delete from rkd_mx_z where rk_id='@@rk_id,'</SQL_DELETE>
+		<URL>{ call sp_kcc_rk('@@code,','T','@@shr,') }</URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>入库添加产品</KJSM>
+	</row>
+	<row>
+		<KJM>IN0061</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>insert into kc_kcdtb(product_id,PRODUCT_CODE,SERIES_CODE,xl_code,PRODUCT_NAME,PRODUCT_SIZE,PRODUCT_Untl,PRODUCT_PRICE,product_amount,pcs_dj,product_image,STS,ADD_DATE,Agent_Code,cbjj,product_color,product_memo,product_txm,type_sales,lower_num) select lower(newid()),'@@product_code,','@@series_code,','@@xl_code,','@@product_name,','@@product_size,','@@product_untl,','@@product_price,',0,'单位','','0',GETDATE(),'@@agent_code,',0,'@@product_color,','@@product_memo,',lower(newid()),'@@type_sales,','@@lower_num,' </SQL_INSERT>
+		<SQL_UPDATE>update kc_kcdtb set product_code='@@product_code,',product_name='@@product_name,',product_size='@@product_size,',product_untl='@@product_untl,',PRODUCT_PRICE='@@product_price,',type_sales='@@type_sales,',lower_num='@@lower_num,' where product_ID='@@id,' and agent_code='@@agent_code,'</SQL_UPDATE>
+		<SQL_DELETE>delete from kc_kcdtb where product_id='@@id,' and agent_code='@@agent_code,'</SQL_DELETE>
+		<URL></URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>客串串产品添加</KJSM>
+	</row>
+	<row>
+		<KJM>IN0062</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>insert into Series_list_z(series_code,series_name,sts,agent_code) select replace(lower(newid()),'-',''),'@@series_name,','0','@@agent_code,' </SQL_INSERT>
+		<SQL_UPDATE>insert into xl_list_z(bm,mc,sjbm,agent_code) select replace(lower(newid()),'-',''),'@@mc,','@@series_code,','@@agent_code,'</SQL_UPDATE>
+		<SQL_DELETE>begin delete from series_list_z where series_code='@@series_code,' delete from xl_list_z where sjbm='@@series_code,' end</SQL_DELETE>
+		<URL></URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>客串串类型系列添加</KJSM>
+	</row>
+	<row>
+		<KJM>IN0063</KJM>
+		<CS>4</CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>if not exists(select * From rkd_zb_z where ID='@@id,')insert into rkd_zb_z(id,rq,ckbm,ckmc,zdr,pjlx,zsl,zje,sh) values('@@id,',GETDATE(),'@@ckbm,','@@ckmc,','@@zdr,','入库',0,0,'F')</SQL_INSERT>
+		<SQL_UPDATE>insert into rkd_mx_z(id,xh,spbm,psid,spmc,xhgg,jldw,sl,dj,je,bz,cd,tplj,series_code,xl_code,pcs_dj,phd_id) select '@@id,','@@xh,','@@product_id,','@@product_code,','@@product_name,','@@product_size,','@@product_untl,','@@sl,','@@dj,','@@je,','@@bz,','@@cd,','@@tplj,','@@series_code,','@@xl_code,','@@pcs_dj,','@@phd_id,'</SQL_UPDATE>
+		<SQL_DELETE>delete from rkd_mx_z where id='@@id,'</SQL_DELETE>
+		<URL></URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>入库添加产品</KJSM>
+	</row>
+
+	<row>
+		<KJM>IN0064</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>begin update orderlist set dh_sts='待送货',tzshrq=getdate()  where order_code='@@order_code,' update orderproduct set ysl=product_num where order_code='@@order_code,' end</SQL_INSERT>
+		<SQL_UPDATE>update phd_zb set isreceve='已收货' where id='@@phd_id,'</SQL_UPDATE>
+		<SQL_DELETE>delete from xl_list_z where bm='@@bm,'</SQL_DELETE>
+		<URL>{ call sp_kcc_ck('@@order_code,') }</URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>更新状态</KJSM>
+	</row>
+	<row>
+		<KJM>IN0065</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>update tj_sys_yh set qx_mob_cd='@@cd,' where lxfs='@@lxfs,'</SQL_INSERT>
+		<SQL_UPDATE>update tj_sys_yh set qx_mob_dp='@@cd,' where lxfs='@@lxfs,'</SQL_UPDATE>
+		<SQL_DELETE>update tj_sys_yh set qx_mob_sj='@@cd,' where lxfs='@@lxfs,'</SQL_DELETE>
+		<URL></URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>授权</KJSM>
+	</row>
+
+	<row>
+		<KJM>IN0066</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>insert into emp_checkItem(lxfs,agent_code,checkItem,checkNum,isPecent,checkMemo,addorminus,checkItem_Id) select '@@lxfs,','@@agent_code,',checkItem,checkNum,isPecent,checkMemo,addorminus,checkItem_Id from  bm_ygkhxm where checkItem_Id in (@@checkitem_id,)</SQL_INSERT>
+		<SQL_UPDATE>update emp_checkItem set checkNum='@@checkamount,' where check_Id='@@check_id,'</SQL_UPDATE>
+		<SQL_DELETE>delete from emp_checkItem where check_Id='@@check_id,'</SQL_DELETE>
+		<URL></URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>绩效考核处理</KJSM>
+	</row>
+	<row>
+		<KJM>IN0067</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>update orderproduct set is_send='采购中' where order_code='@@order_code,' and (curr_kcsl-product_num)&lt;0</SQL_INSERT>
+		<SQL_UPDATE>begin insert into OrderTrack(track_id,OrderCode,CustName,Cust_Tel,Track_Man,Track_Tel,track_date,Track_Content,track_memo) select '@@KEY,',order_code,Arr_Man,Arr_Tel,'@@opr_man,','@@opr_tel,',GETDATE(), '客户在'+dbo.getdatetime(getdate())+' 进店一次','客户进店' from OrderList where ORDER_CODE='@@order_code,' insert into orderintostore(order_code,intostore_date,Receiver) select '@@order_code,',getdate(),'@@opr_man,' update OrderList set jdcs=jdcs+1 where ORDER_CODE='@@order_code,' end </SQL_UPDATE>
+		<SQL_DELETE></SQL_DELETE>
+		<URL>{ call sp_sddgy('@@lxfs,','@@order_code,','@@dgy,','@@checkitem,','0','@@az_amount,') }</URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>订单流转处理</KJSM>
+	</row>
+	<row>
+		<KJM>IN0068</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>update tj_sys_yh set basepay='@@basepay,' where lxfs='@@lxfs,'</SQL_INSERT>
+		<SQL_UPDATE>update tj_sys_yh set allowdiscount='@@allowdiscount,' where lxfs='@@lxfs,'</SQL_UPDATE>
+		<SQL_DELETE>update tj_sys_yh set sts='@@sts,' where lxfs='@@lxfs,'</SQL_DELETE>
+		<URL></URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>底薪设置</KJSM>
+	</row>
+	<row>
+		<KJM>IN0069</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>insert into bm_fylb(mc,agent_code) values('@@mc,','@@agent_code,')</SQL_INSERT>
+		<SQL_UPDATE>update emp_fee set fee_sts='已提交' where fee_id='@@fee_id,'</SQL_UPDATE>
+		<SQL_DELETE>delete from bm_fylb where bm='@@bm,'</SQL_DELETE>
+		<URL>{ call sp_kcc_cpxz('@@products,','@@agent_code,','@@url_paths,') }</URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>费用类别管理</KJSM>
+	</row>
+	<row>
+		<KJM>IN0070</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>update emp_fee set fee_sts='未入账' where fee_id='@@fee_id,'</SQL_INSERT>
+		<SQL_UPDATE>update emp_fee set fee_sts='已入账' where fee_id='@@fee_id,'</SQL_UPDATE>
+		<SQL_DELETE>delete from emp_fee where fee_id='@@fee_id,'</SQL_DELETE>
+		<URL>{ call sp_gztz('@@lxfs,','@@fee_type,','@@fee_man,','@@fee_tel,','@@fee_amount,','@@fee_date,','@@fee_memo,','@@salaryrq,') }</URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>费用管理</KJSM>
+	</row>
+	<row>
+		<KJM>IN0071</KJM>
+		<CS>2</CS>
+		<SQL_SELECT>select * from emp_plan where rw_ny='@@rw_ny,' and lxfs='@@lxfs,'</SQL_SELECT>
+		<SQL_INSERT>insert into emp_plan(agent_code,lxfs,rw_ny,xzkhs,jdkhs,cjkhs,jrhke,qdhte,lxwke,rzbxs,rzcys)select dept,'@@lxfs,','@@rw_ny,','@@xzkhs,','@@jdkhs,','@@cjkhs,','@@jrhke,','@@qdhte,','@@lxwke,','@@rzbxs,','@@rzcys,' from tj_sys_yh where LXFS='@@lxfs,'</SQL_INSERT>
+		<SQL_UPDATE>update emp_plan set xzkhs='@@xzkhs,',jdkhs='@@jdkhs,',cjkhs='@@cjkhs,',jrhke='@@jrhke,',qdhte='@@qdhte,',lxwke='@@lxwke,',rzbxs='@@rzbxs,',rzcys='@@rzcys,' where lxfs='@@lxfs,' and rw_ny='@@rw_ny,'</SQL_UPDATE>
+		<SQL_DELETE></SQL_DELETE>
+		<URL></URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>费用管理</KJSM>
+	</row>
+	<row>
+		<KJM>IN0072</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>
+			insert into orderparts(product_id,product_code,product_name,product_size,product_untl,product_price,product_num,product_amount,product_image,order_code,srv_id,order_memo,type_sales,cost_price,ysl)
+			select product_id,product_code,product_name,product_size,product_untl,product_price,'@@product_num,' product_num,@@product_num,*product_price product_amount,product_image,(select top 1 ordercode from ordertrack where track_id='@@srv_id,') order_code,'@@srv_id,','@@order_memo,' order_memo,type_sales,product_price,product_num
+			from kc_kcdtb where id='@@id,'
+		</SQL_INSERT>
+		<SQL_UPDATE>update orderparts set product_num='@@product_num,',ysl='@@product_num,',product_amount='@@product_num,'*product_price,order_memo='@@back_memo,' where id='@@id,'</SQL_UPDATE>
+		<SQL_DELETE>delete from orderparts where id='@@id,'</SQL_DELETE>
+		<URL></URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>配件管理</KJSM>
+	</row>
+	<row>
+		<KJM>IN0073</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>
+			insert into orderparts(product_id,product_code,product_name,product_size,product_untl,product_price,product_num,product_amount,product_image,order_code,srv_id,order_memo,type_sales)
+			select product_id,product_code,product_name,product_size,product_untl,product_price,'@@product_num,' product_num,@@product_num,*product_price product_amount,'@@product_image,','@@srv_id,' order_code,'','@@order_memo,' order_memo,type_sales
+			from kc_kcdtb where id='@@id,'
+		</SQL_INSERT>
+		<SQL_UPDATE></SQL_UPDATE>
+		<SQL_DELETE></SQL_DELETE>
+		<URL>{ call sp_kcc_cpxx_import_brand('@@agent_code,','@@brand_imageurl,','@@brand_code,') }</URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>配件管理</KJSM>
+	</row>
+	<row>
+		<KJM>IN0074</KJM>
+		<CS>7</CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>begin if not exists (select * from orderlist where dh_code='@@back_code,' ) begin insert into orderlist(order_code,groom_date,ywy_tel,opr_dw,note_type,order_sts,agent_code,groom_memo,ywy,arr_man,arr_tel,arr_address,zjlxsj,yjlxsj,order_src,cust_name,housetype,az_date,order_date,order_amount,ismeter,fph,dh_code)  select '@@KEY,',getdate(),'','','Z','5','@@agent_code,','','','@@arr_man,','@@arr_tel,','@@arr_address,',getdate(),dateadd(DAY,3,GETDATE()),'@@order_src,','@@agent_name,','','@@az_date,','','@@order_amount,','已测量','报的单','@@back_code,' update backlist set order_code='@@KEY,' where back_code='@@back_code,' end else update orderlist set arr_man='@@arr_man,',arr_tel='@@arr_tel,',arr_address='@@arr_address,',az_date='@@az_date,',order_amount='@@order_amount,' where dh_code='@@back_code,'  end </SQL_INSERT>
+		<SQL_UPDATE></SQL_UPDATE>
+		<SQL_DELETE></SQL_DELETE>
+		<URL></URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>艾订货添加实名制</KJSM>
+	</row>
+	<row>
+		<KJM>IN0075</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT></SQL_INSERT>
+		<SQL_UPDATE>update WeiXinAppUser set ywygx='@@ywygx,',scfg='@@sxfg,',scfwlx='@@scfwlx,',dgszcd='@@dgszcd,',sflggs='@@sflggs,',bknl='@@bknl,' where YHID='@@yhid,'</SQL_UPDATE>
+		<SQL_DELETE></SQL_DELETE>
+		<URL>{ call sp_order_cancel('@@order_code,') }</URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>设计师管理</KJSM>
+	</row>
+	<row>
+		<KJM>IN0076</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>insert into OrderBound (Order_Code,bound,bound_Date,Bound_Type,Bound_Memo,Opr_Tel,Opr_Man,Rev_Tel,rev_man,agent_code,agent_name) select  '@@order_code,','@@bound,',GETDATE(),'红包','@@bound_memo,','@@opr_tel,','@@opr_man,','@@rev_tel,','@@rev_man,','@@agent_code,',agent_name from agent_list where agent_code='@@agent_code,'</SQL_INSERT>
+		<SQL_UPDATE></SQL_UPDATE>
+		<SQL_DELETE>delete from orderbound where bound_id='@@bound_id,'</SQL_DELETE>
+		<URL>{ call sp_sdtdr('@@tdr_tel,','@@order_code,','@@tdr,') }</URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>发红包</KJSM>
+	</row>
+
+	<row>
+		<KJM>IN0077</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>if not exists (select * from ckd_mx where id='@@lxfs,' and order_id='@@item_id,') insert into CKD_MX(id,xh,SPBM,SPMC,XHGG,PSID,jldw,SL,DJ,JE,order_id,tplj,ref_id) select '@@lxfs,' id,0,product_id,product_name,product_size,product_code,product_untl,'@@cur_yfs,',product_price,'@@cur_yfs,'*product_price,id,product_image,order_code from OrderProduct where id='@@item_id,'</SQL_INSERT>
+		<SQL_UPDATE></SQL_UPDATE>
+		<SQL_DELETE>delete from ckd_mx where ck_id='@@ck_id,'</SQL_DELETE>
+		<URL>{ call sp_kcc_ck_ckd('@@lxfs,','@@KEY,','@@yhxm,') }</URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>欠货补发</KJSM>
+	</row>
+	<row>
+		<KJM>IN0078</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT></SQL_INSERT>
+		<SQL_UPDATE></SQL_UPDATE>
+		<SQL_DELETE></SQL_DELETE>
+		<URL>{ call sp_kcc_dh('@@KEY,','@@agent_code,') }</URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>预进货单</KJSM>
+	</row>
+	<row>
+		<KJM>IN0079</KJM>
+		<CS>7</CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>insert into emp_fee(fee_type,fee_man,Fee_tel,Fee_amount,Fee_date,Fee_Memo,Agent_Code,opr_man,opr_tel,opr_date,fee_code) select '@@fee_type,','@@fee_man,','@@fee_tel,','@@fee_amount,','@@fee_date,','@@fee_memo,',dept,yhxm,lxfs,getdate(),'@@KEY,' from tj_sys_yh where LXFS='@@lxfs,'</SQL_INSERT>
+		<SQL_UPDATE></SQL_UPDATE>
+		<SQL_DELETE></SQL_DELETE>
+		<URL></URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>报销提交</KJSM>
+	</row>
+	<row>
+		<KJM>IN0080</KJM>
+		<CS>7</CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>insert into EmpTrack(track_id,agentcode,agentName,Track_Man,Track_Tel,track_date,Track_Content,track_address,track_type,lon,lat,clock_time) values('@@KEY,','@@agent_code,','@@agent_name,','@@track_man,','@@track_tel,',GETDATE(),'@@track_content,','@@track_address,','@@track_type,','@@lon,','@@lat,','@@clock_time,') </SQL_INSERT>
+		<SQL_UPDATE></SQL_UPDATE>
+		<SQL_DELETE></SQL_DELETE>
+		<URL></URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>员工拜访签到</KJSM>
+	</row>
+	<row>
+		<KJM>IN0081</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>insert into orderlist(order_code,groom_date,ywy_tel,opr_dw,note_type,order_sts,agent_code,groom_memo,ywy,arr_man,arr_tel,arr_address,zjlxsj,yjlxsj,order_src,cust_name,housetype,sex,lm_order_code)  select '@@KEY,' order_code,getdate() groom_date,'@@ywy_tel,' ywy_tel,'@@agent_name,' opr_dw,'Z' note_type,'9' order_sts,'@@agent_code,' agent_code,'' groom_memo,'@@ywy,' ywy,arr_man,arr_tel,arr_address,getdate() zjlxsj,dateadd(dd,3,getdate()) yjlxsj,'联盟带单' order_src,'@@agent_name,' cust_name,housetype,sex,order_code from OrderListPublic where ORDER_CODE='@@order_code,'</SQL_INSERT>
+		<SQL_UPDATE>begin delete from tj_sys_yh_oftenmenu where lxfs='@@lxfs,' insert into tj_sys_yh_oftenmenu(lxfs,gnid,gnmc,sort_bm) select '@@lxfs,',gnid,gnmc,sort_bm from TJ_SYS_MOBQX where GNID in (@@gnid,) end</SQL_UPDATE>
+		<SQL_DELETE></SQL_DELETE>
+		<URL>{ call sp_kcc_ck_xsh('@@track_id,')}</URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>售后送货</KJSM>
+	</row>
+	<row>
+		<KJM>IN0082</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>insert into bm_pay_bank(accountNo,accountName,mobile,identityNo,collectionSerialNo,bindDate,bankName,cardType,bankLogo,Logon_Mobile,Pay_Src) values('@@accountno,','@@accountname,','@@mobile,','@@identityno,','@@collectionserialno,',getdate(),'@@bankname,','@@cardtype,','@@banklogo,','@@logon_mobile,','ZS_BANK')</SQL_INSERT>
+		<SQL_UPDATE></SQL_UPDATE>
+		<SQL_DELETE>delete from bm_pay_bank where collectionSerialNo='@@collectionserialno,'</SQL_DELETE>
+		<URL></URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>银行绑卡</KJSM>
+	</row>
+	<row>
+		<KJM>IN0083</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>insert into weixinsmart_favorite(wx_openid,pic_id,pic_agent_code,add_date) select '@@open_id,',pic_id,agent_code,GETDATE() from bm_tp where pic_id='@@pic_id,'</SQL_INSERT>
+		<SQL_UPDATE>if exists (select * fROM WeiXinSmart_UserAgent where wx_openid ='@@open_id,' and agent_code='@@agent_code,') update WeiXinSmart_UserAgent set zjlnsj=getdate(),visit_hits = isnull(visit_hits,0)+1  where wx_openid ='@@open_id,' and agent_code='@@agent_code,' else insert into WeiXinSmart_UserAgent(wx_openid,agent_code,zjlnsj,visit_hits,add_time) values('@@open_id,','@@agent_code,',GETDATE(),1,GETDATE())</SQL_UPDATE>
+		<SQL_DELETE>delete from weixinsmart_favorite  where wx_openid='@@open_id,' and pic_id='@@pic_id,'</SQL_DELETE>
+		<URL></URL>
+		<SFTZ>sm</SFTZ>
+		<TZNR>客户昵称：@@nickname, ,正在访问你的艾来客视频营销小程序，你可以试着跟进！</TZNR>
+		<KJSM>微信小程序我喜欢的图片</KJSM>
+	</row>
+	<row>
+		<KJM>IN0084</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>if not exists (select * from weixinsmart_useragent where wx_openid='@@wx_openid,' and agent_code='@@agent_code,') insert into weixinsmart_useragent(wx_openid,agent_code,zjlnsj) select '@@wx_openid,','@@agent_code,',GETDATE()</SQL_INSERT>
+		<SQL_UPDATE>update weixinsmart_user set s_lxfs='@@lxfs,' where s_wxopenid='@@open_id,' </SQL_UPDATE>
+		<SQL_DELETE>delete from weixinsmart_useragent  where wx_openid='@@open_id,' and agent_code='@@agent_code,'</SQL_DELETE>
+		<URL>{ call sp_weixin_sm('@@open_id,','@@nickname,','@@avatarurl,','@@gender,','@@province,','@@city,','@@agent_code,','@@mob_tel,') }</URL>
+		<SFTZ>sm</SFTZ>
+		<TZNR></TZNR>
+		<KJSM>取消关注</KJSM>
+	</row>
+	<row>
+		<KJM>IN0085</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>begin insert into OrderTrack(track_id,OrderCode,CustName,Cust_Tel,Track_Man,Track_Tel,track_date,Track_Content,track_memo) select '@@KEY,',order_code,Cust_Name,arr_tel,'小程序','小程序',GETDATE(),'@@track_content,'  track_content,'报修' from orderlist where order_code='@@order_code,'  end</SQL_INSERT>
+		<SQL_UPDATE>if not exists(select * from WeiXinSmart_UserAgent where wx_openid='@@open_id,' and agent_code='@@agent_code,') insert into WeiXinSmart_UserAgent(wx_openid,agent_code,zjlnsj) values('@@open_id,','@@agent_code,' ,getdate())</SQL_UPDATE>
+		<SQL_DELETE>update  WeiXinSmart_User  set  s_wxnick='@@nickname,',s_wxheadimage='@@avatarurl,' where s_wxopenid='@@openid,'</SQL_DELETE>
+		<URL></URL>
+		<SFTZ></SFTZ>
+		<TZNR> </TZNR>
+		<KJSM>报修登记update 添加管理店铺</KJSM>
+	</row>
+	<row>
+		<KJM>IN0086</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>begin delete from Stylist_label where tdr_lxfs='@@tdr_lxfs,'and ywy_lxfs='@@ywy_lxfs,'     insert into Stylist_label(label_id,tdr_lxfs,ywy_lxfs) select label_id,'@@tdr_lxfs,','@@ywy_lxfs,' from label where charindex(label_name,'@@label_name,')>0 end </SQL_INSERT>
+		<SQL_UPDATE>update WeiXinSmart_UserAgent set order_desc='@@order_desc,' where ID='@@id,'</SQL_UPDATE>
+		<SQL_DELETE></SQL_DELETE>
+		<URL></URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>update是否有意向,  insert添加或删除标签</KJSM>
+	</row>
+	<row>
+		<KJM>IN0087</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>insert into picproductList(pic_id,Product_Id,Product_Code,Product_Name,Product_Size,Product_Untl,Sale_Price,Product_Image,Agent_Code,Sale_Memo) select '@@pic_id,','@@id,',product_code,product_name,product_size,product_untl,cast(type_sales as numeric(18,2)),product_image,agent_code,'@@sale_memo,' from kc_kcdtb where id='@@id,'</SQL_INSERT>
+		<SQL_UPDATE>update picproductList set Product_Code='@@product_code,',Product_Name='@@product_name,',Product_Size='@@product_size,',Product_Untl='@@product_untl,',Sale_Price='@@sale_price,',Sale_Memo='@@sale_memo,' where Sale_Id='@@sale_id,'</SQL_UPDATE>
+		<SQL_DELETE>delete from PicProductList where Sale_Id='@@sale_id,'</SQL_DELETE>
+		<URL>{ call sp_tjcp('@@pic_id,', '@@product_code,', '@@series_code,', '@@xl_code,', '@@product_name,', '@@product_size,', '@@product_untl,', '@@agent_code,', '@@product_color,','@@product_memo,', '@@type_sales,', '@@lower_num,') }</URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>添加所关联的产品</KJSM>
+	</row>
+	<row>
+		<KJM>IN0088</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>update BM_TP set video_num=ISNULL(video_num,0)+1 where Pic_Id='@@pic_id,'</SQL_INSERT>
+		<SQL_UPDATE>update BM_TP set Style='@@style,',Pic_MJ='@@pic_mj,',Pic_Position='@@pic_position,',houseType='@@housetype,',Pic_Price='@@pic_price,',Pic_Name='@@pic_name,',buyers_name='@@buyers_name,',buyers_tel='@@buyers_tel,',buyers_address='@@buyers_address,',house_number='@@house_number,' where Pic_Id='@@pic_id,'</SQL_UPDATE>
+		<SQL_DELETE>begin delete from bm_tp where pic_id='@@pic_id,' delete from PicProductList where pic_id='@@pic_id,' end</SQL_DELETE>
+		<URL>{ call sp_gnxf('@@type,','@@enddate,','@@agent_code,','@@days,') }</URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>修改图片属性 call商家续费</KJSM>
+	</row>
+	<row>
+		<KJM>IN0089</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>insert into WeiXinSmart_formID(open_id,form_id,add_time) values('@@open_id,','@@form_id,',GETDATE())</SQL_INSERT>
+		<SQL_UPDATE>update agent_list set jzfw_id='@@id,' where AGENT_CODE='@@agent_code,'</SQL_UPDATE>
+		<SQL_DELETE>begin delete from WeiXinSmart_formId where form_id='@@form_id'   delete from WeiXinSmart_formId where add_time &lt; DATEADD(DAY,-7,GETDATE())   end</SQL_DELETE>
+		<URL>{ call sp_smart_cjdp('@@lxfs,','@@yhxm,' ,'@@prv_code,','@@ppbm,','@@mdmc,','@@xxdz,','@@prov,','@@city,','@@dist,','@@PASSWORD1,','@@jylm,','@@sb_time,','@@xb_time,','@@lon,','@@lat,','@@address,','@@keyword,','@@announcement,','@@endtime,','@@open_id,') } </URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>小程序formid,call小程序入驻, update修改agent_list关联的家装服务id</KJSM>
+	</row>
+
+	<row>
+		<KJM>IN0090</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>insert into orderlist(order_code,groom_date,agent_code,cust_name,note_type,order_sts,ywy,ywy_tel,ywy_headimage,arr_tel,arr_man,opr_tel,opr_man,order_src,zjlxsj) values ('@@KEY,',getdate(),'@@agent_code,','@@cust_name,','Z','9','@@ywy,','@@ywy_tel,','@@ywy_headimage,','@@arr_tel,','@@arr_man,','@@opr_tel,','@@opr_man,','@@order_src,',getdate())</SQL_INSERT>
+		<SQL_UPDATE>update tj_sys_yh set yhxm='@@yhxm,' where lxfs='@@lxfs,'</SQL_UPDATE>
+		<SQL_DELETE></SQL_DELETE>
+		<URL>{call sp_smart_shipinxufei('@@agent_code,', '@@enddate,' ,'@@day_num,') }</URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>insert快速报备 call视?营销 update修改用户名称 </KJSM>
+	</row>
+	<row>
+		<KJM>IN0091</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>update WeiXinSmart_UserAgent set zjlnsj=getdate(),visit_hits = isnull(visit_hits,0)+1  where wx_openid ='@@open_id,' and agent_code='@@agent_code,'</SQL_INSERT>
+		<SQL_UPDATE>
+			begin
+			declare @share_openid varchar(50),@amount decimal(18,2),@agent_amount decimal(18,2)
+			set @share_openid=''
+			set @amount = cast(ceiling(rand() * 88)*0.01 as decimal(18,2))
+			set @agent_amount =(select agent_amount from agent_list where  agent_code='@@agent_code,')
+			if '@@kcc_id,' != '' set @share_openid =(select s_wxopenid from WeiXinSmart_User where kcc_id='@@kcc_id,')
+			if '@@share_openid,' != '' set  @share_openid ='@@share_openid,'
+
+			insert into WeiXinSmart_UserAgent(wx_openid,agent_code,zjlnsj,visit_hits,share_openid,add_time) values('@@open_id,','@@agent_code,',GETDATE(),1,@share_openid ,GETDATE())
+
+			if  @share_openid != ''  and   @agent_amount > @amount
+			begin
+			insert into OrderCharge (agent_code,Charge_Date,init_amount,charge_amount,store_amount,charge_memo,open_id) select agent_code,getdate(), isnull(agent_amount,0) agent_amount, -@amount ,isnull(agent_amount,0)- @amount,'红包',@share_openid  from  agent_list where agent_code='@@agent_code,'
+			update agent_list set agent_amount= isnull(agent_amount,0)-@amount where agent_code='@@agent_code,'
+			insert into OrderBound (bound,bound_date,bound_type,bound_Memo,isRead,open_id,agent_code) values(@amount,getdate(),'打赏','小程序打赏',0,@share_openid,'@@agent_code,')
+			update WeiXinSmart_User set  wx_amount =isnull(wx_amount,0)+ @amount where s_wxopenid=@share_openid
+			end
+
+			end
+		</SQL_UPDATE>
+		<SQL_DELETE></SQL_DELETE>
+		<URL></URL>
+		<SFTZ>sm</SFTZ>
+		<TZNR>客户昵称：@@nickname, ,关注你的艾来客视频营销小程序，你可以试着跟进！</TZNR>
+		<KJSM>insert修改观看次数，和最近观看时间   update添加关注店铺</KJSM>
+	</row>
+	<row>
+		<KJM>IN0092</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>insert into kc_kcdtb(product_code,product_name,product_size,type_sales,product_untl,product_txm,add_date,agent_code,sts) values('@@product_code,','@@product_name,','@@product_size,','@@type_sales,','@@product_untl,',lower(newid()),getdate(),'@@agent_code,',0)</SQL_INSERT>
+		<SQL_UPDATE>update kc_kcdtb set product_code='@@product_code,',product_name='@@product_name,',product_size='@@product_size,',type_sales='@@type_sales,',product_untl='@@product_untl,' where ID='@@id,'</SQL_UPDATE>
+		<SQL_DELETE></SQL_DELETE>
+		<URL>{ call sp_khbb_history_wx('@@id,','@@agent_code,','@@fph,','@@order_src,','@@username,','@@agent_name,','@@arr_man,','@@arr_tel,','@@arr_address,','@@djje,','@@ywy_tel,','@@groom_memo,','@@housetype,','@@xb,','@@housearea,','@@lon,','@@lat,','@@order_amount,','@@demo,','@@order_date,','@@openid,') }</URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>insert添加产品--库存表，  update修改产品 , call小程序添加历史订单</KJSM>
+	</row>
+
+	<row>
+		<KJM>IN0093</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>insert into OrderTrack(track_id,OrderCode,CustName,Cust_Tel,Track_Man,Track_Tel,track_date,Track_Content,track_memo,product_id,fault) select right(convert(varchar,replace(replace(replace(replace(convert(varchar,getdate(),121),'-',''),':',''),' ',''),'.',''))+substring(convert(varchar,rand()),3,3),16),order_code,arr_man,arr_tel,'@@track_man,','@@track_tel,',GETDATE(),'@@track_content,' ,'报修','@@product_id,','@@fault,' from orderlist  where order_code='@@order_code,'</SQL_INSERT>
+		<SQL_UPDATE>update picproductlist set store_id='@@goods_id,' where sale_id='@@sale_id,'</SQL_UPDATE>
+		<SQL_DELETE>insert into OrderSrv(Order_Code,Agent_Code,Arr_Man,Arr_Address,Arr_Tel,Srv_Date,Srv_Result,Srv_SjDate,Srv_Type,srv_sts)  select '@@track_id,', Agent_Code,Arr_Man,Arr_Address,Arr_Tel,GETDATE(),'您已取消了该订单',GETDATE(),'维修','2' from orderlist where Order_Code='@@order_code,' </SQL_DELETE>
+		<URL>{ call sp_tj_sys_yh_User('@@openid,','@@wxnick,','@@headimage,','@@gender,','@@province,','@@city,','@@type,') }</URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM> insert添加报修, update修改产品所关联的家装服务产品的id, call 艾修客户存储</KJSM>
+	</row>
+	<row>
+		<KJM>IN0094</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>insert into housing_address(agent_code,housing_address,number,housing_name,lon,lat) values('@@agent_code,','@@housing_address,',1,'@@housing_name,','@@lon,','@@lat,') </SQL_INSERT>
+		<SQL_UPDATE>update BM_TP set isaudit='T' where Pic_Id='@@pic_id,'</SQL_UPDATE>
+		<SQL_DELETE>update WeiXinSmart_UserAgent set design_name='@@design_name,' ,design_tel='@@design_tel,' where wx_openid='@@openid,' and agent_code='@@agent_code,'</SQL_DELETE>
+		<URL></URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM> insert添加小区名称,update视频的审核,</KJSM>
+	</row>
+	<row>
+		<KJM>IN0095</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>insert into bm_tp(pic_code,short_path,full_path,width,height,agent_code,pic_name,brand_code,add_date,layout,ext_name,lxfs,isaudit,video_id) values('@@FileCode,','@@FileShortFullName,','@@FileFullName,','@@Pix_W,','@@Pix_H,','@@agent_code,','@@pic_name,','@@brand_code,',getdate(),'图文','@@ExeName,','@@lxfs,','T','@@video_id,')</SQL_INSERT>
+		<SQL_UPDATE>update housing_address set housing_address= '@@housing_address,',housing_name='@@housing_name,' where id='@@id,'</SQL_UPDATE>
+		<SQL_DELETE>delete from housing_address where id='@@id,'</SQL_DELETE>
+		<URL></URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>insert视频操作,update修改常用小区名称,delete删除常用小区</KJSM>
+	</row>
+
+	<row>
+		<KJM>IN0096</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>insert into OrderTrack(track_id,OrderCode,CustName,Cust_Tel,Track_Man,Track_Tel,track_date,Track_Content,track_memo) values('@@id,','@@ordercode,','@@custname,','@@cust_tel,','@@track_man,','@@track_tel,',GETDATE(),'@@track_content,','完工拍照')</SQL_INSERT>
+		<SQL_UPDATE>update kc_kcdtb set orderCode='@@ordercode,' where product_id='@@code,'</SQL_UPDATE>
+		<SQL_DELETE>insert into OrderTrack(track_id,OrderCode,CustName,Cust_Tel,Track_Man,Track_Tel,track_date,Track_Content,track_memo,product_id,fault,wx_openid)  select '@@id,','@@ordercode,','@@custname,','@@cust_tel,','@@track_man,','@@track_tel,',GETDATE(),'@@track_content,','报修','@@product_id,','@@fault,','@@openid,'</SQL_DELETE>
+		<URL></URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>insert小程序完工,update修改kc_kcdtb的状态ordercode</KJSM>
+	</row>
+
+	<row>
+		<KJM>IN0097</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT> insert into activity(agent_code,beginDate,endDate,price,title,addDate) values('@@agent_code,','@@beginDate,','@@endDate,','@@price,','@@title,',getdate())</SQL_INSERT>
+		<SQL_UPDATE>insert into WeiXinSmart_comments (openid,comments,adddate,pic_id,agent_code,comm_id,comm_type,openid1, comments1) values('@@openid,','@@comments,',GETDATE(),'@@pic_id,','@@agent_code,','@@comm_id,','T','@@openid1,', '@@comments1,')</SQL_UPDATE>
+		<SQL_DELETE>begin delete from Activity where  actcode='@@actcode,' delete from Activity_pic where  actcode='@@actcode,'   end</SQL_DELETE>
+		<URL></URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>insert发布活动,update评论</KJSM>
+	</row>
+	<row>
+		<KJM>IN0098</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>begin if not  exists(select * from weixinsmart_praise where openid='@@openid,' and pic_id='@@pic_id,' ) begin insert into weixinsmart_praise(openid,pic_id,add_date) values('@@openid,','@@pic_id,',getdate())  update bm_tp set praise= praise +1 where pic_id='@@pic_id,' end end</SQL_INSERT>
+		<SQL_UPDATE></SQL_UPDATE>
+		<SQL_DELETE></SQL_DELETE>
+		<URL></URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>insert点赞</KJSM>
+	</row>
+	<row>
+		<KJM>IN0099</KJM>
+		<CS>7</CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>begin update OrderList set dh_sts='待送货'  where ORDER_CODE='@@order_code,' insert into OrderTrack(track_id,OrderCode,CustName,Cust_Tel,Track_Man,Track_Tel,track_date,Track_Content,track_memo) select '@@KEY,',order_code,Arr_Man,Arr_Tel,'@@ywy_man,','@@ywy_tel,',GETDATE(),'@@content,','到货通知' from OrderList where ORDER_CODE='@@order_code,' end</SQL_INSERT>
+		<SQL_UPDATE></SQL_UPDATE>
+		<SQL_DELETE></SQL_DELETE>
+		<URL></URL>
+		<SFTZ>insert</SFTZ>
+		<TZNR>select  '@@content,' nr, device_token token1,lxfs msgTel,'' sendTel,'艾管理' appname,'@@order_code,' ordercode,'货物到达仓库提醒' msgtype  from TJ_SYS_YH a where lxfs='@@ywy_tel,'</TZNR>
+		<KJSM>到货确认</KJSM>
+	</row>
+	<row>
+		<KJM>IN0100</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>begin update orderlist set dh_sts='已安装'  where order_code='@@order_code,'  insert into bm_tp(pic_code,short_path,full_path,width,height,agent_code,pic_name,brand_code, add_date,layout,ext_name,lxfs,isaudit,video_id,buyers_name,buyers_tel,buyers_address,order_code) select '@@FileCode,','@@FileShortFullName,','@@FileFullName,','@@Pix_W,','@@Pix_H,','@@agent_code,', '@@pic_name,','@@brand_code,',getdate(),'图文','@@ExeName,','@@lxfs,','T','@@video_id,' ,arr_man,arr_tel,arr_address,order_code from orderlist where order_code='@@order_code,' end</SQL_INSERT>
+		<SQL_UPDATE>begin update orderlist set Order_STS='0',dh_sts='已安装' where ORDER_CODE='@@order_code,'  insert into OrderTrack(track_id,OrderCode,CustName,Cust_Tel,Track_Man,Track_Tel,track_date,Track_Content,track_memo) select '@@KEY,',order_code,Arr_Man,Arr_Tel,'@@ywy_man,','@@ywy_tel,',GETDATE(),'@@content,','订单结案' from OrderList where ORDER_CODE='@@order_code,' end</SQL_UPDATE>
+		<SQL_DELETE></SQL_DELETE>
+		<URL></URL>
+		<SFTZ>insert</SFTZ>
+		<TZNR>select  '@@pic_name,' nr, device_token token1,lxfs msgTel,'' sendTel,'艾管理' appname,'@@order_code,' ordercode,'货物到达仓库提醒' msgtype  from TJ_SYS_YH a,orderlist o where a.LXFS=o.YWY_TEL and ORDER_CODE='@@order_code,'	</TZNR>
+		<KJSM>insert完工  update 结案</KJSM>
+	</row>
+	<row>
+		<KJM>IN0101</KJM>
+		<CS>7</CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>begin update orderlist set dh_sts='已送货'  where order_code='@@order_code,'  	insert into OrderTrack(track_id,OrderCode,CustName,Cust_Tel,Track_Man,Track_Tel,track_date,Track_Content,track_memo) select '@@KEY,',order_code,Arr_Man,Arr_Tel,'@@ywy_man,','@@ywy_tel,',GETDATE(),'@@content,','确认送达' from OrderList where ORDER_CODE='@@order_code,'  end</SQL_INSERT>
+		<SQL_UPDATE></SQL_UPDATE>
+		<SQL_DELETE></SQL_DELETE>
+		<URL></URL>
+		<SFTZ>insert</SFTZ>
+		<TZNR>select  '@@content,' nr, device_token token1,lxfs msgTel,'' sendTel,'艾管理' appname,'@@order_code,' ordercode,'确认送达提醒' msgtype  from TJ_SYS_YH a,orderlist o where a.LXFS=o.YWY_TEL and ORDER_CODE='@@order_code,'	</TZNR>
+		<KJSM>确认送达</KJSM>
+	</row>
+
+	
+
+	<row>
+		<KJM>INT001</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>begin if  exists (select * from tj_sys_type where  lxfs='@@lxfs,' )  update tj_sys_type set model='@@model,',phone_version='@@phone_version,',android_version='@@android_version,',token='@@token,',upd_date=GETDATE()  where lxfs='@@lxfs,'  else  insert into tj_sys_type(lxfs,model,phone_version,android_version,token,add_date,upd_date) values('@@lxfs,' ,'@@model,','@@phone_version,','@@android_version,','@@token,',GETDATE(),GETDATE())    end</SQL_INSERT>
+		<SQL_UPDATE></SQL_UPDATE>
+		<SQL_DELETE></SQL_DELETE>
+		<URL></URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>客户手机类型</KJSM>
+	</row>
+
+
+
+
+	<!-- 二维码模块 -->
+	<row>
+		<KJM>INM001</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>begin if  not exists(select * from rkd_zb where id='@@rk_id,')  insert into RKD_ZB(ID,RQ,brand_code,sh,zdr) select '@@rk_id,',GETDATE(),'@@brand_code,','F','@@zdr,' end</SQL_INSERT>
+		<SQL_UPDATE>begin  update qr_code set qr_stats='已使用' where qr_code='@@qr_code,'   if not exists( select * from rkd_mx where id='@@rk_id,' and spbm='@@product_id,' )     insert into rkd_mx(id,spbm,spmc,xhgg,sccj,psid,jldw,sl,product_txm) select '@@rk_id,',id,product_name,product_size,Brand_Code,product_code,product_untl,1,'@@qr_code,' from product_list where id='@@product_id,'  end</SQL_UPDATE>
+		<SQL_DELETE></SQL_DELETE>
+		<URL>{ call sp_qr_code('@@num,' ,'@@product_id,') }</URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>call打印二维码，insert生成入库单，update生成入库明细</KJSM>
+	</row>
+	<row>
+		<KJM>INM002</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>update backdetails set is_send='配货完成' where BACK_CODE='@@back_code,' and Product_Id='@@product_id,'</SQL_INSERT>
+		<SQL_UPDATE>update QR_Code set qr_stats='已使用',qr_type='零散布',qr_length='@@length,',store_no='@@store_no,' where QR_Code='@@qr_code,'</SQL_UPDATE>
+		<SQL_DELETE></SQL_DELETE>
+		<URL>{ call sp_cpck('@@back_code,','@@audit_man,') }</URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>update生成零散布管理，insert 配货完成，call出库</KJSM>
+	</row>
+	<row>
+		<KJM>INM003</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>insert into qc_list(qr_code,rq,zdr,product_id,product_code,product_code2,brand_code) select '@@qr_code,',getdate(),'@@zdr,',id,product_code,substring('@@qr_code,',0,len('@@qr_code,')-8),brand_code from product_list where product_code2=substring('@@qr_code,',0,len('@@qr_code,')-8)</SQL_INSERT>
+		<SQL_UPDATE></SQL_UPDATE>
+		<SQL_DELETE></SQL_DELETE>
+		<URL>{ call sp_rk('@@back_code,','T','@@audit_man,') }</URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>质量检测插入</KJSM>
+	</row>
+	<row>
+		<KJM>INM004</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>begin if  not exists(select * from rkd_zb where id='@@rk_id,',note_type,pjlx)   insert into RKD_ZB(ID,RQ,brand_code,sh,zdr) select '@@rk_id,',GETDATE(),'@@brand_code,','F','@@zdr,','RK','生产进仓' insert into rkd_mx(id,xh,spbm,spmc,xhgg,sccj,psid,jldw,sl,qr_code) select '@@rk_id,',0,id,product_name,product_size,Brand_Code,product_code,product_untl,1,'@@qr_code,' from product_list a where product_code2=substring('@@qr_code,',0,len('@@qr_code,')-8) end</SQL_INSERT>
+		<SQL_UPDATE></SQL_UPDATE>
+		<SQL_DELETE></SQL_DELETE>
+		<URL></URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>call打印二维码，insert生成入库单，update生成入库明细</KJSM>
+	</row>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<!-- 终端系统 -->
+	<row>
+		<KJM>INZ001</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>insert into orderlist(order_code,groom_date,Opr_Man,opr_dw,note_type,order_sts,agent_code,order_memo,isfp,fph,fpdz,order_src,ywy,cust_name,arr_man,arr_tel,arr_address,ht_amount,yqazsj,ywy_tel,zjlxsj,groom_memo,housetype,sex) values('@@KEY,',getdate(),'','','Z','9','@@agent_code,','@@demo,','@@isfp,','@@fph,','@@fpdz,','@@order_src,','@@username,','@@agent_name,','@@arr_man,','@@arr_tel,','@@arr_address,','@@ht_amount,','@@yqazsj,','@@ywy_tel,',getdate(),'@@groom_memo,','@@housetype,','@@xb,')</SQL_INSERT>
+		<SQL_UPDATE>update orderlist set cust_name='@@Agent_Name,',arr_man='@@Arr_Man,',arr_tel='@@Arr_Tel,',arr_address='@@Arr_Address,',ht_amount='@@Ht_Amount,',order_src='@@Order_Src,',cl_date='@@Arr_Date,',ywy='@@YWY,',order_memo='@@Demo,',agent_code='@@Agent_Code,',isfp='@@ISFP,',az_man='@@AZ_Man,',fph='@@FPH,',fpdz='@@FPDZ,' where order_code='@@Back_Code,'</SQL_UPDATE>
+		<SQL_DELETE>delete from orderlist where Order_Code='@@Back_Code,'</SQL_DELETE>
+		<URL></URL>
+		<SFTZ>update</SFTZ>
+		<TZNR>select '你的密码已经初始化为：zz' nr,'@@Device_Token,'</TZNR>
+		<KJSM>销售单增加</KJSM>
+	</row>
+	<row>
+		<KJM>INZ002</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>update orderlist set Order_Sts='@@Order_Sts,', end_date=getdate(),fk_amount3='@@Fk_Amount3,' where order_code='@@Back_Code,'</SQL_INSERT>
+		<SQL_UPDATE>update orderlist set Order_Sts='@@Order_Sts,' where order_code='@@Back_Code,'</SQL_UPDATE>
+		<SQL_DELETE></SQL_DELETE>
+		<URL></URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>销售单状态变更增加</KJSM>
+	</row>
+	<row>
+		<KJM>INZ003</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>begin if(not exists(select * from backlist where back_code='@@Back_Code,')) insert into backlist(Back_Code,Agent_Code,Back_Num,Back_Date,Arr_Date,Back_Sts,Back_Demo,Note_Type,Opr_Man,Opr_Dw,JSDH,Back_Type,YWY,Arr_Man,Arr_Tel,Arr_Address,Dis_Amount,Dised_Amount,Tis_Amount,Account_Amount,Taf_Amount,Brand_Code,gg_amount,cx_amount,tj_amount,cd_amount,qt_amount,qyzk,djlx) values('@@Back_Code,','@@Agent_Code,','0',getdate(),'@@Arr_Date,','0','@@Demo,','XS','@@LS.XM,','@@LS.DWDM,','','0','@@YWY,','@@Arr_Man,','@@Arr_Tel,','@@Arr_Address,','0','0','0','0','0','',0,0,0,0,0,'100','标准')  update orderlist set Order_Sts='@@Order_Sts,' where order_code='@@Back_Code,' end </SQL_INSERT>
+		<SQL_UPDATE>begin update backlist set back_sts='9',sh_date=getdate() where back_code='@@Back_Code,' update orderlist set Order_Sts='3' where order_code='@@Back_Code,' end</SQL_UPDATE>
+		<SQL_DELETE>begin update backlist set back_sts='1',back_type='1',SFSF='@@SFSF,',sh_date=getdate() where back_code='@@Back_Code,' update orderlist set Order_Sts='4' where order_code='@@Back_Code,' end</SQL_DELETE>
+		<URL></URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>出库单转换</KJSM>
+	</row>
+	<row>
+		<KJM>INZ004</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT></SQL_INSERT>
+		<SQL_UPDATE>begin update orderlist set ht_amount='@@Ht_Amount,',fk_amount2='@@Fk_Amount2,',order_mj='@@Order_MJ,',az_man='@@AZ_Man,',Arr_Man='@@Arr_Man,',Arr_Tel='@@Arr_Tel,',Arr_Address='@@Arr_Address,' where order_code='@@Back_Code,' update backlist set Arr_Date='@@Arr_Date,',Back_Num=b.back_num,Back_Amount=b.back_amount,Back_Demo='@@Demo,',Ywy='@@YWY,',Arr_Man='@@Arr_Man,',Arr_Tel='@@Arr_Tel,',Arr_Address='@@Arr_Address,',Tis_Amount='@@Tis_Amount,',Taf_Amount='@@Taf_Amount,',jsdh='@@JSDH,',gg_amount='@@Gg_Amount,',cx_amount='@@Cx_Amount,',tj_amount='@@Tj_Amount,',cd_amount='@@Cd_Amount,',qt_amount='@@Qt_Amount,',djlx='@@DJLX,' from backlist a,(select back_code,sum(back_num) back_num,sum(back_amount) back_amount from backdetails where back_code='@@Back_Code,' group by back_code) b where a.back_code=b.back_code and a.Back_Code='@@Back_Code,' end</SQL_UPDATE>
+		<SQL_DELETE>begin delete from backlist where Back_Code='@@Back_Code,'  delete from backDetails where Back_Code='@@Back_Code,' delete from orderlist where order_code='@@Back_Code,' end</SQL_DELETE>
+		<URL></URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>退货单修改</KJSM>
+	</row>
+	<row>
+		<KJM>INZ005</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>insert into ordersrv(order_code,srv_date,srv_man,srv_memo,srv_amount,srv_result,srv_sts,contact_tel,srv_tel) values('@@Order_Code,','@@Srv_Date,','@@Srv_Man,','@@Srv_Memo,','@@Srv_Amount,','@@Srv_Result,','0','@@contact_tel,','@@srv_tel,')</SQL_INSERT>
+		<SQL_UPDATE>update ordersrv set srv_man='@@Srv_Man,',srv_memo='@@Srv_Memo,',srv_amount='@@Srv_Amount,',srv_result='@@Srv_Result,',srv_sts='@@Srv_Sts,' where id='@@Srv_Id,'</SQL_UPDATE>
+		<SQL_DELETE>delete from ordersrv where id='@@Srv_Id,'</SQL_DELETE>
+		<URL></URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>售后单修改</KJSM>
+	</row>
+	<row>
+		<KJM>INZ006</KJM>
+		<CS>7</CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>begin insert into orderlist(order_code,groom_date,Opr_Man,opr_dw,note_type,order_sts,agent_code,groom_memo,ywy,ywy_tel,arr_man,arr_tel,arr_address,opr_tel,opr_token,zjlxsj,yjlxsj,cust_name,housetype) select top 1 '@@KEY,',getdate(),'@@username,',yhxm+'('+isnull(dzjc,'本店')+')','Z','9','@@agent_code,','@@demo,','@@ywy,','@@ywy_tel,','@@arr_man,','@@arr_tel,','@@arr_address,','@@opr_tel,','@@opr_token,',getdate(),dateadd(DAY,3,GETDATE()),'@@agent_name,','@@housetype,' from tj_sys_yh where lxfs='@@opr_tel,' insert into OrderTrack(track_id,OrderCode,CustName,Cust_Tel,Track_Man,Track_Tel,track_date,Track_Content,track_memo) select '@@KEY,','@@KEY,' order_code,'@@arr_man,','@@arr_tel,','@@username,','@@opr_tel,',GETDATE(),'该客户是@@username,于'+dbo.getdatetime(getdate())+'推荐。','分享客户' end</SQL_INSERT>
+		<SQL_UPDATE></SQL_UPDATE>
+		<SQL_DELETE></SQL_DELETE>
+		<URL></URL>
+		<SFTZ>insert</SFTZ>
+		<TZNR>select  '客户分享：@@username,分享了一个客户(@@arr_man, @@arr_tel,)给你，赶紧去联系他吧！' nr, device_token token1,lxfs msgTel,'' sendTel,'艾管理' appname,'@@KEY,' ordercode,'客户分享' msgtype  from TJ_SYS_YH a where DEPT='@@agent_code,' and yhjb='老板' union all select  '客户分享：@@username,分享了一个客户(@@arr_man, @@arr_tel,)给你，赶紧去联系他吧！' nr, device_token token1,lxfs msgTel,'' sendTel,'艾管理' appname,'@@KEY,' ordercode,'客户分享' msgtype  from TJ_SYS_YH a where lxfs='@@ywy_tel,'</TZNR>
+		<KJSM>分享客户</KJSM>
+	</row>
+
+
+	<!-- 终端下单部分 -->
+	<row>
+		<KJM>IN0S03</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>if not exists (select * from backlist where back_code='XS@@LS.DWDM,') insert into backlist(Back_Code,Agent_Code,Back_Num,Back_Date,Arr_Date,Back_Sts,Back_Demo,Note_Type,Opr_Man,Opr_Dw,JSDH,Back_Type,YWY,Arr_Man,Arr_Tel,Arr_Address,Dis_Amount,Dised_Amount,Tis_Amount,Account_Amount,Taf_Amount,Brand_Code,gg_amount,cx_amount,tj_amount,cd_amount,qt_amount,qyzk,djlx,arr_fax,lgjy,pro_amount,wl_amount) select 'XS@@LS.DWDM,',agent_code,'0',getdate(),GETDATE(),'9','','XS','@@LS.XM,',agent_code,'','0',DOMAIN_MAN, CONTACT_MAN,agent_tel,AGENT_ADDRESS,'0','0','0',Agent_Amount,'0',brand_code,0,0,0,0,0,qyzk,'标准',AGENT_FAX,'0','0','0' from agent_list where AGENT_CODE='@@LS.DWDM,'</SQL_INSERT>
+		<SQL_UPDATE>update backlist set Back_Num=b.back_num,Back_Amount=b.back_amount from backlist a,(select back_code,sum(back_num) back_num,sum(back_amount) back_amount from backdetails where back_code='@@Back_Code,' group by back_code) b where a.back_code=b.back_code and a.Back_Code='@@Back_Code,'</SQL_UPDATE>
+		<SQL_DELETE></SQL_DELETE>
+		<URL></URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>终端下单</KJSM>
+	</row>
+	<row>
+		<KJM>IN0K07</KJM>
+		<CS>2</CS>
+		<SQL_SELECT>select * from backdetails where product_id='@@Product_Code,' and BACK_CODE='@@Back_Code,' and product_mj='@@Product_MJ,'</SQL_SELECT>
+		<SQL_INSERT>INSERT INTO backdetails(PRODUCT_CODE, Back_CODE, PRODUCT_NAME, SERIES_CODE, PRODUCT_SIZE,PRODUCT_UNTL, PRODUCT_PRICE,Back_AMOUNT,Opr_Man,Back_TYPE,PRODUCT_COLOR,Price_Type,disaccount_price,product_id,zk,back_reason,ware_code,fact_num,fact_amount,pxh,pack_memo,pack_num,pack_nums,type_agent,type_ls,store_num,product_mj,store_no,pcs_dj,product_attr,back_num,product_image,zdqdl,ispch)  SELECT  PRODUCT_CODE,'@@Back_Code, ',PRODUCT_NAME+' '+isnull(product_color,'')+' '+isnull(gas_type,'')+' '+isnull(gas_style,'') product_name,SERIES_CODE, PRODUCT_SIZE,PRODUCT_Untl,order_price*dbo.getOrderZK('@@QYZK,',series_code)/100 PRODUCT_PRICE,(order_price*dbo.getOrderZK('@@QYZK,',series_code)/100)*'@@Product_Num,'*case '@@Product_MJ,' when '' then '1.0000' else '@@Product_MJ,' end AMOUNT,'@@LS.YHDM,',back_type,PRODUCT_COLOR,Price_Type,order_price*dbo.getOrderZK('@@QYZK,',series_code)/100 PRODUCT_PRICE,id,dbo.getOrderZK('@@QYZK,',series_code), '@@Product_Memo,' memo,'@@BFDH,','@@Product_Num,' Fact_NUM,(order_price*dbo.getOrderZK('@@QYZK,',series_code)/100)*'@@Product_Num,'*case '@@Product_MJ,' when '' then '1.0000' else '@@Product_MJ,' end Fact_AMOUNT,(select case '@@d_PXH,' when '' then isnull(max(pxh)+10,0) else @@d_PXH,-1 end  from backdetails where back_code='@@Back_Code,') pxh,convert(varchar,pack_num)+product_untl+'/'+pack_type pack_memo,pack_num,0 pack_nums,type_agent,product_price,0,'@@Product_MJ,' product_mj,store_no,pcs_dj,product_attr,'@@Product_Num,',product_image,zdqdl,ispch FROM product_list a,dbo.v_orderPrice('@@Agent_Code,','@@Product_Code,')  WHERE   id='@@Product_Code,' </SQL_INSERT>
+		<SQL_UPDATE>update backDetails set fact_num='@@Product_Num,',back_num='@@Product_Num,',pack_nums='@@d_Pack_Nums,',fact_amount='@@Product_Num,'*product_price,back_amount='@@Product_Num,'*product_price*case '@@Product_MJ,' when '' then '1' else '@@Product_MJ,' end,back_reason='@@Product_Memo,',zk='@@QYZK,',store_num='0',product_mj='@@Product_MJ,' where product_id='@@Product_Code,' and BACK_CODE='@@Back_Code,'  and product_mj='@@Product_MJ,'</SQL_UPDATE>
+		<SQL_DELETE>begin delete from djquse_mx where use_id in (select check_num from backdetails where id='@@d_Product_Id,') delete from backDetails where id='@@d_Product_Id,' if not exists (select * from BackDetails where BACK_CODE='XS@@agent_code,') begin end end</SQL_DELETE>
+		<URL>{  call sp_scddcp('@@back_code,','@@d_product_id,') }</URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>下单的接口</KJSM>
+	</row>
+	<row>
+		<KJM>IN0S11</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>if not exists(select * from act_xl_info where xl_code='@@PRODUCT_CODE,') insert into act_xl_info (xl_code,ware_code,series_code) values('@@PRODUCT_CODE,','@@WARE_CODE,','@@SERIES_CODE,')</SQL_INSERT>
+		<SQL_UPDATE>update backDetails set fact_num='@@Product_Num,',back_num='@@Product_Num,',pack_nums='@@d_Pack_Nums,',fact_amount='@@Product_Num,'*product_price*case product_mj when '' then '1.000' else '@@Product_MJ,' end,back_amount='@@Product_Num,'*product_price*case product_mj when '' then '1.000' else '@@Product_MJ,' end,back_reason='@@Product_Memo,',store_num='0',product_mj='@@Product_MJ,' where id='@@Id,'</SQL_UPDATE>
+		<SQL_DELETE></SQL_DELETE>
+		<URL>{ call sp_cxhd('@@Back_Code,','0.0') }</URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>计算优惠</KJSM>
+	</row>
+	<row>
+		<KJM>IN0S04</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>update backlist set amount_sts='待收货' where back_code='@@back_code,' </SQL_INSERT>
+		<SQL_UPDATE></SQL_UPDATE>
+		<SQL_DELETE></SQL_DELETE>
+		<URL>{ call sp_zdxd_zj('@@Back_Code,','@@LS.YHDM,','@@Arr_Man,','@@Arr_Tel,','@@Arr_Address,','@@Demo,','手机','@@Order_Code,','@@exp_name,')}</URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>终端手机下单</KJSM>
+	</row>
+	<row>
+		<KJM>IN0S14</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>update orderparts set product_num='@@product_num,',product_amount='@@product_num,'*@@product_price,*case '@@product_mj,' when ''  then 1 else '@@product_mj,' end,product_mj='@@product_mj,',order_memo='@@back_memo,',product_price='@@product_price,' where id='@@id,'</SQL_INSERT>
+		<SQL_UPDATE></SQL_UPDATE>
+		<SQL_DELETE></SQL_DELETE>
+		<URL>{ call sp_lpzs('@@Back_Code,','@@CE,') }</URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>满就送礼品添加到订货单</KJSM>
+	</row>
+	<row>
+		<KJM>IN0S15</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>insert into bt_list(back_code,bt_amount,bt_code,bt_date,bt_type,agent_code) select  '@@back_code,','@@bt_amount,','@@bt_code,',getdate(),sfsf,'@@agent_code,' from backlist where back_code='@@bt_code,' and note_type='BT'</SQL_INSERT>
+		<SQL_UPDATE></SQL_UPDATE>
+		<SQL_DELETE>delete from bt_list where back_code='@@back_code,' and bt_type not in ('代金券','扣龙骨','整箱优惠','补差价')</SQL_DELETE>
+		<URL></URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>删除补贴</KJSM>
+	</row>
+	<row>
+		<KJM>IN0S16</KJM>
+		<CS>7</CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT></SQL_INSERT>
+		<SQL_UPDATE></SQL_UPDATE>
+		<SQL_DELETE></SQL_DELETE>
+		<URL>{ call sp_zdxd_mob('@@Back_Code,','@@LS.YHDM,','@@Arr_Man,','@@Arr_Tel,','@@Arr_Address,','@@Demo,','手机','@@Order_Code,','@@exp_name,','XS@@KEY,')}</URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>终端手机下单</KJSM>
+	</row>
+	<row>
+		<KJM>INP042</KJM>
+		<CS>2</CS>
+		<SQL_SELECT>select * from djquse_mx where back_code='@@back_code,' and spbm='@@spbm,' and ff_id='@@ff_id,' and djq_id='@@djq_id,'</SQL_SELECT>
+		<SQL_INSERT>insert into djquse_mx(ff_id,djq_id,sl,mfsl,mfje,spbm,back_code) select '@@ff_id,','@@djq_id,','@@sl,','@@mfsl,','@@mfje,','@@spbm,','@@back_code,'</SQL_INSERT>
+		<SQL_UPDATE>update djquse_mx set sl=sl+'@@sl,' where back_code='@@back_code,' and spbm='@@spbm,' and ff_id='@@ff_id,' and djq_id='@@djq_id,'</SQL_UPDATE>
+		<SQL_DELETE></SQL_DELETE>
+		<URL></URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>代金券使用</KJSM>
+	</row>
+
+	<row>
+		<KJM>INP043</KJM>
+		<CS></CS>
+		<SQL_SELECT>select '@@Sjbm,'+ dbo.lpad('0',3,isnull(max(right(agent_code,3))+1,1)) from agent_list where sjbm='@@Sjbm,'</SQL_SELECT>
+		<SQL_INSERT>
+			if not exists(select * from agent_list where agent_code='@@AGENT_CODE,') insert into agent_list(agent_code,agent_name,sjbm,agent_tel,contact_man,open_flag,brand_code,agent_address,agent_type,dist,city,prov,lmbm,kcc_price,add_date)
+			values ('@@AGENT_CODE,','@@mdmc,','@@Sjbm,','@@lxfs,','@@yhxm,','启用','@@jypp,','@@xxdz,','shop','@@dist,','@@city,','@@prov,','@@lmbm,','900|1580|2980',getdate())
+		</SQL_INSERT>
+		<SQL_UPDATE>update agent_list set lmbm = '@@lmbm,' where agent_tel='@@lxfs,'</SQL_UPDATE>
+		<SQL_DELETE>update agent_list set lmbm = '@@lmbm,' where agent_code='@@dist_agent_code,'</SQL_DELETE>
+		<URL></URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>联盟添加</KJSM>
+	</row>
+	<row>
+		<KJM>INP044</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>if not exists(select * from tj_sys_yh where lxfs='@@lxfs,') insert into tj_sys_yh (yhh,yhz,yhxm,dept,warecode,mm,sts,yxq,qx_cd,qx_ck,qx_dj,qx_qt,qx_ts,bm,lxfs,dz,dzjc,yhjb,wx_headimage,wx_nick,wx_openid,wx_code)  select '@@YHH,','终端店面','@@yhxm,','@@DEPT,','@@jypp,' warecode,'@@PASSWORD1,' mm,'@@STS,','2017-12-30' yxq,qx_cd,'''@@DEPT,''' qx_ck,qx_dj,'''@@jypp,''' qx_qt,'' qx_ts,'@@ZW,','@@lxfs,','@@DZ,','@@DZJC,','@@YHJB,','@@wx_headimage,','@@wx_nick,','@@wx_openid,','@@wx_code,'  from bm_qxz where yhjb='老板' else update tj_sys_yh set yhxm='@@yhxm,',sts='@@STS,',lxfs='@@lxfs,',DZ='@@DZ,',DZJC='@@DZJC,',yhjb='@@YHJB,' where yhh='@@YHH,' </SQL_INSERT>
+		<SQL_UPDATE></SQL_UPDATE>
+		<SQL_DELETE></SQL_DELETE>
+		<URL></URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>终端用户开通</KJSM>
+	</row>
+
+
+	<!-- 艾订货开通账号 -->
+	<row>
+		<KJM>IN0S18</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>if not exists(select * from verify_adh_list where agent_tel='@@lxfs,')  begin insert into verify_adh_list (AGENT_tel,Brand_Code,contact_man,agent_code,agent_name) values('@@lxfs,','@@brand_name,','@@contact_man,','@@dept,','@@agent_name,') end</SQL_INSERT>
+		<SQL_UPDATE></SQL_UPDATE>
+		<SQL_DELETE></SQL_DELETE>
+		<URL></URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>老板手机授权</KJSM>
+	</row>
+	<row>
+		<KJM>INV001</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT></SQL_INSERT>
+		<SQL_UPDATE>update agent_list set end_date=dbo.getdatestr1(DATEADD(month,@@yxq,,isnull(end_date,getdate()))),join_date=dbo.getdatestr1(getdate()) where agent_code='@@agent_code,'</SQL_UPDATE>
+		<SQL_DELETE></SQL_DELETE>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<URL></URL>
+		<KJSM>客串串试用一个月</KJSM>
+	</row>
+	<row>
+		<KJM>INV002</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT>if not exists(select * from verify_adh_list where agent_tel='@@lxfs,')  insert into verify_adh_list (AGENT_tel,CONTACT_MAN,End_Date,Brand_Code,Join_Date,device_token,AGENT_TYPE,AGENT_CODE,agent_name) values('@@lxfs,','@@yhxm,',DATEADD(month,@@yxq,,getdate()),'@@brand_name,',GETDATE(),'@@device_token,','@@yhjb,','@@agent_code,','@@agent_name,') else update verify_adh_list set end_date=DATEADD(month,@@yxq,,isnull(end_date,getdate())),join_date=getdate(),device_token='@@device_token,' where agent_tel='@@lxfs,'</SQL_INSERT>
+		<SQL_UPDATE></SQL_UPDATE>
+		<SQL_DELETE></SQL_DELETE>
+		<URL></URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>艾订货试用一个月</KJSM>
+	</row>
+	<!-- 对外接口 -->
+	<row>
+		<KJM>INW001</KJM>
+		<CS></CS>
+		<SQL_SELECT></SQL_SELECT>
+		<SQL_INSERT></SQL_INSERT>
+		<SQL_UPDATE></SQL_UPDATE>
+		<SQL_DELETE></SQL_DELETE>
+		<URL>{ call sp_cltj_jk('@@v6,') }</URL>
+		<SFTZ></SFTZ>
+		<TZNR></TZNR>
+		<KJSM>乐易数据对接</KJSM>
+	</row>
+
+
+
+
+
+</data>

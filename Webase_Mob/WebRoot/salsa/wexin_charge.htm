@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>微信充值</title>
+    <meta http-equiv="content-type" content="text/html;" charset="GB2312">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="../css/weixin/style/weui.min.css"/>
+    <link rel="stylesheet" href="../css/weixin/example/example.css">
+		<script type="text/javascript" src="../js/easyui/jquery-1.8.0.min.js"></script>
+
+        
+        <script type="text/javascript">
+
+            function getQueryString(name) {
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+                var r = location.search.substr(1).match(reg);
+                if (r != null) return unescape(decodeURI(r[2])); return null;
+
+            }
+
+
+            function onBridgeReady() {
+
+                var openId = getQueryString("open_id");
+               
+                var agent_code = getQueryString("agent_code");
+				
+                if (agent_code == "") {
+                    //alert("微信二维码识别失败，商户号无法识别");
+                    $("#dialog_content").html("微信二维码识别失败，商户号无法识别");
+                    $("#dialog_tip").show();
+                    return false;
+                }
+				 if (openId == "") {
+					 $("#dialog_content").html("微信没绑定，现在马上绑定微信！");
+					 var codeString="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb085018f401f8f5a&redirect_uri=http://ad-kcc.dderp.cn/mob/weixin?proname=weixin/wexin.htm&response_type=code&scope=snsapi_userinfo&state="
+	            		agent_code+"#wechat_redirect";
+					
+                    //alert("微信二维码识别失败");
+					window.location.href=codeString;
+                    //$("#dialog_content").html("微信二维码识别失败");
+                    //$("#dialog_tip").show();
+                    return false;
+                }
+
+                var charge = $("#Charge_Amount").val();
+                if (charge == "") {
+                    $("#dialog_content").html("请输入金额！");
+                    $("#dialog_tip").show();
+                    return;
+                   // alert("请输入金额！");
+                   // return false;
+                }
+                if (charge < 300) {
+                    $("#dialog_content").html("充值金额必须是300元以上！");
+                    $("#dialog_tip").show();
+                    //alert("充值金额必须是300元以上！");
+                    return false;
+                }
+
+                $("#showTooltips").css("disabled",true);
+                
+                charge = charge * 100;
+                $.ajax({
+                    type: "POST",
+                    url: "http://ad-kcc.dderp.cn/mob/work?proname=WJ0001&fee=" + charge + "&ip_address=121.989.32.12",
+                    data: "open_Id=" + openId+"&agent_code="+agent_code,
+                    success: function(msg) {
+                        wxPay(msg);
+                    },
+                    error: function() {
+                        alert("获取服务器充值签名验证失败，无法充值!");
+                        return;
+                    }
+                });
+
+            }
+
+            function wxPay(_payParam) {
+                // var payParam={"appId":"wxb085018f401f8f5a","nonceStr":"ys2LjrUlODsvAKTz","package":"prepay_id=wx201607252218166704c284cf0985680329","paySign":"60ABBF21C27E764A10D2B1F697E52923","signType":"MD5","timeStamp":"1469456296"};
+                var payParam = _payParam;
+                WeixinJSBridge.invoke(
+     'getBrandWCPayRequest',
+
+	    payParam
+	  ,
+     function(res) {
+         if (res.err_msg == "get_brand_wcpay_request:ok") { }
+     }
+   );
+            }
+
+            function jsCall() {
+                if (typeof WeixinJSBridge == "undefined") {
+                    if (document.addEventListener) {
+                        document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+                    } else if (document.attachEvent) {
+                        document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+                        document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+                    }
+                } else {
+                    onBridgeReady();
+                }
+            }
+
+            function setAmount(amount) {
+                $("#Charge_Amount").val(amount);
+               // onBridgeReady();
+            }
+            function d_close() {
+                $("#dialog_tip").hide();
+            }
+   </script>
+
+  </head>
+  
+  <body ontouchstart>
+   
+   <form action="" name="form1">
+  
+    
+   
+   <!-- 店铺名称 -->
+      <div style="height:50px">
+       <h5 style="text-align:center;font-size:28px;color:#3cc51f;font-weight:400;margin:0 5%">充值</h5>
+      </div>
+      
+       <div class="button_sp_area" style="text-align:center">
+         <a href="#" class="weui_btn weui_btn_mini weui_btn_default" style="width:26%;height:20%;color:#04be02;border:1px solid #04be02;font-size:17px"   onclick="javascript:setAmount(300);">300元</a>
+         &nbsp; &nbsp; &nbsp;  
+         <a href="#" class="weui_btn weui_btn_mini weui_btn_default" style="width:26%;height:20%;color:#04be02;border:1px solid #04be02;font-size:17px"   onclick="javascript:setAmount(500);">500元</a>
+          &nbsp; &nbsp; &nbsp; 
+         <a href="#" class="weui_btn weui_btn_mini weui_btn_default" style="width:26%;height:20%;color:#04be02;border:1px solid #04be02;font-size:17px"   onclick="javascript:setAmount(1000);">1000元</a>
+      </div>
+      
+       <div class="button_sp_area" style="text-align:center">
+         <a href="#" class="weui_btn weui_btn_mini weui_btn_default" style="width:26%;height:20%;color:#04be02;border:1px solid #04be02;font-size:17px"   onclick="javascript:setAmount(3000);">3000元</a>
+         &nbsp; &nbsp; &nbsp;  
+         <a href="#" class="weui_btn weui_btn_mini weui_btn_default" style="width:26%;height:20%;color:#04be02;border:1px solid #04be02;font-size:17px"   onclick="javascript:setAmount(5000);">5000元</a>
+          &nbsp; &nbsp; &nbsp; 
+         <a href="#" class="weui_btn weui_btn_mini weui_btn_default" style="width:26%;height:20%;color:#04be02;border:1px solid #04be02;font-size:17px"   onclick="javascript:setAmount(10000);">10000元</a>
+      </div>
+      <div style="height:50px">
+      
+      </div>
+   
+       <div class="weui_cell"  style="height:50px">
+            <div class="weui_cell_hd"><label class="weui_label">充值金额</label></div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui_input" style="font-size:25px" type="number" pattern="[0-9]*" id="Charge_Amount" name="Charge_Amount"  placeholder="请输入充值金额"/>
+               
+            </div>
+        </div>
+    
+    </div>
+<div class="weui_cells_tips">充值金额必须大于300元</div>
+    <div class="weui_btn_area">
+        <a class="weui_btn weui_btn_primary" name="submit" id="showTooltips" onclick="javacript:jsCall();">充值</a>
+    </div>
+    
+    
+    
+    <div class="weui_dialog_alert" style="display:none" id="dialog_tip">
+    <div class="weui_mask"></div>
+    <div class="weui_dialog">
+        <div class="weui_dialog_hd"><strong class="weui_dialog_title">友情提示</strong></div>
+        <div class="weui_dialog_bd" id="dialog_content"></div>
+        <div class="weui_dialog_ft">
+            <a href="#" class="weui_btn_dialog primary" onclick="d_close()">确定</a>
+        </div>
+    </div>
+</div>
+
+   
+    </form>
+  </body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>payOrder.html</title>
+	
+    <meta name="keywords" content="keyword1,keyword2,keyword3">
+    <meta name="description" content="this is my page">
+    <meta name="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+<script type="text/javascript" src="js/easyui/jquery-1.8.0.min.js"></script>
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+<style>
+
+	.button {
+		border:none;
+		background:none;
+		cursor:pointer;
+		color:blue;
+		font-size:54erm;
+	} 
+
+</style>
+<script>
+
+    var time=1000;  
+    function closeWindow(){  
+        if(time>0){  
+            document.getElementById("daojishi").innerHTML=" 正在跳转，请稍后 <font color=red>"+time+"</font>。。。";  
+            time--;  
+        window.setTimeout('closeWindow()',1000);  
+        }  
+        else{  
+           document.form1.submit();
+        }  
+    } 
+    
+    function submitWindow(){
+    	if(time=2){
+    		document.form1.submit();
+    	}else {
+    		window.setTimeout('submitWindow()',1000);  
+    	}
+     
+    }
+</script>
+  </head>
+  
+  <body onload="closeWindow();">  
+  <form action="https://pay.yoyipay.com/pay/anonymousPayOrder.do"
+			method="post" target="_blank"  name="form1">
+<div id="daojishi">  
+    正在跳转，请稍后
+</div>
+<div >  
+    如不能正常跳转，请<input id="submitBtn" type="submit" value="点击"  class="button"/>  进行跳转
+</div>
+    	<input id="interfaceName" name="interfaceName" type="hidden" 	value="anonymousPayOrder" />
+			<input id="version" name="version" type="hidden" 	value="B2C1.0" />
+			<input id="merchantId" name="merchantId" type="hidden" value="M100002653" />
+			<input id="merSignMsg" name="merSignMsg" type="hidden" value="" />
+			<input type="hidden" id="tranData" name="tranData" value="" />
+    	
+			<!-- <input id="interfaceName" name="interfaceName" type="hidden" 	value="anonymousPayOrder" />
+			<input id="version" name="version" type="hidden" 	value="B2C1.0" />
+			<input id="merchantId" name="merchantId" type="hidden" value="M100002653" />
+			<input id="merSignMsg" name="merSignMsg" type="hidden" value="" />
+			<input type="hidden" id="tranData" name="tranData" value="" /> -->
+			</form>
+  </body>
+  
+<script>
+				var strHref=window.location.search; //获取url中"?"符后的字串
+  			   //  alert("strHref:"+strHref);
+  			     if(strHref != ""){
+					  var intPos = strHref.indexOf("?");
+					 var strRight = strHref.substr(intPos + 1);
+					 var arrTmp = strRight.split("&");
+					 var map = new Map();
+					 for(var i = 0; i < arrTmp.length; i++)
+					 {
+					 var arrTemp = arrTmp[i ].split("=");
+					 map.set(arrTemp[0], arrTemp[1]);
+					 }
+					 var data = map.get("jsonData");
+					
+					var merSignMsg = map.get("merSignMsg");
+					var tranData = map.get("tranData");
+					$("#merSignMsg").val(decodeURIComponent(merSignMsg));
+					$("#tranData").val(decodeURIComponent(tranData));
+					
+					
+					//alert("tranData:"+decodeURIComponent(merSignMsg));
+				}
+				
+			function setMerSignMsg(merSignMsg){
+				    alert("merSignMsg:"+decodeURIComponent(merSignMsg));
+					$("#merSignMsg").val(decodeURIComponent(merSignMsg));
+			}
+			function setTranData(merSignMsg){
+				    alert("tranData:"+decodeURIComponent(tranData));
+					$("#tranData").val(decodeURIComponent(tranData));
+			}	
+  				
+ </script>
+</html>

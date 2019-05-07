@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>已成功加入</title>
+    <meta http-equiv="content-type" content="text/html;" charset="GB2312">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="css/weixin/style/weui.min.css"/>
+    <link rel="stylesheet" href="css/weixin/example/example.css">
+    <script type="text/javascript">
+   
+
+function winClose()
+{
+	 WeixinJSBridge.call('closeWindow');
+}
+
+    </script>
+  </head>
+  
+  <body ontouchstart>
+      <div  class="hd" style="text-align:center" >
+    <i class="weui_icon_msg weui_icon_success" ></i>
+    <p><span style="font-size:15px text-align:center">您已成功绑定微信!</span></p>
+</div>
+<div class="hd">
+ 
+    
+    <div class="weui_btn_area">
+        <a class="weui_btn weui_btn_plain_primary" name="closeApp" id="showTooltips3" onclick="javascript:winClose()" >关闭</a>
+    </div>
+    </div>
+  </body>
+</html>

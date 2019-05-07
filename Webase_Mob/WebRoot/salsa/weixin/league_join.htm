@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>联盟邀请</title>
+    <meta http-equiv="content-type" content="text/html;" charset="GB2312">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="css/weixin/style/weui.min.css"/>
+    <link rel="stylesheet" href="css/weixin/example/example.css">
+		<SCRIPT LANGUAGE="JavaScript" src="inc/check.js"></SCRIPT>
+		<script src="inc/dateams.js" type=text/javascript></script>
+		<script type="text/javascript" src="js/extjs/ext-base.js"></script>
+		<script type="text/javascript" src="js/extjs/ext-all.js"></script>
+		<script type="text/javascript" src="js/extjs/ext-lang-zh_CN.js"></script>
+		<script type="text/javascript" src="js/extjs/GroupSummary.js"></script>
+		
+		<script type='text/javascript' src='dwr/engine.js'></script>
+		<script type='text/javascript' src='dwr/util.js'></script>
+		<script type='text/javascript' src='dwr/interface/DwrComm.js'></script>
+     
+		
+            
+
+   </script>
+		
+  </head>
+  
+  <body ontouchstart>
+   <script type="text/javascript">
+    if (typeof window['DWRUtil'] == 'undefined') window.DWRUtil = dwr.util;
+    var formMap = DWRUtil.getValues("form1");
+    
+    function work(){
+       
+	   if(!confirm("您确认要加入该联盟吗？")) return false;
+       formMap = DWRUtil.getValues("form1");
+	 
+        var formMap = DWRUtil.getValues("form1");
+          DwrComm.parseIN('INP043',formMap,'delete',{callback:function(data){if (data != 'ok'){alert(data);}else{ alert("恭喜，你加入了联盟！")}},async:false});
+          
+       
+        
+           
+               
+    }
+    //判断是否是iPhone,返回ture则是苹果设备,返回false则是安卓设备,其他设备暂不支持不做考虑
+    function isIPhone(){
+    var ua =window.navigator.userAgent.toLowerCase();
+    var s = ua.match(/IPhone/i);
+    if(s == null){
+       window.location.href="https://www.pgyer.com/5B2r";
+       
+    }else{
+    //apple
+       window.location.href="https://www.pgyer.com/j2pT";
+       
+    }
+}
+//判断是否是微信浏览
+function isWeiXin(){
+    var ua =window.navigator.userAgent.toLowerCase();
+    var s = ua.match(/MicroMessenger\/([\d.]+)?/i);
+    if(s == null){
+        return false;
+    }else{
+        return true;
+    }
+}
+
+   </script>
+   <form action="" name="form1">
+   <input type="hidden" value="@@wx_headimage," name="wx_headimage"/>
+   <input type="hidden" value="@@wx_nick," name="wx_nick"/>
+   <input type="hidden" value="@@dist_agent_code," name="dist_agent_code"/>
+   <input type="hidden" value="@@wx_openid," name="wx_openid"/>
+   <input type="hidden" value="@@wx_code," name="wx_code"/>
+   
+    <input type="hidden" value="@@agent_code," name="lmbm"/>
+  
+  
+    <input name="S_FLAG" id="S_FLAG" type="hidden"/>
+     
+  
+    
+   
+   <!-- 店铺名称 -->
+      <!-- <div>
+       <h5 style="text-align:center;font-size:18px;color:#3cc51f;font-weight:400;margin:0 5%">@@wx_nick,欢迎加入@@agent_name,</h5>
+      </div> -->
+   
+      <img src="@@wx_headimage," style="width:60px;height:60px;padding:10px;margin:10px;vertical-align:middle;"/>  
+      <span style="font-size:15px">&nbsp;&nbsp;&nbsp;@@wx_nick,</span>  
+       
+         <div>
+             @@agent_name,  邀请你点加入联盟。
+             
+        </div>
+      
+      <div class="weui_cells_title">联盟约定：<br>(1)加入联盟后，你店的客户资源可以推荐到联盟各店，联盟店的客户资源可以推荐到你店，各店的客户资源只有推荐才能看到。
+      <br>(2)严格遵守联盟规定的规章制度。<br><br></div>
+     
+      
+        
+        
+       
+            
+   
+<div class="weui_cells_tips">点击接受就说明您同意遵守我们的所有协议</div>
+    <div class="weui_btn_area">
+        <a class="weui_btn weui_btn_primary" name="submit" id="showTooltips" onclick="javacript:work();">接受</a>
+    </div>
+    <div class="weui_btn_area">
+        <a class="weui_btn weui_btn_plain_primary" name="downlaod" id="showTooltips1" onclick="javascript:isIPhone();">下载APP</a>
+    </div>
+    </form>
+  </body>
+</html>

@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>联盟邀请</title>
+    <meta http-equiv="content-type" content="text/html;" charset="GB2312">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="css/weixin/style/weui.min.css"/>
+    <link rel="stylesheet" href="css/weixin/example/example.css">
+		<SCRIPT LANGUAGE="JavaScript" src="inc/check.js"></SCRIPT>
+		<script src="inc/dateams.js" type=text/javascript></script>
+		<script type="text/javascript" src="js/extjs/ext-base.js"></script>
+		<script type="text/javascript" src="js/extjs/ext-all.js"></script>
+		<script type="text/javascript" src="js/extjs/ext-lang-zh_CN.js"></script>
+		<script type="text/javascript" src="js/extjs/GroupSummary.js"></script>
+		<script type='text/javascript' src='dwr/engine.js'></script>
+		<script type='text/javascript' src='dwr/util.js'></script>
+<script type='text/javascript' src='dwr/interface/DwrComm.js'></script>
+		
+        <script type="text/javascript" src="js/cityselect1/js/jquery.js"></script>
+        <script type="text/javascript" src="js/cityselect1/js/jquery.cityselect.js" charset="utf-8"></script>
+		<script type="text/javascript">
+		//60秒倒计时按钮
+		 $(function () {
+            $('#sendSms').click(function () {
+            if($('#lxfs').val()=="")  return false;
+                var count = 60;
+                var countdown = setInterval(CountDown, 1000);
+                getYzm();
+                function CountDown() {
+                    $("#sendSms").attr("disabled", true);
+                    $("#sendSms").val("请" + count + "秒后再试");
+                    if (count == 0) {
+                        $("#sendSms").val("获取验证码").removeAttr("disabled");
+                        clearInterval(countdown);
+                    }
+                    count--;
+                }
+            });
+        });
+   </script>
+   
+   
+   <script type="text/javascript">
+            var code;   //短信验证码
+            var phoneNumber;
+		    //检查前后密码是否一致
+		    function checkPassword() {
+		        var password1 = $("#PASSWORD1").val();
+		        //alert(password1);
+		        var password2 = $("#PASSWORD2").val();
+		        // alert(password2);
+		        if (password2 == password1) return true;
+		        else {
+		            alert("前后密码不一致请重新输入");
+		            $("#PASSWORD2").val("");
+		            return false;
+		        }
+		    }
+		//城市联动加载
+  $(function(){
+  $("#city1").citySelect(
+  {
+					nodata:"没有城市",
+					required:false
+				}
+  );
+  });
+  
+  
+  function createCode(){  
+     code = "";   
+     var codeLength = 4;//验证码的长度  
+     var checkCode = document.getElementById("code");   
+     var random = new Array(0,1,2,3,4,5,6,7,8,9);//随机数  
+     for(var i = 0; i < codeLength; i++) {//循环操作  
+        var index = Math.floor(Math.random()*10);//取得随机数的索引（0~35）  
+        code += random[index];//根据索引取得随机数加到code上  
+    }  
+    return code;//把code值赋给验证码  
+  }  
+  
+  function getYzm()
+  {
+	   code = createCode();
+	  // alert(code);
+	  var sjhm= form1.lxfs.value;
+	  phoneNumber = sjhm;
+	  DwrComm.parseSendAliMsg(sjhm,code,{callback:function(data){
+                          if (data != '1'){
+                              alert("发送失败!请稍后再试");
+                           }else{
+							  alert('验证码已经发送!'); 
+							  
+                        }
+                       },async:false});
+  }
+  //增加机构代码
+  function test(){
+       if (typeof window['DWRUtil'] == 'undefined') window.DWRUtil = dwr.util;
+       var formMap = DWRUtil.getValues("form1");
+       var c ="";
+       //alert("p");
+       var p  =  document.getElementById("prov").value;
+       
+      
+      
+    if (""==p) return false;
+    if ("北京"==p)  c="11";
+    if ("天津"==p)  c="12";
+    if ("河北"==p)  c="13";
+    if ("山西"==p)  c="14";
+    if ("内蒙古"==p)  c="15";
+    if ("辽宁"==p)  c="21";
+    if ("吉林"==p)  c="22";
+    if ("黑龙江"==p)  c="23";
+    if ("上海"==p)  c="31";
+    if ("江苏"==p)  c="32";
+    if ("浙江"==p)  c="33";
+    if ("安徽"==p)  c="34";
+    if ("福建"==p)  c="35";
+    if ("江西"==p)  c="36";
+    if ("山东"==p)  c="37";
+    if ("河南"==p)  c="41";
+    if ("湖北"==p)  c="42";
+    if ("湖南"==p)  c="43";
+    if ("广东"==p)  c="44";
+    if ("广西"==p)  c="45";
+    if ("海南"==p)  c="46";
+    if ("重庆"==p)  c="50";
+    if ("四川"==p)  c="51";
+    if ("贵州"==p)  c="52";
+    if ("云南"==p)  c="53";
+    if ("西藏"==p)  c="54";
+    if ("陕西"==p)  c="61";
+    if ("甘肃"==p)  c="62";
+    if ("青海"==p)  c="63";
+    if ("宁夏"==p)  c="64";
+    if ("新疆"==p)  c="65";
+    if ("台湾"==p)  c="71";
+    if ("香港"==p)  c="81";
+    if ("澳门"==p)  c="82";
+    if ("钓鱼岛"==p)  c="98";
+    if ("零售"==p)  c="99";
+    document.getElementById("Sjbm").value=c;
+    //alert(c);
+     formMap = DWRUtil.getValues("form1");
+    DwrComm.parseKey('MJP090',formMap,{callback:function(data){
+      if(""==data) return false;
+    document.getElementById("AGENT_CODE").value = data;
+    document.getElementById("lmbm").value = data;
+    var dept = document.getElementById("DEPT").value=data;
+    formMap = DWRUtil.getValues("form1");
+    
+    DwrComm.parseKey('MJP154',formMap,{callback:function(data){form1.YHH.value=data;},async:false});
+     
+   }});
+   
+	   
+    
+  }
+ function shopChange(){
+    var j =  $('#jypp option:selected').text();
+     var c  =  document.getElementById("city").value;
+    document.getElementById("mdmc").value=j+c+"店";
+ }
+ function shopChange1(){
+  var j =  $('#jypp option:selected').text();
+     var d  =  document.getElementById("dist").value;
+    document.getElementById("mdmc").value=j+d+"店";
+ }
+ 
+ 
+ //校验验证码  
+function validate(){ 
+    if(form1.lxfs.value!=phoneNumber) {
+          alert("手机号码不是当前验证手机号！");
+          return false;
+    }
+    var inputCode = document.getElementById("dxyzm").value.toUpperCase(); //取得输入的验证码并转化为大写        
+    if(inputCode.length <= 0) { //若输入的验证码长度为0  
+        //alert("请输入验证码！"); //则弹出请输入验证码  
+        // $("#dxyzm").focus();
+		return false;
+    }         
+    else if(inputCode != code ) { //若输入的验证码与产生的验证码不一致时  
+        alert("验证码输入错误！@_@"); //则弹出验证码输入错误  
+        //createCode();//刷新验证码  
+        document.getElementById("dxyzm").value = "";//清空文本框 
+        $("#dxyzm").focus();
+		return false; 
+    }         
+    else { //输入正确时  
+        //alert("^-^"); //弹出^-^  
+        return true;
+    }             
+}  
+		</script>
+
+  </head>
+  
+  <body ontouchstart>
+   <script type="text/javascript">
+    if (typeof window['DWRUtil'] == 'undefined') window.DWRUtil = dwr.util;
+    var formMap = DWRUtil.getValues("form1");
+    
+    function work(){
+   
+       formMap = DWRUtil.getValues("form1");
+       var name =  document.getElementById("yhxm").value;
+       var phone = document.getElementById("lxfs").value;
+       var yzm  =  document.getElementById("dxyzm").value;
+       var jypp  =  document.getElementById("jypp").value;
+       var prov  =  document.getElementById("prov").value;
+       if(name=="") {
+       alert("请输入你的姓名");
+       return false;
+       }
+       if(phone == ""){
+       alert("请输入你的手机号码");
+       return false;
+       }
+       if(phone.length!=11){
+       alert("请输入正确的手机号码");
+       return false;
+       }
+       if(yzm == ""){
+      // alert(yzm);
+       alert("请输入验证码");
+       return false;
+       }
+       if(jypp==""){
+         alert("请选择品牌");
+         return false;
+       }
+       if(""==prov){
+         alert("请选择省份");
+         return false;
+       }
+       if(!validate()) return false;
+       
+   
+  
+        var formMap = DWRUtil.getValues("form1");
+         DwrComm.parseMJ('MJP155',formMap,{callback:function(data){
+              if(data.length>0){
+              //alert(data);
+                alert("您的手机号码已经注册为"+ data[0].agent_name+" 店的负责人，请直接登录!");
+                 return false;
+              } else{
+               DwrComm.parseIN('INP043',formMap,'insert',{callback:function(data){
+                 if (data != 'ok'){
+                  alert("哎呀,出错了,稍后再试试吧");
+              }else{
+                DwrComm.parseIN('INP044',formMap,'insert',{callback:function(data){
+                   if (data != 'ok'){
+                
+              alert(data);
+                 }else{
+             //alert(data);
+                 window.location.href="weixin?proname=weixin/success2.htm";
+             
+               }
+       },async:false}); 
+              
+           }
+       },async:false}); 
+              }
+         },
+               async:false});
+        
+          
+       
+        
+           
+               
+    }
+    //判断是否是iPhone,返回ture则是苹果设备,返回false则是安卓设备,其他设备暂不支持不做考虑
+    function isIPhone(){
+    var ua =window.navigator.userAgent.toLowerCase();
+    var s = ua.match(/IPhone/i);
+    if(s == null){
+       window.location.href="https://www.pgyer.com/5B2r";
+       
+    }else{
+    //apple
+       window.location.href="https://www.pgyer.com/j2pT";
+       
+    }
+}
+//判断是否是微信浏览
+function isWeiXin(){
+    var ua =window.navigator.userAgent.toLowerCase();
+    var s = ua.match(/MicroMessenger\/([\d.]+)?/i);
+    if(s == null){
+        return false;
+    }else{
+        return true;
+    }
+}
+
+   </script>
+   <form action="" name="form1">
+   <input type="hidden" value="@@wx_headimage," name="wx_headimage"/>
+   <input type="hidden" value="@@wx_nick," name="wx_nick"/>
+   <input type="hidden" value="@@agent_code," name="agent_code"/>
+   <input type="hidden" value="@@wx_openid," name="wx_openid"/>
+   <input type="hidden" value="@@wx_code," name="wx_code"/>
+    <input type="hidden" value="@@brand_code," name="brand_code"/>
+    <input name="AGENT_CODE" id="AGENT_CODE" type="hidden" > 
+    <input type="hidden" value="" name="lmbm" id="lmbm"/>
+    <input name="DEPT" id="DEPT" type="hidden" value=""/>
+    <input name="YHID" id="YHID" type="hidden" value=""/>
+    <input name="YHH" id="YHH" type="hidden"  />
+    <input name="S_FLAG" id="S_FLAG" type="hidden"/>
+   
+    <input type="hidden" value="老板" name="YHJB"/>
+    
+   
+   <!-- 店铺名称 -->
+      <!-- <div>
+       <h5 style="text-align:center;font-size:18px;color:#3cc51f;font-weight:400;margin:0 5%">@@wx_nick,欢迎加入@@agent_name,</h5>
+      </div> -->
+   
+       
+      
+      <div class="weui_cells_title">实名验证</div>
+    <div class="weui_cells weui_cells_form">
+        <div class="weui_cell">
+            <div class="weui_cell_hd"><label class="weui_label">姓名</label></div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui_input" type="text" id="yhxm" name="yhxm"  placeholder="请输入真实姓名"/>
+            </div>
+        </div>
+        <div class="weui_cell">
+            <div class="weui_cell_hd"><label class="weui_label">手机号</label></div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input style='border-left:0px;border-top:0px;border-right:0px;border-bottom:1px;font-size:18px; ' type="number" pattern="[0-9]*" id="lxfs" name="lxfs"  placeholder="请输入手机号" maxlength="11" length="20"/>
+                <input type="button" name="sendSms" id="sendSms" value="获取验证码" >
+            </div>
+        </div>
+         <div class="weui_cell">
+            <div class="weui_cell_hd"><label class="weui_label">短信验证码</label></div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui_input" type="number" pattern="[0-9]*" id="dxyzm" name="dxyzm"  placeholder="请输入短信验证码"  />
+               
+            </div>
+        </div>
+         <div class="weui_cell">
+            <div class="weui_cell_hd"><label class="weui_label">密码</label></div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui_input" type="password" id="PASSWORD1" name="PASSWORD1"  placeholder="请输入密码"/>
+            </div>
+        </div>
+         <div class="weui_cell">
+            <div class="weui_cell_hd"><label class="weui_label">确认密码</label></div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui_input" type="password" id="PASSWORD2" name="PASSWORD2"  placeholder="请确认密码" onblur="checkPassword();"/>
+            </div>
+        </div>
+       </div>
+       
+         <div class="weui_cells_title">店铺信息</div>
+       
+               <div class="weui_cells weui_cells_form">  
+            <div class="weui_cell">
+            <div class="weui_cell_hd"><label class="weui_label">经营品牌</label></div>
+            <div class="weui_cell_bd weui_cell_primary">
+             <select class="" name="jypp" id="jypp" >
+                <option value="">请选择品牌</option>
+                <option>$$XL1009,</option>
+             </select> 
+            </div>
+        </div>
+          <div class="weui_cell">
+            <div class="weui_cell_hd"><label class="weui_label">所属地区</label></div>
+            <input name="Sjbm" id="Sjbm" type="hidden" class="input">
+            <div class="weui_cell_bd weui_cell_primary">
+              
+          <div id="city1"> 
+      <select class="prov "  name="prov" id="prov" onchange="test()"></select> 
+      <select class="city " name="city" id="city" disabled="disabled" onchange="shopChange()"></select> 
+      <select class="dist " name="dist" id = "dist" disabled="disabled" onchange="shopChange1()"></select>  
+         </div>
+            </div>
+        </div>
+     
+             
+            <div class="weui_cell">
+            <div class="weui_cell_hd"><label class="weui_label">门店名称</label></div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui_input" type="text" id="mdmc" name="mdmc"  placeholder="请输入名称"/>
+            </div>
+        </div>
+        </div>   
+          <div class="weui_cells weui_cells_form">  
+            
+            <div class="weui_cell">
+            <div class="weui_cell_hd"><label class="weui_label">详细地址</label></div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui_input" type="text" id="xxdz" name="xxdz"  placeholder="请输入地址"/>
+            </div>
+        
+        </div>
+     </div>
+            
+   
+<div class="weui_cells_tips">点击确定就说明您同意遵守我们的所有协议</div>
+    <div class="weui_btn_area">
+        <a class="weui_btn weui_btn_primary" name="submit" id="showTooltips" onclick="javacript:work();">确定</a>
+    </div>
+  
+    </form>
+  </body>
+</html>

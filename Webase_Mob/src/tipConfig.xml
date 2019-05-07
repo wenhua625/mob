@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="GB2312"?>
+
+<data>
+  <row>
+    <KJM>101</KJM>
+    <LJH>0002</LJH>
+    <KJSM>财务来单提醒</KJSM>
+    <CS>having(count(*)>0)</CS>
+    <SQL1></SQL1>
+    <SQL2></SQL2>
+    <DEFAULTS></DEFAULTS>
+    <MSJTS></MSJTS>
+    <TSDsc></TSDsc>
+    <SQL>select '有 '+convert(varchar,count(*))+' 个订单需要 财审' memo from backlist where back_sts in ('5') and note_type='XS' and agent_code in(@@LS.QXCK,)</SQL>
+  </row>
+  <row>
+    <KJM>102</KJM>
+    <LJH>0002</LJH>
+    <KJSM>仓库来单提醒</KJSM>
+    <CS>having(count(*)>0)</CS>
+    <SQL1></SQL1>
+    <SQL2></SQL2>
+    <DEFAULTS></DEFAULTS>
+    <MSJTS></MSJTS>
+    <TSDsc></TSDsc>
+    <SQL>select '有 '+convert(varchar,count(*))+' 个订单需要 打包' memo from backlist where back_sts in ('1') and note_type='XS' and agent_code in(@@LS.QXCK,)</SQL>
+    
+  </row>
+  <row>
+    <KJM>103</KJM>
+    <LJH>0002</LJH>
+    <KJSM>物流来单提醒</KJSM>
+    <CS>having(count(*)>0)</CS>
+    <SQL1>having(count(*)>0)</SQL1>
+    <SQL2></SQL2>
+    <DEFAULTS></DEFAULTS>
+    <MSJTS></MSJTS>
+    <TSDsc></TSDsc>
+    <SQL>select '有 '+convert(varchar,count(*))+' 个订单需要 发物流' memo from backlist where back_sts in ('7') and note_type='XS' and agent_code in(@@LS.QXCK,)</SQL>
+  </row>
+  <row>
+    <KJM>104</KJM>
+    <LJH>0002</LJH>
+    <KJSM>欠货提醒</KJSM>
+    <CS>having(count(*)>0)</CS>
+    <SQL1></SQL1>
+    <SQL2></SQL2>
+    <DEFAULTS></DEFAULTS>
+    <MSJTS></MSJTS>
+    <TSDsc></TSDsc>
+    <SQL>select '有 '+convert(varchar,count(*))+' 个单子存在 欠货'  from backdetails a,backlist b  where a.back_code=b.back_code  and a.back_num!=a.fact_num and back_sts='2'  and qh_sts is null and not exists (select * from backdetails where ware_code=a.back_code and product_id=a.product_id) and agent_code in (@@LS.QXCK,) </SQL>
+  </row>
+  
+   <row>
+    <KJM>PS0001</KJM>
+    <LJH>0002</LJH>
+    <KJSM>获取 密码</KJSM>
+    <CS></CS>
+    <SQL1></SQL1>
+    <SQL2></SQL2>
+    <DEFAULTS></DEFAULTS>
+    <MSJTS></MSJTS>
+    <TSDsc></TSDsc>
+    <SQL>select mm PWD,'@@Device_Token,' device_token from tj_sys_yh where lxfs='@@SJ,' </SQL>
+  </row>
+  
+</data>

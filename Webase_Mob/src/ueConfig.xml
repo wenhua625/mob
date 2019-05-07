@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="GB2312"?>
+
+<data>
+  <row>
+    <KJM>UE0001</KJM>
+    <CS></CS>
+    <PATH>salsa/product_photo/</PATH>
+    <SQL_UPDATE>update product_list set product_image='@@FileName,' where id='@@BM,'</SQL_UPDATE>
+    <FILE_TYPE>图像</FILE_TYPE>
+    <Compress_W>200</Compress_W>
+    <Compress_H>200</Compress_H>
+    <KJSM>产品单图上传</KJSM>
+  </row>
+  <row>
+    <KJM>UE0002</KJM>
+    <CS></CS>
+    <PATH>salsa/product_photo/</PATH>
+    <SQL_UPDATE>update product_list set product_MD='@@FileName,' where id='@@BM,'</SQL_UPDATE>
+    <FILE_TYPE>图像不压缩</FILE_TYPE>
+    <Compress_W>110</Compress_W>
+    <Compress_H>60</Compress_H>
+    <KJSM>产品卖点</KJSM>
+  </row>
+   <row>
+    <KJM>UE0003</KJM>
+    <CS></CS>
+    <PATH>salsa/product_photo/hkpz/</PATH>
+    <SQL_UPDATE>update backlist set back_image='@@FileName,' where back_code='@@BM,'</SQL_UPDATE>
+    <FILE_TYPE>图像不压缩</FILE_TYPE>
+    <Compress_W>110</Compress_W>
+    <Compress_H>60</Compress_H>
+    <KJSM>汇款凭证图上传</KJSM>
+  </row>
+ 
+  
+</data>
+

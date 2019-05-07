@@ -1,0 +1,320 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>产品信息</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<meta http-equiv="Expires" content="0">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta http-equiv="Pragma" content="no-cache">
+
+<link href="css/style011.css" rel="stylesheet" type="text/css">
+<SCRIPT LANGUAGE="JavaScript" src="inc/check.js"></SCRIPT>
+<script type="text/javascript" src="js/extjs/ext-base.js"></script>
+<script type="text/javascript" src="js/extjs/ext-all.js"></script>
+<script type='text/javascript' src='dwr/interface/DwrComm.js'></script>
+<script type='text/javascript' src='dwr/engine.js'></script>
+<script type='text/javascript' src='dwr/util.js'></script>
+<script lanuage="javascript">
+  function checkInput()
+  {
+      if(form1.PRODUCT_CODE.value.length==0 || form1.PRODUCT_CODE.value.length>20)
+	  {
+	      alert("产品货号不能为空或产品货号长度超过20位，请输入!");
+		  form1.PRODUCT_CODE.focus();
+		  return false;
+	  }
+	  
+	  if(form1.PRODUCT_NAME.value.length==0)
+	  {
+	      alert("产品名称不能为空，请输入!");
+		  form1.PRODUCT_NAME.focus();
+		  return false;
+	  }
+	  if(form1.SERIES_CODE.value.length==0)
+	  {
+	      alert("产品一定属于某一系列，请选择!");
+		  form1.SERIES_CODE.focus();
+		  return false;
+	  }
+	  
+	  if(form1.PRODUCT_Untl.value.length==0)
+	  {
+	      alert("单位不能为空，请输入!");
+		  form1.PRODUCT_Untl.focus();
+		  return false;
+	  }
+	  if(form1.PRODUCT_PRICE.value.length==0 || isNaN(form1.PRODUCT_PRICE.value))
+	  {
+	      alert("出厂价不能为空或出厂价输入不正确，请输入!");
+		  form1.PRODUCT_PRICE.focus();
+		  return false;
+	  }
+	  
+	  if(form1.TYPE_SALES.value.length==0 || isNaN(form1.TYPE_SALES.value))
+	  {
+	      alert("特价不能为空或特价输入不正确，请输入!");
+		  form1.TYPE_SALES.focus();
+		  return false;
+	  }
+	   
+	  if(form1.TYPE_BAZAAR.value.length==0 || isNaN(form1.TYPE_BAZAAR.value))
+	  {
+	      alert("成本价输入不正确，请输入!");
+		  form1.TYPE_BAZAAR.focus();
+		  return false;
+	   }
+	  
+	 
+	  if(form1.PACK_NUM.value.length==0 || isNaN(form1.PACK_NUM.value))
+	  {
+	      alert("打包方式数目不能为空或打包方式数目输入不正确，请输入!");
+		  form1.PACK_NUM.focus();
+		  return false;
+	  }
+	  
+	  return true;
+  }
+</script>
+
+<script type="text/javascript">
+ function work(){
+    if (typeof window['DWRUtil'] == 'undefined') window.DWRUtil = dwr.util;
+    var formMap = DWRUtil.getValues("form1");
+    DwrComm.parseIN('IN0002',formMap,'update',{callback:function(data){if (data != 'ok'){alert(data);}else{ 
+                      dialogArguments.document.getElementById('d_Flag').value="1";   
+                      window.close();   
+                   }},async:false});
+     
+}
+function add(){
+		if(checkInput()){
+			work();		
+		}
+		
+	}
+</script>
+</head>
+
+<body>
+<script language="javascript">
+Ext.onReady(function(){
+    
+     if (typeof window['DWRUtil'] == 'undefined') window.DWRUtil = dwr.util;
+     var formMap = DWRUtil.getValues("form1");
+     var store = new Ext.data.JsonStore({
+        fields: ['value', 'name']
+    });
+    var items;
+    
+    
+     Ext.get("SERIES_CODE").on("change",function(){
+       formMap = DWRUtil.getValues("form1");
+       DwrComm.parseAL('XLS006',formMap,{callback:function(list){
+           store.loadData(list);
+           items=list;
+       },async:false});
+        DWRUtil.removeAllOptions("XL_CODE");
+        DWRUtil.addOptions("XL_CODE",items,"value","name"); 
+   
+     if(form1.XL_CODE.value ==""){
+      alert("没有加载系列信息，重新加载...");
+      DWRUtil.addOptions("XL_CODE",items,"value","name");  
+     } 
+     });
+     
+     
+    
+
+});
+</script>
+<form name="form1" method="post" action="" id="form1">
+  <input name="ID" type="hidden" value="@@ID,">
+  <table width="100%" height="0" border="0" align="center" cellpadding="0" cellspacing="0">
+    <tr> 
+      <td align="center" ><b> 产品信息添加</b></td>
+    </tr>
+    <tr> 
+      <td height="0"> 
+        <table width="100%" border="0" align="center" cellpadding="2" cellspacing="1">
+          <tr>
+            <td colspan="2" bgcolor="#C4DFDC" class="tableleft">&gt;&gt;产品基本信息</td>
+          </tr>
+           <tr>
+		    <td bgcolor="#C4DFDC" class="tableleft" align="right">品牌： </td>
+		    <td bgcolor="#FFFFFF"><select name="Agent_Code">
+		      <option>$$XL1005,</option>
+	        </select></td>
+	      </tr>
+	      <tr> 
+            <td width="200" bgcolor="#C4DFDC" class="tableleft"> 
+              <div align="right">所属系列：</div>
+            </td>
+            <td bgcolor="#FFFFFF"> 
+              <select name="XL_CODE" id="XL_CODE">
+                <option value="" selected>==选择==</option>
+                <option>$$XL1008,</option>
+              </select>
+            </td>
+          </tr> 
+          <tr> 
+            <td width="200" bgcolor="#C4DFDC" class="tableleft"> 
+              <div align="right">所属类别：</div>
+            </td>
+            <td bgcolor="#FFFFFF"> 
+              <select name="SERIES_CODE">
+                <option value="" selected>==选择==</option>
+                <option>$$XL0001,</option>
+              </select>
+            </td>
+          </tr>
+          <tr> 
+            <td width="200" bgcolor="#C4DFDC" class="tableleft"> 
+              <div align="right">货号：</div>
+            </td>
+            <td bgcolor="#FFFFFF"> 
+              <input name="PRODUCT_CODE" type="text" class="input" value="!!MJ0S33,01" size="20" >
+              <FONT COLOR="#FF0000">长度&lt;20位</FONT></td>
+          </tr>
+         <!--   <tr> 
+            <td width="200" bgcolor="#C4DFDC" class="tableleft"> 
+              <div align="right">条形码：</div>
+            </td>
+            <td bgcolor="#FFFFFF"> 
+              <input name="PRODUCT_TXM" id="PRODUCT_TXM" type="text" class="input" size="30" value="!!MJ0S33,25">
+            </td>
+          </tr>-->
+          <tr> 
+            <td width="200" bgcolor="#C4DFDC" class="tableleft"> 
+              <div align="right">名称：</div>
+            </td>
+            <td bgcolor="#FFFFFF"> 
+              <input name="PRODUCT_NAME" type="text" class="input" value="!!MJ0S33,03">
+            </td>
+          </tr>
+         
+          <tr> 
+            <td width="200" bgcolor="#C4DFDC" class="tableleft" align="right">规格：</td>
+            <td bgcolor="#FFFFFF"> 
+              <input name="PRODUCT_SIZE" type="text" value="!!MJ0S33,04"> 单位面积：<input type="text" name="Product_MJ"  id="Product_MJ" size="10" style ="color:#FF0000" value="!!MJ0S33,07">
+              平方
+            </td>
+          </tr>
+          
+          <tr> 
+            <td width="200" bgcolor="#C4DFDC" class="tableleft" align="right">单位：</td>
+            <td bgcolor="#FFFFFF"> 
+              <input name="PRODUCT_Untl" type="text" value="!!MJ0S33,09" size="10" maxlength="10">
+            </td>
+          </tr>
+		   <tr> 
+            <td width="200" bgcolor="#C4DFDC" class="tableleft" align="right">新品：</td>
+            <td bgcolor="#FFFFFF"> 
+              <select name="ISNEW">
+			     <option value="否">否</option>
+				 <option value="是">是</option>
+			  </select>  
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2" bgcolor="#C4DFDC" class="tableleft">&gt;&gt;产品价格信息</td>
+          </tr>
+          <tr> 
+            <td width="200" bgcolor="#C4DFDC" class="tableleft" align="right">经销价：</td>
+            <td bgcolor="#FFFFFF"> 
+              <input name="PRODUCT_PRICE" type="text" style ="color:#FF0000" value="!!MJ0S33,10" size="15">
+              整箱单价： <input name="TYPE_AGENT" type="text" style ="color:#FF0000" value="!!MJ0S33,18" size="15">
+            </td>
+          </tr>
+          <tr> 
+            <td width="200" bgcolor="#C4DFDC" class="tableleft" align="right">市场价：</td>
+            <td bgcolor="#FFFFFF">
+              <input name="TYPE_SALES" type="text" style ="color:#FF0000" value="!!MJ0S33,19" size="15">
+              
+            </td>
+          </tr>
+         
+		  <tr> 
+            <td width="200" bgcolor="#C4DFDC" class="tableleft" align="right">&nbsp;</td>
+            <td bgcolor="#FFFFFF">
+              <input name="TYPE_BAZAAR" type="hidden" style ="color:#FF0000" value="!!MJ0S33,20" size="15">
+            </td>
+          </tr>
+		   <tr>
+		    <td bgcolor="#C4DFDC" class="tableleft" align="right">价格类型： </td>
+		    <td bgcolor="#FFFFFF"><select name="PRICE_TYPE" id="PRICE_TYPE">
+		      <option>$$XL0028,</option>
+	        </select></td>
+	      </tr>
+		   <tr>
+		    <td colspan="2" bgcolor="#C4DFDC" class="tableleft">&gt;&gt;产品存放信息</td>
+	      </tr><!--
+		  <tr> 
+            <td width="200" bgcolor="#C4DFDC" class="tableleft" align="right">存放仓库：</td>
+            <td bgcolor="#FFFFFF"> 
+              <select name="WARE_CODE">
+                <option value="" selected>==选择==</option>
+				<option>$$XL0019,</option>
+              </select>
+            </td>
+          </tr>
+		  --><tr> 
+            <td width="200" bgcolor="#C4DFDC" class="tableleft" align="right">预警下限：</td>
+            <td bgcolor="#FFFFFF"> 
+              <input type="text" name="LOWER_NUM" size="10" value="!!MJ0S33,16">常备货库存量：<input type="text" name="CBKCL" id="CBKCL" size="10" value="!!MJ0S33,30">
+            </td>
+          </tr>
+		    <tr>
+		    <td bgcolor="#C4DFDC" class="tableleft" align="right">打包方式：</td>
+		    <td bgcolor="#FFFFFF"><input name="PACK_NUM" type="text" value="!!MJ0S33,23" size="5">
+		      单位/
+	          <select name="PACK_TYPE" id="PACK_TYPE">
+	            <option value="包">包</option>
+	            <option value="箱">箱</option>
+	            <option value="件">件</option>
+              </select></td>
+	      </tr>
+          <tr> 
+            <td width="200" bgcolor="#C4DFDC" class="tableleft" align="right">备注：</td>
+            <td bgcolor="#FFFFFF"> 
+              <textarea name="DEMO" cols="30">!!MJ0S33,11</textarea>
+            </td>
+          </tr>
+          <tr>
+            <td bgcolor="#C4DFDC" class="tableleft" align="right">状态：</td>
+            <td bgcolor="#FFFFFF"><select name="STS">
+			    <option value="启用">启用</option>
+				<option value="停用">停用</option>
+            </select>
+            </td>
+          </tr>
+          
+          
+        </table>
+      </td>
+    </tr>
+  </table>
+  <table width="90%" height="40" border="0" align="center" cellpadding="0" cellspacing="0">
+    <tr> 
+      <td height="30" valign="bottom"><div align="center"> 
+          <input name="Submit" type="button" class="ImgButton" value="确  定" onClick="add()">
+          &nbsp;&nbsp;&nbsp;&nbsp; 
+          <input name="Submit2" type="reset" class="ImgButton" onClick="window.close()" value="关 闭">
+        </div></td>
+    </tr>
+  </table>
+</form>
+</body>
+<script language="javascript">
+ function update()
+   {
+      if('!!MJ0S33,13'!=' ') form1.SERIES_CODE.value='!!MJ0S33,13';
+	  if('!!MJ0S33,14'!=' ') form1.PRICE_TYPE.value='!!MJ0S33,14';
+	  if('!!MJ0S33,26'!=' ') form1.Agent_Code.value='!!MJ0S33,26';
+	  if('!!MJ0S33,27'!=' ') form1.XL_CODE.value='!!MJ0S33,27';
+	  if('!!MJ0S33,24'!=' ') form1.PACK_TYPE.value='!!MJ0S33,24';
+	   if('!!MJ0S33,15'!=' ') form1.STS.value='!!MJ0S33,15';
+	   if('!!MJ0S33,06'!=' ') form1.ISNEW.value='!!MJ0S33,06';
+   }
+ update();
+</script>
+</html>

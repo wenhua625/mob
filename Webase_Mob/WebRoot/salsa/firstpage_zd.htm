@@ -1,0 +1,137 @@
+
+
+
+<html>
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<link type="text/css" rel="stylesheet" href="css/moia.css">
+<link rel="stylesheet" type="text/css" href="css/ext-all.css" />
+<LINK rel="stylesheet" type="text/css"  href="salsa/note/images/style20131112.css"/>
+
+<script type="text/javascript" src="js/extjs/ext-base.js"></script>
+<script type="text/javascript" src="js/extjs/ext-all.js"></script>
+<script type="text/javascript" src="js/extjs/ext-lang-zh_CN.js"></script>
+<script type="text/javascript" src="js/extjs/GroupSummary.js"></script>
+<SCRIPT LANGUAGE="JavaScript" src="inc/check.js"></SCRIPT>
+<script language="javascript">
+function oprView(url){
+     NewWinCustMD(url+'&tmp='+Math.random(),window,500,950);
+     
+  }
+ function oprViewMore(url){
+     NewWinCustMD(url+'&tmp='+Math.random(),window,500,650);
+     
+  }
+</script>
+</head>
+
+<body background="images/firstbg/welcome.gif">
+<script type='text/javascript'>
+Ext.chart.Chart.CHART_URL = 'images/charts.swf';
+Ext.onReady(function(){
+    
+    
+     
+    
+    
+    
+    var A=new Ext.Panel({
+        width: document.body.clientWidth-715,
+        height: 250,
+        title: '近期通知',
+        renderTo: 'A',
+        draggable:true,
+		autoLoad : {
+               url : 'display?proname=note/newNote.htm&tmp='+Math.random()
+         },
+		region:'north',
+		bbar:['->',{text:"更多>>",handler:function(){oprViewMore('display?proname=note/moreNote1.htm');}}], 
+		tools: [{ id:'right',handler:function(){oprViewMore('display?proname=note/moreNote1.htm');} }] 
+		
+    });
+	
+	var store3 =new Ext.data.JsonStore({
+        		url:"work?proname=MJP109",
+        		root:"root",
+        		fields: ['mm_name', 'back_amount']
+    		});
+	 store3.load({params:{ORDER_DATE1:'@@LS.YEAR,-01-01',ORDER_DATE2:'@@LS.YEAR,-12-31'}});
+	 new Ext.Panel({
+        width: document.body.clientWidth-715,
+        height: 250,
+        title: '@@LS.YEAR,年月度进货简报',
+        renderTo: 'B',
+        draggable:true,
+        items: {
+            store: store3,
+            xtype: 'columnchart',
+            xField: 'mm_name',
+            yField: 'back_amount',
+           
+            //extra styles get applied to the chart defaults
+            extraStyle:
+            {
+                legend:
+                {
+                    display: 'bottom',
+                    padding: 5,
+                    font:
+                    {
+                        //family: 'Tahoma',
+                        size: 13
+                    }
+                }
+            }
+        }
+    });
+	new Ext.Panel({
+        width: document.body.clientWidth-715,
+        height: 200,
+        title: '费用清单',
+        renderTo: 'C',
+        draggable:true,
+		autoLoad : {
+               url : 'display?proname=note/feeInfo.htm&tmp='+Math.random()
+         }
+    });
+	new Ext.Panel({
+        width: document.body.clientWidth-715,
+        height: 200,
+        title: '经销商信息',
+        renderTo: 'D',
+        draggable:true,
+		autoLoad : {
+               url : 'display?proname=note/agentInfo.htm&tmp='+Math.random()
+         }
+    });
+    
+ 
+});
+
+</script>
+<table width="80%" class="w01_13px_grey">
+
+<tr>
+	<td width="2%">	</td>
+	<td width="45%"><div id="A"></div></td>
+	<td width="8%">	</td>
+	<td width="45%">
+		
+		<div id="B"></div>
+		
+	</td>
+</tr>
+<tr>
+	<td width="2%">	</td>
+	<td width="45%"><div id="C"></div></td>
+	<td width="8%">	</td>
+	<td width="45%">
+		
+		<div id="D"></div>
+		
+	</td>
+</tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>微信验证</title>
+    <meta http-equiv="content-type" content="text/html;" charset="GB2312">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="css/weixin/style/weui.min.css"/>
+    <link rel="stylesheet" href="css/weixin/example/example.css">
+		<SCRIPT LANGUAGE="JavaScript" src="inc/check.js"></SCRIPT>
+		<script src="inc/dateams.js" type=text/javascript></script>
+		<script type="text/javascript" src="js/extjs/ext-base.js"></script>
+		<script type="text/javascript" src="js/extjs/ext-all.js"></script>
+		<script type="text/javascript" src="js/extjs/ext-lang-zh_CN.js"></script>
+		<script type="text/javascript" src="js/extjs/GroupSummary.js"></script>
+		<script type='text/javascript' src='dwr/engine.js'></script>
+		<script type='text/javascript' src='dwr/util.js'></script>
+<script type='text/javascript' src='dwr/interface/DwrComm.js'></script>
+		<script type="text/javascript" src="js/cityselect1/js/jquery.js"></script>
+      
+  </head>
+  
+  <body ontouchstart>
+   <script type="text/javascript">
+    if (typeof window['DWRUtil'] == 'undefined') window.DWRUtil = dwr.util;
+    var formMap = DWRUtil.getValues("form1");
+    
+    function work(){
+       formMap = DWRUtil.getValues("form1");
+      
+       var phone = document.getElementById("lxfs").value;
+	   var wx_openid = document.getElementById("wx_openid").value;
+	   
+	    
+       if(phone == ""){
+       alert("手机号码不能为空");
+       return false;
+       }
+	   if(wx_openid == ""){
+       alert("微信没有获取到，无法绑定微信！");
+       return false;
+       }
+
+			
+       //判断是否有重复的人
+     
+				 DwrComm.parseIN('IN0047',formMap,'call',{callback:function(data2){
+                        if (data2 != 'ok'){
+                                  alert("哎呀,出错了,稍后再试试吧");
+                         }else{
+                                 window.location.href="weixin?proname=weixin/success_bind.htm";
+                             }
+                         },async:false}); 
+				 
+      
+	   
+	   
+     
+       
+      
+    }
+ 
+
+   </script>
+   <form action="" name="form1">
+   <input type="hidden" value="@@wx_headimage," name="wx_headimage"/>
+   <input type="hidden" value="@@wx_nick," name="wx_nick"/>
+  
+   <input type="hidden" value="@@wx_openid," name="wx_openid" id="wx_openid"/>
+   <input type="hidden" value="@@wx_code," name="wx_code"/>
+
+   
+   
+    
+   
+   <!-- 店铺名称 -->
+      <div>
+       <h5 style="text-align:center;font-size:18px;color:#3cc51f;font-weight:400;margin:0 5%">&nbsp;</h5>
+      </div>
+   
+      <img src="@@wx_headimage," style="width:60px;height:60px;padding:10px;margin:10px;vertical-align:middle;"/>  
+      <span style="font-size:15px">&nbsp;&nbsp;&nbsp;@@wx_nick,</span>  
+      <div class="weui_cells_title">实名验证</div>
+    <div class="weui_cells weui_cells_form">
+        <div class="weui_cell">
+            <div class="weui_cell_hd"></div>
+            
+        </div>
+       <div class="weui_cell">
+            <div class="weui_cell_hd"><label class="weui_label">手机号</label></div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input style='border-left:0px;border-top:0px;border-right:0px;border-bottom:1px;font-size:24px; ' type="number" pattern="[0-9]*" id="lxfs" name="lxfs"  value="@@mobile," readonly/>
+            </div>
+        </div>
+         
+      <div class="weui_cell">
+           <div class="weui_cell_bd weui_cell_primary"></div>
+      </div>
+    </div>
+    </div>
+<div class="weui_cells_tips">点击确定就说明您同意遵守我们的所有协议</div>
+    <div class="weui_btn_area">
+        <a class="weui_btn weui_btn_primary" name="submit" id="showTooltips" onclick="javacript:work();">绑定</a>
+    </div>
+    <div class="weui_btn_area"></div>
+    </form>
+  </body>
+</html>

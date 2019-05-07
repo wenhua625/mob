@@ -1,0 +1,272 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<base target="_self" />
+		<title>确认订货单</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+		<link href="css/style1.css" rel="stylesheet" type="text/css">
+		<link rel="stylesheet" type="text/css" href="css/style_vipsoft.css" />
+		<link rel="stylesheet" type="text/css" href="css/ext-all.css" />
+		<SCRIPT LANGUAGE="JavaScript" src="inc/check.js"></SCRIPT>
+		<script src="inc/dateams.js" type=text/javascript></script>
+		<style type="text/css">
+<!--
+.style1 {
+	font-size: 25px;
+	font-weight: bold;
+	font-family:"隶书";
+}
+.style2 {font-size: 12px}
+.style3 {width: 86; height: 35;font-size:24px;}
+.field_Stye1 {height:35;width:43;font-size:24;}
+.field_Stye2 {font-size:24;}
+.field_Stye3 {font-size:24;}
+.x-grid-record-red table{
+	color: #FF0000;
+}
+
+
+
+.btn{width:80px;height:20px;line-height:18px;font-size:18px;
+background:url("images/button/1_130916141709_1.jpg") no-repeat left top;color:#FFF;padding-bottom:4px;border:0} 
+-->
+</style>
+
+		<object id="LODOP"
+			classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA" width=0 height=0>
+		</object>
+		<script type="text/javascript" src="js/extjs/ext-base.js"></script>
+		<script type="text/javascript" src="js/extjs/ext-all.js"></script>
+		<script type="text/javascript" src="js/extjs/GroupSummary.js"></script>
+		<script type="text/javascript" src="js/extjs/ext-lang-zh_CN.js"></script>
+		<script type='text/javascript' src='dwr/interface/DwrComm.js'></script>
+		<script type='text/javascript' src='dwr/engine.js'></script>
+		<script type='text/javascript' src='dwr/util.js'></script>
+
+
+	</head>
+
+	<body style="background-color:#EEF2EB;">
+		<script type='text/javascript'>
+Ext.onReady(function(){
+    if (typeof window['DWRUtil'] == 'undefined') window.DWRUtil = dwr.util;
+    var formMap = DWRUtil.getValues("form1");
+	if ('@@LS.BM,' == "8889")
+    {
+		Ext.get('Order_Amount').dom.style.visibility='hidden';
+		Ext.get('Account_Amount').dom.style.visibility='hidden';
+		Ext.get('Accounting_Amount').dom.style.visibility='hidden';
+	}
+	/*var acc_amount=parseFloat(form1.Order_Amount.value)-parseFloat(form1.Account_Amount.value);
+   
+       if(acc_amount<0){
+           form1.Accounting_Amount.value=0;
+        }else 
+        form1.Accounting_Amount.value=Ext.util.Format.round(acc_amount,2);*/
+	
+	  //下单
+    Ext.get("BtnSub").on("click",function(){ 
+       
+      
+	   
+	   /*if (parseInt(form1.Accounting_Amount.value)>@@LS.AUTHAMOUNT,)
+	   {
+	      alert("截止到目前为止欠款:"+form1.Accounting_Amount.value+"元，无法下单！");
+	      return false;
+	   }
+	   if(!confirm('经过电脑系统判断，该客户已经符合下单的条件，你确认要下单吗?\n\n确认后，单据将不能更改。'))
+	   {
+	      return false;
+	   }*/
+	   var tip="";
+	   if (parseFloat(form1.Accounting_Amount.value) >0)
+	   {
+	       tip='本次订单应付款：'+form1.Accounting_Amount.value+'元，烦请尽快安排汇款！\n\n';
+	   }else tip = "本次订单无需付款！\n\n";
+	    if(!confirm(tip+'订单提交后，单据将不能更改。'))
+	   {
+	      return false;
+	   }
+	   if(form1.Exp_Name.value == ""){
+	      alert("请选择快递或物流公司!");
+		  return false;
+	   }
+	    formMap = DWRUtil.getValues("form1");
+       DwrComm.parseIN('IN1012',formMap,'call',{callback:function(data){
+           if (data != 'ok'){
+               alert(data);
+           }else{
+              alert("下单成功!");
+              window.close();
+			  window.dialogArguments.close();
+			  
+              
+              
+           }
+       },async:false});  
+   
+      
+      
+    });
+	
+//财务补贴
+	Ext.get("BtnBtdk").on("click",function(){
+       formMap = DWRUtil.getValues("form1");
+       if (DWRUtil.getValue("Back_Code").length == 0){
+            alert("友情提醒:单据无效，无法操作!");
+            return false;
+       }
+	   form1.Bt_Code.value="";
+       NewWinMD('display?proname=agent/order_cwbt_add.htm&Cust_Code=@@LS.DWDM,'+'&Order_AM='+form1.Order_Amount.value+'&tmp='+Math.random(),window);
+       if( form1.Bt_Code.value==""){
+	      //alert("操作无效！");
+		  return false;
+	   }
+	   formMap = DWRUtil.getValues("form1");
+	   refreshBT();
+	 
+	
+	 
+    });
+	
+	function refreshBT()
+  {
+       
+	    var acc_amount=parseFloat(form1.Order_Amount.value)-parseFloat(form1.Tis_Amount.value) -parseFloat(form1.Gg_Amount.value)-parseFloat(form1.Cx_Amount.value)-parseFloat(form1.Tj_Amount.value)-parseFloat(form1.Account_Amount.value);
+    form1.Accounting_Amount.value=Ext.util.Format.round(acc_amount,2);
+	   
+	 
+	  if(parseInt(form1.Tis_Amount.value)>0)
+		document.getElementById("span_tis").style.display="inline";
+	  else document.getElementById("span_tis").style.display="none";			  
+		
+	  if(parseInt(form1.Gg_Amount.value)>0)
+	   {
+		  document.getElementById("span_gg").style.display="inline";		  
+	   }else  document.getElementById("span_gg").style.display="none";	
+	   if(parseInt(form1.Tj_Amount.value)>0)
+	   {
+		  document.getElementById("span_tj").style.display="inline";		  
+	   }else document.getElementById("span_tj").style.display="none";
+	   if(parseInt(form1.Cx_Amount.value )>0)
+	   {
+		  document.getElementById("span_cx").style.display="inline";		  
+	   }else   document.getElementById("span_cx").style.display="none";	
+	   
+	   var span_jxj= document.getElementById("span_jxj");
+      if(parseFloat(form1.Accounting_Amount.value) >0)
+     {
+      span_jxj.style.color ="red";
+	  span_jxj.innerHTML='应汇款：'+form1.Accounting_Amount.value+"元。";
+   }else {
+       span_jxj.style.color="green";
+       span_jxj.innerHTML='余款充足，无需汇款！';
+   }
+	   
+  }
+   
+   refreshBT();
+  /* form1.Accounting_Amount.value = Ext.util.Format.round(parseFloat(form1.Order_Amount.value) - parseFloat(form1.Account_Amount.value),2);
+   var span_jxj= document.getElementById("span_jxj");
+   if(parseFloat(form1.Accounting_Amount.value) >0)
+   {
+      span_jxj.style.color ="red";
+	  span_jxj.innerHTML='应汇款：'+form1.Accounting_Amount.value+"元。";
+   }else {
+       span_jxj.style.color="green";
+       span_jxj.innerHTML='余款充足，无需汇款！';
+   }*/
+  
+	
+});
+</script>
+		<form name="form1" method="post" action="" id="form1">
+		<input name="Bt_Code" type="hidden" value="">
+		  <table width="100%" border="0">
+				
+				<tr>
+					<td>
+				      <h2>确认收货地址：</h2>					</td>
+				</tr>
+               
+				<tr valign="top">
+					<td>
+				       <div style="border:5px solid #009900; width:330px; height:100px;min-height:50px;margin-left: 50px;"> <br>（<input type="text" name="Arr_Man" size="10" value="!!MJP105,05"> 收	）<br><hr>
+					   <input type="text" name="Arr_Address" size="40" value="!!MJP105,03">     <input type="text" name="Arr_Tel" size="25" value="!!MJP105,04"></div>				    </td>
+				</tr>
+				<tr>
+				  <td><h2>快递信息：</h2></td>
+		    </tr>
+				<tr>
+				  <td> <div style="border:3px solid #009900; width:330px; height:85px;margin-left: 50px;">选择快递公司：<select name="Exp_Name">
+			    <option value="">请选择</option>
+		        <option>$$XLS009,</option>
+		        
+		        </select>
+				  <br>快递费收取方式：
+				  <select name="SFSF">
+			    <option value="自付">自付</option>
+		        <option value="月结">月结</option>
+		        
+		        </select></div></td>
+		    </tr>
+				<tr>
+					<td>
+				      <h2>付款方式：</h2>					</td>
+				</tr>
+				<tr>
+				  <td><div style="border:3px solid #F00; width:95%; height:100px;margin-left: 50px;">
+				    <table width="100%" border="0">
+  <tr>
+    <td height="30">本次订单金额：
+ <input type="text" name="Order_Amount"  size="10" value="!!MJ0T09,02" readonly class="TEXTDISABLED" style="border:none;font-size:16px;color:blue;text-align:right">元
+	  <span id="span_tis" style=" display:none; color:blue">- 装修补贴
+                   <input type="text" name="Tis_Amount" id="Tis_Amount" value="0" size="10" style="color:green" readonly class="TEXTDISABLED">
+                   <input type="hidden" name="Tis_Amount_Code" id="Tis_Amount_Code" value="">
+                 </span> <span id="span_gg" style="display:none;color:blue"> - 市场活动
+                     <input type="text" name="Gg_Amount"  id="Gg_Amount" value="0" size="10" style="color:green"  readonly class="TEXTDISABLED">
+                     <input type="hidden" name="Gg_Amount_Code" id="Gg_Amount_Code" value="">
+                     </span> <span id="span_cx" style=" display:none;color:blue"> - 其他补贴
+                       <input type="text" name="Cx_Amount" id="Cx_Amount" value="0" size="10" style="color:green"  readonly class="TEXTDISABLED" >
+                       <input type="hidden" name="Cx_Amount_Code" id="Cx_Amount_Code" value="">
+                       </span> <span id="span_tj" style=" display:none;color:blue">- 折扣返利
+                         <input type="text" name="Tj_Amount"  id="Tj_Amount" value="0" size="10" style="color:green"  readonly class="TEXTDISABLED">
+                         <input type="hidden" name="Tj_Amount_Code" id="Tj_Amount_Code" value="">
+                         </span>
+						
+	  
+     <p> <input type="hidden" name="Order_Num"   value="!!MJ0T09,01" >
+      扣减账上余额：
+      <input type="text" name="Account_Amount" size="10" value="!!MJP105,06" readonly class="TEXTDISABLED" style="border:none;font-size:16px; text-align:right">
+      元。 <span style="font-size:16px;font-family: Arial; font-weight:700" id="span_jxj"></span></p>
+        <input type="hidden" name="Accounting_Amount" size="10" value="0" readonly class="TEXTDISABLED" style="color:red">
+       
+     </td>
+    </tr>
+  <tr>
+    <td height="30">补贴抵货款：<input type="button" name="BtnBtdk" id="BtnBtdk" value="使用公司补贴抵扣"></td>
+    </tr>
+</table>
+<br>
+                  </div></td>
+		    </tr>
+				<tr>
+				  <td><h2>补充说明：</h2></td>
+		    </tr>
+				<tr>
+				  <td><div  style="margin-left: 50px"><textarea name="Demo" cols="40"></textarea></div></td>
+		    </tr>
+				<tr>
+				  <td align="center"><input type="hidden" name="Back_Code" value="!!MJ0T01,01"></td>
+		    </tr>
+				<tr>
+				  <td align="center"><input type="button" name="BtnSub" id="BtnSub" value="提交订单">
+			      <input type="button" name="BtnCancel" id="BtnCancel" value="关闭" onClick="window.close()"></td>
+		    </tr>
+			</table>
+
+
+		</form>
+
+	</body>
+</html>

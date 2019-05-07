@@ -1,0 +1,238 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<title></title>
+		<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+		<link href="css/style1.css" rel="stylesheet" type="text/css">
+		<link rel="stylesheet" type="text/css"
+			href="css/easyui/default/easyui.css">
+		<link rel="stylesheet" type="text/css" href="css/easyui/icon.css">
+		<SCRIPT LANGUAGE="JavaScript" src="inc/check.js"></SCRIPT>
+		<script src="inc/Calendar1.js" type=text/javascript
+			language=javascript></script>
+		<SCRIPT LANGUAGE="JavaScript" src="inc/check.js"></SCRIPT>
+		<script type="text/javascript" src="js/easyui/jquery-1.8.0.min.js"></script>
+		<script type="text/javascript" src="js/easyui/jquery.easyui.min.js"></script>
+		<script type="text/javascript" src="js/easyui/easyui-lang-zh_CN.js"></script>
+		<script type="text/javascript" src="js/easyui/easyui-webase.js"></script>
+		<script type="text/javascript" src="js/easyui/json2.js"></script>
+		<script type="text/javascript" src="js/easyui/jquery.edatagrid.js"></script>
+		<script type="text/javascript" src="js/easyui/easyui.plugin.hy.js"></script>
+		<script type="text/javascript">
+     
+     
+    
+</script>
+
+	</head>
+	<body>
+		<script type='text/javascript'>
+
+$(function(){
+    //初始化表单数据
+    var $dg1=$('#productList');
+    var $dg2=$('#orderDetails');
+    var $dg3=$('#metailDetails');
+    //待出库任务列表
+	$dg2.datagrid({
+				width:'100%',
+				height:205,
+				nowrap: true,
+				autoRowHeight: false,
+				striped: true,
+				singleSelect:true,
+				collapsible:true,
+				url:'query?proname=MJS021&SH_FLAG=F',
+				showFooter:true,
+				title:'待出库的任务单列表',
+				iconCls:'icon-ok',
+				remoteSort: false,
+				idField:'id',
+				pagination:true,
+				rownumbers:true,
+				fit:false,
+				fitColumns:true,
+				columns:[[
+        			{title:'任务单号',field:'rwd_id',width:100},
+        			{title:'品牌',field:'sccj',width: 75},
+        			{title:'型号',field:'psid',width: 75},
+					{title:'名称',field:'spmc',width: 195},
+        			{title:'规格',field:'xhgg',width: 65},
+					{title:'单位',field:'jldw',width: 45},
+        			{title:'下单数量',field:'sl',width: 55,align:'right',sum:"true"},
+					{title:'要求完成日期',field:'yqwcrq',width: 100},
+        			{title:'是否生产',field:'sc_flag_mc',width: 85},
+        			{title:'备注',field:'bz',width: 100} 
+        			
+    			]],
+    			onClickRow:function(index,data){
+    			     //出库次数
+    			     $dg1.datagrid('options').url="query?proname=MJP038&ID_RWD="+data.rwd_id;
+		             $dg1.datagrid('reload');
+		            //发料情况
+		             $dg3.datagrid('options').url="query?proname=MJS049&ID_RWD="+data.rwd_id;
+		             $dg3.datagrid('reload'); 
+    			}
+	});
+	
+	 //出库单表格数据
+    $dg1.datagrid({
+    		   toolbar:[{
+					id:'btnupdate',
+					text:'新增出库',
+					iconCls:'icon-add',
+					handler:function(){
+					    var row = $dg2.datagrid('getSelected'); 
+						if(!row) 
+						{
+							$.messager.alert('提示信息','请选择【待出库的任务单列表】记录。','info'); 
+							return false;
+						}
+					   
+					    form1.d_Flag.value = "0"
+					    opr('display?proname=production/ckd.htm&im_SPBM='+row.spbm+'&ID_RWD='+row.rwd_id);
+					    if(form1.d_Flag.value == "1"){
+					      $dg1.datagrid('reload');  
+					    }
+					}
+				}],
+				onDblClickRow:function(rowIndex, rowData){
+				    form1.d_Flag.value = "0"
+				    opr('display?proname=production/ckd.htm&ID='+rowData.id);
+				    if(form1.d_Flag.value == "1"){
+					      $dg1.datagrid('reload');  
+					 }
+				}
+    			
+	});
+    
+   //弹出窗口
+   function opr(url){
+        var s=NewWinCustMD(url+'&tmp11='+Math.random(),window,550,800);  
+    } 
+   });
+   //查询
+    function  search(){
+        var queryParams = $('#productList').datagrid('options').queryParams;
+      
+	    queryParams.ORDER_DATE1=form1.ORDER_DATE1.value;
+	    queryParams.ORDER_DATE2=form1.ORDER_DATE2.value;
+	    queryParams.Sts = form1.Sts.value;
+	    $('#productList').datagrid('reload');
+	    var p=$('#productList').datagrid('getPager');
+	    $(p).pagination('select',1);   
+   }
+</script>
+		<form name="form1" method="post" action="" id="form1">
+			<input name="d_Flag" value="0" type="hidden">
+			<table width="100%" height="0" border="0" align="center"
+				cellpadding="0" cellspacing="0">
+				<tr align="center" height="5">
+					<td>
+
+					</td>
+				</tr>
+				<tr align="center">
+					<td>
+						<table cellSpacing=0 cellPadding=0 border="0" width="100%">
+							<tr height="30">
+								<td
+									style="BORDER-BOTTOM: @@LS.BGCOLOR, 1px solid; font-size: 12pt; COLOR: #124164; FONT-WEIGHT: bold;"
+									valign="top">
+									<img src="images/loadtree/mdmde.gif" WIDTH="18" HEIGHT="18">
+									出库
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+
+
+				<tr>
+					<td>
+						<div id="orderDetails"></div>
+					</td>
+				</tr>
+
+				<tr align="center" height="5">
+					<td>
+
+					</td>
+				</tr>
+
+
+				<tr>
+					<td>
+						<div class="easyui-tabs" style="width:'850';height:'270'">
+							<div title="出库次数"  style="padding:10px">
+                               <table id="productList" class="easyui-datagrid" data-options="showFooter:false,fit:true,fitColumns:true,rownumbers:true,singleSelect:true,url:''">
+									<thead>
+										<tr>
+											<th data-options="field:'rq',width:70">
+												出库日期
+											</th>
+											<th data-options="field:'id',width:75">
+												单据编号
+											</th>
+											<th data-options="field:'zsl',width:55,align:'right'">
+												总数量
+											</th>
+											<th data-options="field:'zje',width:55,align:'right'">
+												总金额
+											</th>
+											<th data-options="field:'zdr',width:75">
+												制单人
+											</th>
+											<th data-options="field:'shr',width:75">
+												审核人
+											</th>
+											<th data-options="field:'zy',width:150">
+												摘要
+											</th>
+											<th data-options="field:'bz',width:100">
+												备注
+											</th>
+										</tr>
+									</thead>
+									
+									
+								</table>
+							</div>
+							<div title="应出库" style="padding:10px">
+								<table id="metailDetails" class="easyui-datagrid" data-options="showFooter:true,fit:true,fitColumns:true,rownumbers:true,singleSelect:true,url:''">
+									<thead>
+										<tr>
+											<th data-options="field:'psid',width:65">
+												物料编号
+											</th>
+											<th data-options="field:'spmc',width:235">
+												名称
+											</th>
+											<th data-options="field:'xhgg',width:135">
+												规格
+											</th>
+											<th data-options="field:'jldw',width:55">
+												单位
+											</th>
+											<th data-options="field:'sl',width:55,align:'right'">
+												总耗
+											</th>
+											<th data-options="field:'yssl',width:55,align:'right'">
+												已发
+											</th>
+										</tr>
+									</thead>
+									
+									
+								</table>
+							</div>
+						</div>
+
+					</td>
+				</tr>
+			</table>
+		</form>
+
+	</body>
+
+</html>

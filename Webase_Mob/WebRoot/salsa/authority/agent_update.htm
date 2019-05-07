@@ -1,0 +1,232 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>客户信息</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<link href="css/style011.css" rel="stylesheet" type="text/css">
+<SCRIPT LANGUAGE="JavaScript" src="inc/check.js"></SCRIPT>
+<script src="inc/dateams.js" type=text/javascript language=javascript></script>
+<script type='text/javascript' src='dwr/interface/DwrComm.js'></script>
+<script type='text/javascript' src='dwr/engine.js'></script>
+<script type='text/javascript' src='dwr/util.js'></script>
+<script type="text/javascript">
+ function work(){
+     
+     if (typeof window['DWRUtil'] == 'undefined') window.DWRUtil = dwr.util;
+    var formMap = DWRUtil.getValues("form1");
+    DwrComm.parseIN('IN0006',formMap,'update',{callback:function(data){if (data != 'ok'){alert(data);}else{ 
+                      dialogArguments.document.getElementById('d_Flag').value="1";   
+                      window.close();   
+                   }},async:false});
+        }
+</script>
+<script type="text/javascript">
+	function add(){
+	        if(form1.YF_XT.value==""){
+			   form1.YF_XT.value=0;
+			}
+			if(form1.YF_JX.value==""){
+			   form1.YF_JX.value=0;
+			}if(form1.YF_LG.value==""){
+			   form1.YF_LG.value=0;
+			}
+			if(form1.YF_XS.value==""){
+			   form1.YF_XS.value=1;
+			}
+			if(form1.YF_DQXT.value==""){
+			   form1.YF_DQXT.value=0;
+			}
+			if(form1.QYZK.value==""){
+			   form1.QYZK.value=100;
+			}
+		
+			work();		
+		
+		
+	}
+	
+</script>
+</head>
+
+<body>
+<form name="form1" method="post" action="" id="form1"><div align="right"> 
+</div><table width="100%" height="0" border="0" align="center" cellpadding="0" cellspacing="0">
+    <tr> 
+      <td align="center"><b> 修改客户信息</b></td>
+    </tr>
+    <tr> 
+      <td height="0"> 
+        <table width="100%" border="0" align="center" cellpadding="2" cellspacing="1">
+          <tr> 
+            <td width="200" bgcolor="#C4DFDC" class="tableleft"> 
+              <div align="right">品牌：</div>            </td>
+            <td bgcolor="#FFFFFF">
+              <select name="Brand_Code" >
+		  			<option>$$XL1005,</option>
+        	</select>            </td>
+          </tr>
+          <tr> 
+            <td width="200" bgcolor="#C4DFDC" class="tableleft"> 
+              <div align="right">所属区域：</div>            </td>
+            <td bgcolor="#FFFFFF">
+              <select name="Sjbm" disabled=true>
+		  			<option>$$XL0018,</option>
+        	</select>            </td>
+          </tr>
+          <tr> 
+            <td width="200" bgcolor="#C4DFDC" class="tableleft"> 
+              <div align="right">客户代号：</div>            </td>
+            <td bgcolor="#FFFFFF"> 
+              <input name="AGENT_CODE" type="text" class="TEXTDISABLED" maxlength="4" size="10" value="!!MJ0S38,01" readonly>签约日期：
+              <input type="text" name="Join_Date" size="12" readonly onClick="javascript:ShowCalendar(this)" value="!!MJ0S38,27">
+到期日期：
+<input type="text" name="End_Date" size="12" readonly onClick="javascript:ShowCalendar(this)" value="!!MJ0S38,28">            </td>
+          </tr>
+          <tr> 
+            <td width="200" bgcolor="#C4DFDC" class="tableleft"> 
+              <div align="right">客户名称：</div>            </td>
+            <td bgcolor="#FFFFFF"> 
+              <input name="AGENT_NAME" type="text" class="input" value="!!MJ0S38,02" size="30"><input name="AGENT_TYPE" type="hidden" class="input" value="shop">            </td>
+          </tr>
+          
+          <!--
+           <tr> 
+            <td width="200" bgcolor="#C4DFDC" class="tableleft"> 
+              <div align="right">名称拼音：</div>
+            </td>
+            <td bgcolor="#FFFFFF"> 
+              <input name="AGENT_PING" type="text" class="input" value="!!MJ0S38,07">
+            </td>
+          </tr>
+          
+          <tr> 
+            <td width="200" bgcolor="#C4DFDC" class="tableleft"> 
+              <div align="right">客户类型：</div>
+            </td>
+            <td bgcolor="#FFFFFF"> 
+              <select name="AGENT_TYPE">
+                <option>$$XL0018,</option>
+                
+              </select>
+            </td>
+          </tr>
+          -->
+          <tr> 
+            <td width="200" bgcolor="#C4DFDC" class="tableleft" align="right">所属区域经理：</td>
+            <td bgcolor="#FFFFFF">
+              <select name="DOMAIN_MAN">
+                <option>$$XL0003,</option>
+              </select>            </td>
+          </tr>
+          <tr> 
+            <td width="200" bgcolor="#C4DFDC" class="tableleft" align="right">地址：</td>
+            <td bgcolor="#FFFFFF">
+              <input name="AGENT_ADDRESS" type="text" class="input" value="!!MJ0S38,08" size="50">            </td>
+          </tr>
+          <tr> 
+            <td width="200" bgcolor="#C4DFDC" class="tableleft" align="right">联系人：</td>
+            <td bgcolor="#FFFFFF">
+              <input name="CONTACT_MAN" type="text" class="input" value="!!MJ0S38,10">            </td>
+          </tr>
+          
+          <tr> 
+            <td width="200" bgcolor="#C4DFDC" class="tableleft" align="right">电话一：</td>
+            <td bgcolor="#FFFFFF">
+              <input name="AGENT_TEL" type="text" class="input" value="!!MJ0S38,09">            </td>
+          </tr>
+           <tr> 
+            <td width="200" bgcolor="#C4DFDC" class="tableleft" align="right">电话二：</td>
+            <td bgcolor="#FFFFFF">
+              <input name="AGENT_TEL1" type="text" class="input" value="!!MJ0S38,18">            </td>
+          </tr>
+          <tr> 
+            <td width="200" bgcolor="#C4DFDC" class="tableleft" align="right">传真：</td>
+            <td bgcolor="#FFFFFF">
+              <input name="AGENT_FAX" type="text" class="input" value="!!MJ0S38,13">            </td>
+          </tr>
+          <tr> 
+            <td width="200" bgcolor="#C4DFDC" class="tableleft" align="right">手机一：</td>
+            <td bgcolor="#FFFFFF">
+              <input name="Agent_Mobile1" type="text" class="input" value="!!MJ0S38,15">            </td>
+          </tr>
+           <tr> 
+            <td width="200" bgcolor="#C4DFDC" class="tableleft" align="right">手机二：</td>
+            <td bgcolor="#FFFFFF">
+              <input name="Agent_Mobile2" type="text" class="input" value="!!MJ0S38,16">            </td>
+          </tr>
+          <tr> 
+            <td width="200" bgcolor="#C4DFDC" class="tableleft" align="right">QQ：</td>
+            <td bgcolor="#FFFFFF">
+              <input name="AGENT_QQ" type="text" class="input" value="!!MJ0S38,19">            </td>
+          </tr>
+           <tr> 
+            <td width="200" bgcolor="#C4DFDC" class="tableleft" align="right">&nbsp;</td>
+            <td bgcolor="#FFFFFF">
+              <input name="Dis_Amount" type="hidden" class="input" value="!!MJ0S38,14">            </td>
+          </tr>
+          <tr> 
+            <td width="200" bgcolor="#C4DFDC" class="tableleft" align="right">状态：</td>
+            <td bgcolor="#FFFFFF">
+              <select name="Open_Flag">
+                 <option value="启用">启用</option>
+		         <option value="禁用">禁用</option>
+              </select> 
+			   <input type="hidden" name="YF_XT" size="10" value="!!MJ0S38,20">
+           
+            <input type="hidden" name="YF_JX" size="10" value="!!MJ0S38,21">
+           
+            <input type="hidden" name="YF_LG" size="10" value="!!MJ0S38,22">
+          
+        <input type="hidden" name="YF_DQXT" size="10" value="!!MJ0S38,24">
+             
+          <input type="hidden" name="YF_XS" size="5" value="!!MJ0S38,23">
+			  
+			             </td>
+          </tr>
+		 
+		  <tr>
+            <td bgcolor="#C4DFDC" class="tableleft" align="right">签约折扣：</td>
+            <td bgcolor="#FFFFFF"><input type="text" name="QYZK" size="10" value="!!MJ0S38,25">（95:表示打95折） 
+              客户等级：
+                <select name="Agent_Level">
+                  <option value="A">A</option>
+				  <option value="B">B</option>
+				  <option value="C">C</option>
+				  <option value="D">D</option>
+				  <option value="E">E</option>
+				  <option value="F">F</option>
+                </select></td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+  <table width="100%" height="0" border="0" align="center" cellpadding="0" cellspacing="0">
+    
+          <tr align="center"> 
+            <td>     
+        		<input type="button" name="Submit4" value="修 改" onClick="add()">
+        		
+        		<!--<input type="button" name="Submit5" value="开通片区系统" onClick="open_sys()">
+            --></td>
+          </tr>
+        
+  </table>
+  
+</form>
+</body>
+<script language="javascript">
+ function update()
+   {
+      if('!!MJ0S38,04'!=' ') form1.DOMAIN_MAN.value='!!MJ0S38,04';
+	  if('!!MJ0S38,17'!=' ') form1.Brand_Code.value='!!MJ0S38,17';
+	  if('!!MJ0S38,11'!=' ') form1.Sjbm.value='!!MJ0S38,11';
+	  if('!!MJ0S38,26'!=' ') form1.Agent_Level.value='!!MJ0S38,26';
+	  //if ('!!MJ0S38,12'=='1') form1.Submit5.disabled =true;
+	   
+	  
+	  
+   }
+ update();
+</script>
+</html>
