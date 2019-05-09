@@ -3484,7 +3484,22 @@ public class WebControl {
 				s_insertsql = HtmlFunction.parseVarAttr(s_insertsql, request, "");
 				updater.executeUpdate(s_insertsql);
 				
-				if(s_sftz.equals("insert")){
+				if(s_sftz.equals("push")){
+					final String sql = HtmlFunction.parseVar(s_tsnr, request, "");
+					
+					Thread t=new Thread(){
+					    public void run(){
+					    	AppSmsAynSender a= new AppSmsAynSender();
+					    	//a.setMsgContent(tsnr);
+					    //	System.out.println("AppSmsAynSender:"+sql);
+					    	a.sendMsgForSql(sql);
+					   }
+					};
+					t.start();
+				}
+				
+				
+			/*	if(s_sftz.equals("insert")){
 					final String sql = HtmlFunction.parseVar(s_tsnr, request, "");
 					Thread t=new Thread(){
 					    public void run(){
@@ -3495,11 +3510,7 @@ public class WebControl {
 					   }
 					};
 					t.start();
-					
-					
-					
-					
-				}
+				}*/
 				
 				json_result.put("back_code", key);
 				json_result.put("result", "ok");
@@ -3519,7 +3530,7 @@ public class WebControl {
 					
 					updater.executeUpdate(s_insertsql);
 					
-					if(s_sftz.equals("insert")){
+				/*	if(s_sftz.equals("insert")){
 						final String sql = HtmlFunction.parseVar(s_tsnr, request, "");
 						
 						Thread t=new Thread(){
@@ -3531,11 +3542,23 @@ public class WebControl {
 						   }
 						};
 						t.start();
+					}*/
+					
+					if(s_sftz.equals("push")){
+						final String sql = HtmlFunction.parseVar(s_tsnr, request, "");
+						
+						Thread t=new Thread(){
+						    public void run(){
+						    	AppSmsAynSender a= new AppSmsAynSender();
+						    	//a.setMsgContent(tsnr);
+						   // 	System.out.println("AppSmsAynSender:"+sql);
+						    	a.sendMsgForSql(sql);
+						   }
+						};
+						t.start();
 					}
 					
-				
-					
-					if(s_sftz.equals("sms")){
+					/*if(s_sftz.equals("sms")){
 						final String sql = HtmlFunction.parseVar(s_tsnr, request, "");
 						
 						Thread t=new Thread(){
@@ -3549,7 +3572,7 @@ public class WebControl {
 						t.start();
 						
 						
-					}
+					}*/
 					
 				} catch (SQLException e) {
 					System.out.println(s_insertsql);
@@ -3572,7 +3595,7 @@ public class WebControl {
 				//return "Ajax:操作对象[" + kjname + "]更新SQL出错!SQL=" + s_updatesql;
 			}
 			
-			if(s_sftz.equals("update")){
+			/*if(s_sftz.equals("update")){
 				final String sql = HtmlFunction.parseVar(s_tsnr, request, "");
 				
 				Thread t=new Thread(){
@@ -3584,43 +3607,43 @@ public class WebControl {
 				};
 				t.start();
 				
-			}
+			}*/
 			
 			//登录环信
-			if(s_sftz.equals("sm")){
-				final String final_tsnr = HtmlFunction.parseVar(s_tsnr, request, "");
-				/*String nickname= java.net.URLDecoder.decode(request.getParameter("nickname"),"utf-8");
-				nickname = new String(nickname.getBytes("iso8859-1"), "utf-8");
-				final String final_yhmc = nickname;
-				*/
-				String mobtel= request.getParameter("mob_tel");
-				
-				
-				if(mobtel == null || mobtel == ""){
-					mobtel= WeChatNotice.getTelByAgent_Code(request);
-				}
-				final String final_mobtel=mobtel;
-				Thread t=new Thread(){
-				    public void run(){
-				    	//String chatusername=final_lxfs;
-				    	
-				    	try {
-				    		
-				    			JPush push = new JPush();
-						 		   String result=push.pushObject_all_regid_alert(final_mobtel, final_tsnr,"艾来客");
-						 		   if(result.equals("0")){
-						 			 System.out.println("消息推送失败:"+final_mobtel+"  "+"艾来客访问客户提示！");
-						 		   }
-				    		
-						} catch (Exception e) {
-							// TODO Auto-generated catch block
-							//e.printStackTrace();
-						}
-				   }
-				};
-				t.start();
-				
-			}
+//			if(s_sftz.equals("sm")){
+//				final String final_tsnr = HtmlFunction.parseVar(s_tsnr, request, "");
+//				/*String nickname= java.net.URLDecoder.decode(request.getParameter("nickname"),"utf-8");
+//				nickname = new String(nickname.getBytes("iso8859-1"), "utf-8");
+//				final String final_yhmc = nickname;
+//				*/
+//				String mobtel= request.getParameter("mob_tel");
+//				
+//				
+//				if(mobtel == null || mobtel == ""){
+//					mobtel= WeChatNotice.getTelByAgent_Code(request);
+//				}
+//				final String final_mobtel=mobtel;
+//				Thread t=new Thread(){
+//				    public void run(){
+//				    	//String chatusername=final_lxfs;
+//				    	
+//				    	try {
+//				    		
+//				    			JPush push = new JPush();
+//						 		   String result=push.pushObject_all_regid_alert(final_mobtel, final_tsnr,"艾来客");
+//						 		   if(result.equals("0")){
+//						 			 System.out.println("消息推送失败:"+final_mobtel+"  "+"艾来客访问客户提示！");
+//						 		   }
+//				    		
+//						} catch (Exception e) {
+//							// TODO Auto-generated catch block
+//							//e.printStackTrace();
+//						}
+//				   }
+//				};
+//				t.start();
+//				
+//			}
 
 		}
 
@@ -3651,61 +3674,77 @@ public class WebControl {
 				
 				}
 				
-				if(s_sftz.equals("call")){
-					final String sql = HtmlFunction.parseVarAttr(s_tsnr, request, "");
+				if(s_sftz.equals("push")){
+					final String sql = HtmlFunction.parseVar(s_tsnr, request, "");
 					
 					Thread t=new Thread(){
 					    public void run(){
 					    	AppSmsAynSender a= new AppSmsAynSender();
 					    	//a.setMsgContent(tsnr);
+					   // 	System.out.println("AppSmsAynSender:"+sql);
 					    	a.sendMsgForSql(sql);
 					   }
 					};
 					t.start();
-					
-					
 				}
+				
+			 
+//				if(s_sftz.equals("call")){
+//					final String sql = HtmlFunction.parseVarAttr(s_tsnr, request, "");
+//					
+//					Thread t=new Thread(){
+//					    public void run(){
+//					    	AppSmsAynSender a= new AppSmsAynSender();
+//					    	//a.setMsgContent(tsnr);
+//					    	
+//					    	a.sendMsgForSql(sql);
+//					   }
+//					};
+//					t.start();
+//					
+//					
+//				}
 				//登录环信
-				if(s_sftz.equals("sm")){
-					
-					final String final_lxfs = request.getParameter("open_id");
-					String nickname= java.net.URLDecoder.decode(request.getParameter("nickname"),"utf-8");
-					nickname = new String(nickname.getBytes("iso8859-1"), "utf-8");
-					String mobtel= request.getParameter("mob_tel");
-					
-                    
-					final String final_yhmc = nickname;
-					if(mobtel == null || mobtel == ""){
-						mobtel= WeChatNotice.getTelByAgent_Code(request);
-					}
-					final String final_mobtel=mobtel;
-					Thread t=new Thread(){
-					    public void run(){
-					    	String chatusername=final_lxfs;
-					    	//Authentic.Token TEST_TOKEN = new Authentic.Token("YWMt4EPcDvVpEeWmTm2uJUQPcwAAAVT1s8Bmn-wB5wwM9nqr6HgljAvlo79iDX8",1465203701330L);
-					    	TalkDataService service = new TalkDataServiceImpl(new TalkHttpServiceImplApache());
-					    	//service.setToken(TEST_TOKEN);
-					    	try {
-					    		String isRegedit=JsonTool.write(service.userGet(chatusername));
-					    		if (isRegedit.indexOf("statusCode")!=-1)
-					    		{
-					    			
-					    			JsonTool.write(service.userSave(chatusername,chatusername+"+kcc",final_yhmc));
-					    			JPush push = new JPush();
-							 		   String result=push.pushObject_all_regid_alert(final_mobtel, "艾来客给你带来了新客户！客户昵称："+final_yhmc,"艾来客");
-							 		   if(result.equals("0")){
-							 			 System.out.println("消息推送失败:"+final_mobtel+"  "+"艾来客给你带来了新客户！");
-							 		   }
-					    		}
-							} catch (Exception e) {
-								// TODO Auto-generated catch block
-								//e.printStackTrace();
-							}
-					   }
-					};
-					t.start();
-					
-				}
+//				if(s_sftz.equals("sm")){
+//					
+//					final String final_lxfs = request.getParameter("open_id");
+//					String nickname= java.net.URLDecoder.decode(request.getParameter("nickname"),"utf-8");
+//					nickname = new String(nickname.getBytes("iso8859-1"), "utf-8");
+//					String mobtel= request.getParameter("mob_tel");
+//					
+//                    
+//					final String final_yhmc = nickname;
+//					if(mobtel == null || mobtel == ""){
+//						mobtel= WeChatNotice.getTelByAgent_Code(request);
+//					}
+//					final String final_mobtel=mobtel;
+//					Thread t=new Thread(){
+//					    public void run(){
+//					    	String chatusername=final_lxfs;
+//					    	//Authentic.Token TEST_TOKEN = new Authentic.Token("YWMt4EPcDvVpEeWmTm2uJUQPcwAAAVT1s8Bmn-wB5wwM9nqr6HgljAvlo79iDX8",1465203701330L);
+//					    	TalkDataService service = new TalkDataServiceImpl(new TalkHttpServiceImplApache());
+//					    	//service.setToken(TEST_TOKEN);
+//					    	try {
+//					    		String isRegedit=JsonTool.write(service.userGet(chatusername));
+//					    		if (isRegedit.indexOf("statusCode")!=-1)
+//					    		{
+//					    			
+//					    			JsonTool.write(service.userSave(chatusername,chatusername+"+kcc",final_yhmc));
+//					    			JPush push = new JPush();
+//							 		   String result=push.pushObject_all_regid_alert(final_mobtel, "艾来客给你带来了新客户！客户昵称："+final_yhmc,"艾来客");
+//							 		   if(result.equals("0")){
+//							 			 System.out.println("消息推送失败:"+final_mobtel+"  "+"艾来客给你带来了新客户！");
+//							 		   }
+//					    		}
+//							} catch (Exception e) {
+//								// TODO Auto-generated catch block
+//								//e.printStackTrace();
+//							}
+//					   }
+//					};
+//					t.start();
+//					
+//				}
 			
 			
 				} catch (Exception e) {
@@ -4012,9 +4051,14 @@ public class WebControl {
 			//params.put("user_cert_no","");
 			//params.put("user_bank_card_no","");
 			//params.put("user_mobile","");
-			params.put("return_url",qz+"/weixinmonitor");
+//			params.put("return_url",qz+"/weixinmonitor");
+//		    
+//			params.put("notify_url",qz+"/weixinmonitor");
+			params.put("return_url",qz+"/ghtpaymonitor");
 		    
-			params.put("notify_url",qz+"/weixinmonitor");
+			params.put("notify_url",qz+"/ghtpaymonitor");
+			
+			System.out.println("异步通知URL:"+(qz+"/ghtpaymonitor"));
 			
 			//params.put("user_cert_type","");
 			//params.put("user_cert_no","");

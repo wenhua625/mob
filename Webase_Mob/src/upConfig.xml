@@ -81,8 +81,8 @@
 		<SQL_UPDATE>update orderMeter set meter_length='@@meter_length,',meter_width='@@meter_width,',meter_memo='@@meter_memo,' where meter_id='@@meter_id,'</SQL_UPDATE>
 		<SQL_DELETE>begin delete from ordermeter where meter_id='@@meter_id,' delete from orderImage where meter_id='@@meter_id,' end</SQL_DELETE>
 		<URL>{ call sp_kscj('@@ordercode,','@@agent_code,','@@ywy_tel,','@@col_amount,','@@col_memo,','@@col_man,','@@out_trade_no,','@@trade_status,','@@cashier_trade_no,','@@operator,','@@pay_type,','@@pay_info,')}</URL>
-		<SFTZ></SFTZ>
-		<TZNR></TZNR>
+		<SFTZ>push</SFTZ>
+		<TZNR>select  '收款通知：客户'+arr_man+'的货款@@col_amount,已入账，收款人：@@col_man,' nr, '@@col_memo,' token1,lxfs msgTel,'@@col_amount,' sendTel,'艾管理' appname,'@@ordercode,' ordercode,'收款通知' msgtype  from TJ_SYS_YH a ,OrderList b  where a.dept=b.AGENT_CODE and yhjb='老板' and order_code='@@ordercode,'</TZNR>
 		<KJSM>测量添加</KJSM>
 	</row>
 	<row>
@@ -94,7 +94,7 @@
 		<SQL_DELETE></SQL_DELETE>
 		<URL></URL>
 		<SFTZ>insert</SFTZ>
-		<TZNR>select  '收款提醒：客户'+arr_man+'的货款@@col_amount,已入账，收款人：@@col_man,' nr, '@@col_memo,' token1,lxfs msgTel,'@@col_amount,' sendTel,'艾管理' appname,'@@ordercode,' ordercode,'收款提醒' msgtype  from TJ_SYS_YH a ,OrderList b  where a.dept=b.AGENT_CODE and ( yhjb='老板' or YWY_TEL=lxfs ) and order_code='@@ordercode,'</TZNR>
+		<TZNR>select  '收款通知：客户'+arr_man+'的货款@@col_amount,已入账，收款人：@@col_man,' nr, device_token token1,lxfs msgTel,'' sendTel,'艾管理' appname,'@@ordercode,' ordercode,'收款通知' msgtype  from TJ_SYS_YH a ,OrderList b  where a.dept=b.AGENT_CODE and yhjb='老板' and order_code='@@ordercode,'</TZNR>
 		<KJSM>回款添加</KJSM>
 	</row>
 	<row>
@@ -264,7 +264,7 @@
 		<SQL_DELETE></SQL_DELETE>
 		<URL></URL>
 		<SFTZ>insert</SFTZ>
-		<TZNR>select  '收款提醒：客户'+arr_man+'的订金@@col_amount,已入账，收款人：@@col_man,' nr, '@@col_memo,' token1,lxfs msgTel,'@@col_amount,' sendTel,'艾管理' appname,'@@order_code,' ordercode,'收款提醒' msgtype   from TJ_SYS_YH a ,OrderList b  where a.dept=b.AGENT_CODE and ( yhjb='老板' or YWY_TEL=lxfs )  and order_code='@@order_code,' union select  '成交提醒：您带给 @@shopname, 的订单已成交，准备接收赏金吧！' nr, '@@col_memo,' token1,lxfs msgTel,'@@col_amount,' sendTel,'艾管理' appname,'@@order_code,' ordercode,'成交提醒' msgtype  from TJ_SYS_YH  where  LXFS in (select top 1 opr_tel from orderlist where order_code='@@order_code,')</TZNR>
+		<TZNR>select  '收款通知：客户'+arr_man+'的订金@@col_amount,已入账，收款人：@@col_man,' nr, device_token token1,lxfs msgTel,'' sendTel,'艾管理' appname,'@@order_code,' ordercode,'收款通知' msgtype   from TJ_SYS_YH a ,OrderList b  where a.dept=b.AGENT_CODE and yhjb='老板'  and order_code='@@order_code,' union select  '成交提醒：您带给 @@shopname, 的订单已成交，准备接收赏金吧！' nr, device_token token1,lxfs msgTel,'' sendTel,'艾管理' appname,'@@order_code,' ordercode,'成交提醒' msgtype  from TJ_SYS_YH  where  LXFS in (select top 1 opr_tel from orderlist where order_code='@@order_code,')</TZNR>
 		<KJSM>导购收取订金</KJSM>
 	</row>
 	<row>
@@ -301,8 +301,8 @@
 		<SQL_UPDATE></SQL_UPDATE>
 		<SQL_DELETE></SQL_DELETE>
 		<URL></URL>
-		<SFTZ>insert</SFTZ>
-		<TZNR>select  '测量完工：客户('+arr_man+arr_tel+')的房屋已经测量完工,测量人：@@track_man,！' nr, device_token token1,lxfs msgTel,'' sendTel,'艾管理' appname,'@@ordercode,' ordercode,'测量完工' msgtype  from TJ_SYS_YH a ,OrderList b where a.LXFS=b.YWY_TEL and order_code='@@ordercode,'</TZNR>
+		<SFTZ>push</SFTZ>
+		<TZNR>select  '客户('+arr_man+arr_tel+')的房屋已经测量完工,测量人：@@track_man,！' nr, device_token token1,lxfs msgTel,'' sendTel,'艾管理' appname,'@@ordercode,' ordercode,'测量完工提醒' msgtype  from TJ_SYS_YH a ,OrderList b where a.LXFS=b.YWY_TEL and order_code='@@ordercode,'</TZNR>
 		<KJSM>测量完工</KJSM>
 	</row>
 	<row>
@@ -509,8 +509,8 @@
 		<SQL_UPDATE>update orderlist set ywy='@@ywy_name,',ywy_tel='@@ywy_tel,',zjlxsj=getdate(),groom_date=getdate() where order_code='@@order_code,'</SQL_UPDATE>
 		<SQL_DELETE>delete from orderlist where order_code in (@@order_code,)</SQL_DELETE>
 		<URL>{ call sp_wxzp('@@order_code,','@@srv_type,','@@az_man,','@@az_tel,','@@az_date,','@@zp_memo,','@@az_time,') }</URL>
-		<SFTZ>call</SFTZ>
-		<TZNR>select  '店里指派了一个 @@srv_type, 任务，请到安装任务里处理！' nr, device_token token1,lxfs msgTel,'' sendTel,'艾管理' appname,'@@order_code,' ordercode,'任务' msgtype  from TJ_SYS_YH a where lxfs='@@az_tel,' </TZNR>
+		<SFTZ>push</SFTZ>
+		<TZNR>select  '店里指派了一个 @@srv_type, 任务，请到消息列表里处理！' nr, device_token token1,lxfs msgTel,'' sendTel,'艾管理' appname,'@@order_code,' ordercode,'@@srv_type,' msgtype  from TJ_SYS_YH a where lxfs='@@az_tel,' </TZNR>
 		<KJSM>任务指派接口（二版）</KJSM>
 	</row>
 	<row>
@@ -1219,7 +1219,7 @@
 		<SQL_UPDATE></SQL_UPDATE>
 		<SQL_DELETE></SQL_DELETE>
 		<URL></URL>
-		<SFTZ>insert</SFTZ>
+		<SFTZ>push</SFTZ>
 		<TZNR>select  '@@content,' nr, device_token token1,lxfs msgTel,'' sendTel,'艾管理' appname,'@@order_code,' ordercode,'货物到达仓库提醒' msgtype  from TJ_SYS_YH a where lxfs='@@ywy_tel,'</TZNR>
 		<KJSM>到货确认</KJSM>
 	</row>
@@ -1231,8 +1231,8 @@
 		<SQL_UPDATE>begin update orderlist set Order_STS='0',dh_sts='已安装' where ORDER_CODE='@@order_code,'  insert into OrderTrack(track_id,OrderCode,CustName,Cust_Tel,Track_Man,Track_Tel,track_date,Track_Content,track_memo) select '@@KEY,',order_code,Arr_Man,Arr_Tel,'@@ywy_man,','@@ywy_tel,',GETDATE(),'@@content,','订单结案' from OrderList where ORDER_CODE='@@order_code,' end</SQL_UPDATE>
 		<SQL_DELETE></SQL_DELETE>
 		<URL></URL>
-		<SFTZ>insert</SFTZ>
-		<TZNR>select  '@@pic_name,' nr, device_token token1,lxfs msgTel,'' sendTel,'艾管理' appname,'@@order_code,' ordercode,'货物到达仓库提醒' msgtype  from TJ_SYS_YH a,orderlist o where a.LXFS=o.YWY_TEL and ORDER_CODE='@@order_code,'	</TZNR>
+		<SFTZ>push</SFTZ>
+		<TZNR>select  '@@pic_name,' nr, device_token token1,lxfs msgTel,'' sendTel,'艾管理' appname,'@@order_code,' ordercode,'安装完工提醒' msgtype  from TJ_SYS_YH a,orderlist o where a.LXFS=o.YWY_TEL and ORDER_CODE='@@order_code,'	</TZNR>
 		<KJSM>insert完工  update 结案</KJSM>
 	</row>
 	<row>
@@ -1240,10 +1240,10 @@
 		<CS>7</CS>
 		<SQL_SELECT></SQL_SELECT>
 		<SQL_INSERT>begin update orderlist set dh_sts='已送货'  where order_code='@@order_code,'  	insert into OrderTrack(track_id,OrderCode,CustName,Cust_Tel,Track_Man,Track_Tel,track_date,Track_Content,track_memo) select '@@KEY,',order_code,Arr_Man,Arr_Tel,'@@ywy_man,','@@ywy_tel,',GETDATE(),'@@content,','确认送达' from OrderList where ORDER_CODE='@@order_code,'  end</SQL_INSERT>
-		<SQL_UPDATE></SQL_UPDATE>
+		<SQL_UPDATE>insert into orderfee(order_code,fee_name,fee_amount,fee_memo) values('@@order_code,','@@fee_name,','@@fee_amount,','@@fee_memo,')</SQL_UPDATE>
 		<SQL_DELETE></SQL_DELETE>
 		<URL></URL>
-		<SFTZ>insert</SFTZ>
+		<SFTZ>push</SFTZ>
 		<TZNR>select  '@@content,' nr, device_token token1,lxfs msgTel,'' sendTel,'艾管理' appname,'@@order_code,' ordercode,'确认送达提醒' msgtype  from TJ_SYS_YH a,orderlist o where a.LXFS=o.YWY_TEL and ORDER_CODE='@@order_code,'	</TZNR>
 		<KJSM>确认送达</KJSM>
 	</row>

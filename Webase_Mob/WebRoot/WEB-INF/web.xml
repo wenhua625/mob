@@ -55,7 +55,7 @@
     </init-param>
      <init-param>
       <param-name>timer</param-name>
-      <param-value>1</param-value>
+      <param-value>0</param-value>
     </init-param>
     <init-param>
       <param-name>sms_url</param-name>
@@ -130,6 +130,10 @@
   <servlet>
     <servlet-name>YYZFMonitorURL</servlet-name>
     <servlet-class>com.novarise.webase.servlet.YYZFMonitorURL</servlet-class>
+  </servlet>  
+  <servlet>
+    <servlet-name>GHTPayMonitor</servlet-name>
+    <servlet-class>com.novarise.webase.servlet.GHTPayMonitor</servlet-class>
   </servlet>
   
 
@@ -199,6 +203,10 @@
   <servlet-mapping>
     <servlet-name>YYZFMonitorURL</servlet-name>
     <url-pattern>/yyzfmonitorurl</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GHTPayMonitor</servlet-name>
+    <url-pattern>/ghtpaymonitor</url-pattern>
   </servlet-mapping>
   
   

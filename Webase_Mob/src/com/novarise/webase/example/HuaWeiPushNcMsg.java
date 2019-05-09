@@ -125,9 +125,11 @@ public class HuaWeiPushNcMsg
        String result =  httpPost(postUrl, postBody, 5000, 5000);
         net.sf.json.JSONObject json = net.sf.json.JSONObject.fromObject(result);
         String results= "";
+        
         if(json.get("msg").toString().equals("Success")){
         	results = "ok";
         }else{
+        	System.out.println("»ªÎª:"+result);
         	results = "no";
         }
         

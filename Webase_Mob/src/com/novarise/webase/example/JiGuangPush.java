@@ -11,7 +11,10 @@ import org.apache.http.util.EntityUtils;
 /*import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;*/
 
+
 import com.alibaba.fastjson.JSONArray;
+import com.novarise.webase.BConstants;
+import com.novarise.webase.xml.XmlUtil;
 
 import net.sf.json.JSONObject;
 import sun.misc.BASE64Encoder;
@@ -24,8 +27,7 @@ import sun.misc.BASE64Encoder;
 public class JiGuangPush {
  //   private static final Logger log = LoggerFactory.getLogger(JiguangPush.class);
   
-    private static String appKey ="4e7af97f2b1bda3ee6251bb2";// "60521845a0e6639a24c8daf6";  
-    private static String masterSecret = "68f374c3657f2bffef9ee7e0";
+ 
     private static String pushUrl = "https://api.jpush.cn/v3/push";    
     private static boolean apns_production = true;    
     private static int time_to_live = 86400;
@@ -52,6 +54,10 @@ public class JiGuangPush {
         
     	
         try{
+        	String appKey = XmlUtil.readXml(BConstants.CONFIG_FILE, BConstants.AGLAPPKEY);
+			String masterSecret = XmlUtil.readXml(BConstants.CONFIG_FILE, BConstants.AGLAPPSECRET);
+        	
+        	
             String result = push(pushUrl,alias,ALERT,appKey,masterSecret,apns_production,time_to_live,order_code, type,title);
             JSONObject resData = JSONObject.fromObject(result);
                 if(resData.containsKey("error")){

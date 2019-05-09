@@ -43,10 +43,11 @@ public class AppSmsAynSender{
 
 		 String colamount ="";
 		 String coltype = "";
+		 String agent_code = "";
 
 		try {
 			
-			if(msgtype.equals("收款提醒") || msgtype.equals("成交提醒")){
+			if(msgtype.equals("收款通知") ){
 				coltype =_msgtoken;
 				colamount = _sendtel;
 				sendtel = "";
@@ -54,36 +55,25 @@ public class AppSmsAynSender{
 				d=Double.parseDouble(colamount);
 				if( d < 0){
 					coltype = "退款";
-					msgtype =msgtype.replaceAll("收款提醒", "退款通知");
-					this.msgcontent = msgcontent.replaceAll("收款提醒", "退款通知");
-				}else{
-					msgtype =msgtype.replaceAll("收款提醒", "收款通知");
-					this.msgcontent = msgcontent.replaceAll("收款提醒", "收款通知");
-				}
-				
+				}			
 				
 			}
-			if(msgtype.equals("经营简报") ){
-				coltype = sendtel;
-				colamount = ordercode;
-				ordercode="";
-				sendtel = "";				
-				
-				
-				
+			if(msgtype.equals("安装") || msgtype.equals("测量")  ){
+				msgtype =  msgtype+"派单提醒";
 			}
 			
+			
+			if(colamount.equals(""))
+				colamount = null;
+			
 			SQLUpdater updater = DSManager.getSQLUpdater();
-			String jz_sql = "insert into msglist(msgtitle,msgcontent,msgdate,msgurl,msgtype,msgtel,msgtoken,sendtel,appname,order_code,arr_man,Arr_Tel,arr_address,col_amount,col_memo) "+
-			                 "select '"+msgtitle+"','"+msgcontent+"',getdate(),'"+msgurl+"','"+msgtype+"','"+msgtel+"','"+msgtoken+"','"+sendtel+"','"+appname+"','"+ordercode+"' ,arr_man,Arr_Tel,ISNULL(arr_address,'')+ISNULL(arr_address_detail,'') ,'"+colamount+"','"+coltype+"' from orderlist where ORDER_CODE= '"+ordercode+"' ";	
+			String jz_sql = "insert into msglist(msgtitle,msgcontent,msgdate,msgurl,msgtype,msgtel,msgtoken,sendtel,appname,order_code,arr_man,Arr_Tel,arr_address,col_amount,col_memo,agent_code) "+
+			                 "select '"+msgtitle+"','"+msgcontent+"',getdate(),'"+msgurl+"','"+msgtype+"','"+msgtel+"','"+msgtoken+"','"+sendtel+"','"+appname+"','"+ordercode+"' ,arr_man,Arr_Tel,ISNULL(arr_address,'')+ISNULL(arr_address_detail,'') ,"+colamount+",'"+coltype+"',agent_code from orderlist where ORDER_CODE= '"+ordercode+"' ";	
 	          
-			 if(msgcontent.indexOf("来单")!=-1 || msgcontent.indexOf("来任务")!=-1)
-			 {
-	    		
-			 }else{
-				 System.out.println("jz_sql:"+jz_sql);
+			
+			//	 System.out.println("jz_sql:"+jz_sql);
 				 updater.executeUpdate(jz_sql);
-			 }
+			 
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -134,7 +124,8 @@ public void sendMsgForSql(String sql){
 			for(int i=0;i<nr.length;i++)
 			{
 				 String tsnr = nr[i][0];
-				 String device = nr[i][2];
+				 String device = nr[i][1];
+				// String device = nr[i][2];
 				 String  msgTel = nr[i][2];
 				/* String appkey1 = nr[0][2];
 				 String masterSecret1 = nr[0][3];*/

@@ -2,6 +2,7 @@ eclipse.preferences.version=1
 encoding//src/com/novarise/webase/BConstants.java=GBK
 encoding//src/com/novarise/webase/filter/PermissionFilter.java=GBK
 encoding//src/com/novarise/webase/framework/AppSmsAynSender.java=GBK
+encoding//src/com/novarise/webase/framework/AppSmsAynSenderJob.java=GBK
 encoding//src/com/novarise/webase/framework/DataExport.java=GBK
 encoding//src/com/novarise/webase/framework/DataImport.java=GBK
 encoding//src/com/novarise/webase/framework/DwrControl.java=GBK
